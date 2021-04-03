@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mentoring.WEB.API.Common.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Interfaces
 {
-    public interface IEDBOService
+    public interface IEdboService
     {
-        Task UpdateUniversities();
+        Task<IEnumerable<EdboUniversityModel>> GetAllUniversities();
     }
 }

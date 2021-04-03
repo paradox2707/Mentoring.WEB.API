@@ -1,5 +1,5 @@
 ﻿using Mentoring.WEB.API.BLL.Interfaces;
-using Mentoring.WEB.API.BLL.Models;
+using Mentoring.WEB.API.Common.DTO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,28 +11,30 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
 {
-    public class EDBOService : IEDBOService
+    public class EdboService : IEdboService
     {
         readonly HttpClient _client;
 
-        public EDBOService(HttpClient client)
+        public EdboService(HttpClient client)
         {
             _client = client;
         }
 
-        public async Task UpdateUniversities()
+        public async Task<IEnumerable<EdboUniversityModel>> GetAllUniversities()
         {
             try 
             { 
                 var response = await _client.GetAsync("https://registry.edbo.gov.ua/api/universities/?ut=1&exp=json");
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var listUniversities = JsonSerializer.Deserialize<List<EDBOUniversityModel>>(responseBody);
+                return JsonSerializer.Deserialize<List<EdboUniversityModel>>(responseBody);
             }
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+
+            return null;
         }
     }
 }

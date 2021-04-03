@@ -14,6 +14,7 @@ namespace Mentoring.WEB.API.Common
         public AutomapperProfile()
         {
             CreateMap<University, UniversityModel>();
+            CreateMap<EdboUniversityModel, University>();
         }
     }
 }

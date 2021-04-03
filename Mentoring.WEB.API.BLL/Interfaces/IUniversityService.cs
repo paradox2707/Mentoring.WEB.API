@@ -9,5 +9,6 @@ namespace Mentoring.WEB.API.BLL.Interfaces
     public interface IUniversityService
     {
         Task<IEnumerable<UniversityModel>> GetAllAsync();
+        Task UpdateAllUniversitiesFromExternalSourceAsync();
     }
 }

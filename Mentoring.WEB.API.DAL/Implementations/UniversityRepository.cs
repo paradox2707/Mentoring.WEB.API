@@ -24,7 +24,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync()
+        public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -49,9 +49,14 @@ namespace Mentoring.WEB.API.DAL.Implementations
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync()
+        public Task UpdateAsync(University entity)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateList(IEnumerable<University> entity)
+        {
+            _currentRepo.UpdateRange(entity);
         }
     }
 }

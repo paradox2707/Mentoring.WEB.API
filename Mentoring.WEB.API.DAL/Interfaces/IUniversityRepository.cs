@@ -16,7 +16,8 @@ namespace Mentoring.WEB.API.DAL.Interfaces
         Task<List<University>> GetAllByAsync(Expression<Func<University, bool>> expression);
 
         Task CreateAsync(University entity);
-        Task UpdateAsync();
-        Task DeleteAsync();
+        Task UpdateAsync(University entity);
+        void UpdateList(IEnumerable<University> entity);
+        Task DeleteAsync(int id);
     }
 }

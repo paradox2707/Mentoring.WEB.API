@@ -27,5 +27,13 @@ namespace Mentoring.WEB.API.Controllers
         {
             return Ok(await _universityService.GetAllAsync());
         }
+
+
+        [HttpPost("callEDBO")]
+        public async Task<ActionResult<string>> CallEdbo()
+        {
+            await _universityService.UpdateAllUniversitiesFromExternalSourceAsync();
+            return Ok("Successful handling!");
+        }
     }
 }

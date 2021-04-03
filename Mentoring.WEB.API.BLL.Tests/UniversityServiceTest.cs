@@ -7,6 +7,7 @@ using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
+using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Tests
 {
@@ -22,12 +23,13 @@ namespace Mentoring.WEB.API.BLL.Tests
         public void GetAllAsync_ShouldReturnAllUniversities()
         {
             //arrange
-            var expected = GetArticlesDTO().ToList();
+            var expected = GetUniversitiesDTO().ToList();
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetArticlesDAO());
+            var edbo = new Mock<IEdboService>();
+            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesDAO());
 
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper(), edbo.Object);
             var actual = universiryService.GetAllAsync().Result.ToList();
 
             //assert
@@ -39,8 +41,28 @@ namespace Mentoring.WEB.API.BLL.Tests
             }
         }
 
+        [Test]
+        public async Task UpdateAllUniversitiesFromExternalSourceAsync_SouldCallUpdateFromRepository()
+        {
+            //arrange
+            var edboUniversities = GetEdboUniversitiesDTO().ToList();
+            var uowMock = new Mock<IUnitOfWork>();
+            var repo = new Mock<IUniversityRepository>();
+            var edbo = new Mock<IEdboService>();
+            edbo.Setup(e => e.GetAllUniversities().Result).Returns(edboUniversities);
+            uowMock.Setup(e => e.UniversityRepository).Returns(repo.Object);
 
-        private List<University> GetArticlesDAO()
+            //act
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper(), edbo.Object);
+            await universiryService.UpdateAllUniversitiesFromExternalSourceAsync();
+
+            //assert
+            uowMock.Verify(e => e.UniversityRepository.UpdateList(It.IsAny<IEnumerable<University>>()), Times.Once);
+
+        }
+
+
+        private List<University> GetUniversitiesDAO()
         {
             return new List<University>
             {
@@ -48,11 +70,19 @@ namespace Mentoring.WEB.API.BLL.Tests
             };
         }
 
-        private IEnumerable<UniversityModel> GetArticlesDTO()
+        private IEnumerable<UniversityModel> GetUniversitiesDTO()
         {
             return new List<UniversityModel>
             {
                 new UniversityModel { Id=1, Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", ShortName="КПІ ім. Ігоря Сікорського"}
+            };
+        }
+
+        private IEnumerable<EdboUniversityModel> GetEdboUniversitiesDTO()
+        {
+            return new List<EdboUniversityModel>
+            {
+                new EdboUniversityModel { ExternalId="1", Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", ShortName="КПІ ім. Ігоря Сікорського"}
             };
         }
     }
