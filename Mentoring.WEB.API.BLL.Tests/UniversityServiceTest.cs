@@ -19,7 +19,7 @@ namespace Mentoring.WEB.API.BLL.Tests
         }
 
         [Test]
-        public void Test1()
+        public void GetAllAsync_ShouldReturnAllUniversities()
         {
             //arrange
             var expected = GetArticlesDTO().ToList();
@@ -27,8 +27,8 @@ namespace Mentoring.WEB.API.BLL.Tests
             uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetArticlesDAO());
 
             //act
-            IUniversityService articleServ = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
-            var actual = articleServ.GetAllAsync().Result.ToList();
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            var actual = universiryService.GetAllAsync().Result.ToList();
 
             //assert
             for (int i = 0; i < actual.Count; i++)
@@ -38,6 +38,7 @@ namespace Mentoring.WEB.API.BLL.Tests
                 Assert.AreEqual(expected[i].ShortName, actual[i].ShortName);
             }
         }
+
 
         private List<University> GetArticlesDAO()
         {
