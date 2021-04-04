@@ -37,18 +37,16 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         public async Task UpdateAllUniversitiesFromExternalSourceAsync()
         {
             var externalUniversities = await _edboService.GetAllUniversities();
+            var dbUniversity = await _universityRepo.GetAllAsync();
+
+            foreach (var item in externalUniversities)
+            {
+                item.Id = dbUniversity.FirstOrDefault(e => e.ExternalId.ToString() == item.ExternalId)?.Id ?? default;
+            }
             var universitiesForUpdate = _mapper.Map<IEnumerable<EdboUniversityModel>, List<University>>(externalUniversities);
 
             _universityRepo.UpdateList(universitiesForUpdate);
-            try
-            {
-                await _uow.SaveAsync();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            
+            await _uow.SaveAsync();
         }
     }
 }

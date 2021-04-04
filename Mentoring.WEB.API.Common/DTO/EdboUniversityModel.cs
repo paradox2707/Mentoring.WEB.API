@@ -9,8 +9,7 @@ namespace Mentoring.WEB.API.Common.DTO
 {
     public class EdboUniversityModel
     {
-        public int Id => Convert.ToInt32(ExternalId);
-
+        public long Id { get; set; }
         [JsonPropertyName("university_id")]
         public string ExternalId { get; set; }
 

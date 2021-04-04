@@ -9,15 +9,9 @@ namespace Mentoring.WEB.API.DAL.Interfaces
 {
     public interface IUniversityRepository
     {
-        Task<University> GetByIdAsync(int id);
-        Task<University> GetByAsync(Expression<Func<University, bool>> expression);
-
         Task<List<University>> GetAllAsync();
-        Task<List<University>> GetAllByAsync(Expression<Func<University, bool>> expression);
-
         Task CreateAsync(University entity);
         Task UpdateAsync(University entity);
         void UpdateList(IEnumerable<University> entity);
-        Task DeleteAsync(int id);
     }
 }

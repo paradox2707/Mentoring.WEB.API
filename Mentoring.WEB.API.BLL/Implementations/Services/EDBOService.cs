@@ -22,19 +22,10 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
 
         public async Task<IEnumerable<EdboUniversityModel>> GetAllUniversities()
         {
-            try 
-            { 
-                var response = await _client.GetAsync("https://registry.edbo.gov.ua/api/universities/?ut=1&exp=json");
-                response.EnsureSuccessStatusCode();
-                var responseBody = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<EdboUniversityModel>>(responseBody);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-
-            return null;
+            var response = await _client.GetAsync("https://registry.edbo.gov.ua/api/universities/?ut=1&exp=json");
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<EdboUniversityModel>>(responseBody);
         }
     }
 }

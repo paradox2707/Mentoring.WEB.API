@@ -51,16 +51,13 @@ namespace Mentoring.WEB.API.BLL.Tests
             var edbo = new Mock<IEdboService>();
             edbo.Setup(e => e.GetAllUniversities().Result).Returns(edboUniversities);
             uowMock.Setup(e => e.UniversityRepository).Returns(repo.Object);
-
+            repo.Setup(e => e.GetAllAsync().Result).Returns(new List<University>());
             //act
             IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper(), edbo.Object);
             await universiryService.UpdateAllUniversitiesFromExternalSourceAsync();
-
             //assert
             uowMock.Verify(e => e.UniversityRepository.UpdateList(It.IsAny<IEnumerable<University>>()), Times.Once);
-
         }
-
 
         private List<University> GetUniversitiesDAO()
         {

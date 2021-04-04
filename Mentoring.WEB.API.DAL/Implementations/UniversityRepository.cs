@@ -3,6 +3,7 @@ using Mentoring.WEB.API.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,34 +20,15 @@ namespace Mentoring.WEB.API.DAL.Implementations
             this._context = context;
             this._currentRepo = context.Universities;
         }
+
         public async Task CreateAsync(University entity)
         {
             await _currentRepo.AddAsync(entity);
         }
 
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<University>> GetAllAsync()
         {
             return await _currentRepo.ToListAsync();
-        }
-
-        public Task<List<University>> GetAllByAsync(Expression<Func<University, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<University> GetByAsync(Expression<Func<University, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<University> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(University entity)
@@ -60,7 +42,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
         }
 
         public void UpdateList(IEnumerable<University> entity)
-        {
+        {            
             _currentRepo.UpdateRange(entity);
         }
     }
