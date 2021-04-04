@@ -19,9 +19,9 @@ namespace Mentoring.WEB.API.DAL.Implementations
             this._context = context;
             this._currentRepo = context.Universities;
         }
-        public Task CreateAsync(University entity)
+        public async Task CreateAsync(University entity)
         {
-            throw new NotImplementedException();
+            await _currentRepo.AddAsync(entity);
         }
 
         public Task DeleteAsync(int id)
@@ -49,9 +49,14 @@ namespace Mentoring.WEB.API.DAL.Implementations
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(University entity)
+        public async Task UpdateAsync(University entity)
         {
-            throw new NotImplementedException();
+            var itemExist = await _currentRepo.FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+            if (itemExist != null)
+            {
+                _currentRepo.Update(entity);
+            }
         }
 
         public void UpdateList(IEnumerable<University> entity)

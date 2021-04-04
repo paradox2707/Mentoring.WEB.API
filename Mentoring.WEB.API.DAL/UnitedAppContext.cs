@@ -10,7 +10,7 @@ namespace Mentoring.WEB.API.DAL
     {
         public UnitedAppContext(DbContextOptions<UnitedAppContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         public DbSet<University> Universities { get; set; }
