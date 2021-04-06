@@ -36,6 +36,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
 
         public async Task UpdateAllUniversitiesFromExternalSourceAsync()
         {
+            var externalSpecialities = await _edboService.GetAllSpecialities();
             var externalUniversities = await _edboService.GetAllUniversities();
             var dbUniversity = await _universityRepo.GetAllAsync();
 

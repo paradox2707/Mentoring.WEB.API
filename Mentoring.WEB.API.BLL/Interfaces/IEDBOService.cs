@@ -10,5 +10,6 @@ namespace Mentoring.WEB.API.BLL.Interfaces
     public interface IEdboService
     {
         Task<IEnumerable<EdboUniversityModel>> GetAllUniversities();
+        Task<IEnumerable<EdboSpecialityModel>> GetAllSpecialities();
     }
 }

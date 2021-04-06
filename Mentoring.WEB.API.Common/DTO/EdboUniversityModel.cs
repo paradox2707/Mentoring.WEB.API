@@ -18,5 +18,8 @@ namespace Mentoring.WEB.API.Common.DTO
 
         [JsonPropertyName("university_short_name")]
         public string ShortName { get; set; }
+
+        [JsonPropertyName("speciality_licenses")]
+        public List<EdboSpecialityModel> Specialities { get; set; }
     }
 }

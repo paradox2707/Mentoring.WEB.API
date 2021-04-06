@@ -14,5 +14,6 @@ namespace Mentoring.WEB.API.DAL
         }
 
         public DbSet<University> Universities { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
     }
 }
