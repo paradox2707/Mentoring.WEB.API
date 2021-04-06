@@ -28,7 +28,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllAsync()
         {
-            return await _currentRepo.AsNoTracking().ToListAsync();
+            return await _currentRepo.Include(e => e.Specialities).AsNoTracking().ToListAsync();
         }
 
         public async Task UpdateAsync(University entity)

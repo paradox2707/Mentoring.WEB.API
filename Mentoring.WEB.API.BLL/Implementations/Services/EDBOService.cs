@@ -20,7 +20,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<EdboSpecialityModel>> GetAllSpecialities()
+        public async Task<IEnumerable<EdboUniversityModel>> GetAllSpecialities()
         {
             var allUniversity = await GetAllUniversities();
             var universityWithSpecialities = new List<EdboUniversityModel>();
@@ -41,7 +41,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
                 }               
             }
 
-            return null;
+            return universityWithSpecialities;
         }
 
         public async Task<IEnumerable<EdboUniversityModel>> GetAllUniversities()

@@ -13,5 +13,7 @@ namespace Mentoring.WEB.API.Common.DTO
         public string Name { get; set; }
 
         public string ShortName { get; set; }
+
+        public List<SpecialityModel> Specialities{ get; set; }
     }
 }
