@@ -28,6 +28,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<Speciality>> GetAllAsync()
         {
+            _context.ChangeTracker.AutoDetectChangesEnabled = false;
             return await _currentRepo.AsNoTracking().ToListAsync();
         }
 

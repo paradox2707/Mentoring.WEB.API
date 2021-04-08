@@ -74,6 +74,11 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             }
             var universitiesForUpdate = _mapper.Map<IEnumerable<EdboUniversityModel>, List<University>>(externalUniversities);
 
+            var testEntity = universitiesForUpdate.FirstOrDefault();
+            testEntity.Specialities.ToList().RemoveAt(0);
+            //var testList = new List<University>() { testEntity };
+            //_universityRepo.UpdateList(testList);
+            _universityRepo.UpdateAsync(testEntity);
             //_universityRepo.UpdateList(universitiesForUpdate);
             await _uow.SaveAsync();
         }

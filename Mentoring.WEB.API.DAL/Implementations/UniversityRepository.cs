@@ -28,17 +28,18 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllAsync()
         {
-            return await _currentRepo.Include(e => e.Specialities).AsNoTracking().ToListAsync();
+            return await _currentRepo.ToListAsync();
         }
 
         public async Task UpdateAsync(University entity)
         {
-            var itemExist = await _currentRepo.FirstOrDefaultAsync(x => x.Id == entity.Id);
+            //var itemExist = await _currentRepo.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-            if (itemExist != null)
-            {
-                _currentRepo.Update(entity);
-            }
+            //if (itemExist != null)
+            //{
+            //    _currentRepo.Update(entity);
+            //}
+            _currentRepo.Update(entity);
         }
 
         public void UpdateList(IEnumerable<University> entity)
