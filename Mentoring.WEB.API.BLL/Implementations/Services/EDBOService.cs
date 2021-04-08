@@ -20,10 +20,10 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<EdboUniversityModel>> GetAllSpecialities()
+        public async Task<IEnumerable<EdboUniversityModel>> GetAllUniversitiesWithSpecialities()
         {
             var allUniversity = await GetAllUniversities();
-            var universityWithSpecialities = new List<EdboUniversityModel>();
+            var universitiesWithSpecialities = new List<EdboUniversityModel>();
 
             foreach (var university in allUniversity)
             {
@@ -33,15 +33,15 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStringAsync();
                     var resposedSpecialities = JsonSerializer.Deserialize<EdboUniversityModel>(responseBody);
-                    universityWithSpecialities.Add(resposedSpecialities);
+                    universitiesWithSpecialities.Add(resposedSpecialities);
                 }
                 catch(HttpRequestException ex)
                 {
-                    universityWithSpecialities.Add(university);
+                    universitiesWithSpecialities.Add(university);
                 }               
             }
 
-            return universityWithSpecialities;
+            return universitiesWithSpecialities;
         }
 
         public async Task<IEnumerable<EdboUniversityModel>> GetAllUniversities()

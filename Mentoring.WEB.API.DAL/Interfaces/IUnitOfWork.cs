@@ -9,6 +9,8 @@ namespace Mentoring.WEB.API.DAL.Interfaces
     {
         IUniversityRepository UniversityRepository { get; }
 
+        ISpecialityRepository SpecialityRepository { get; }
+
         Task<int> SaveAsync();
     }
 }

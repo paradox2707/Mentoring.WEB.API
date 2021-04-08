@@ -16,11 +16,9 @@ namespace Mentoring.WEB.API.Common
             CreateMap<University, UniversityModel>();
             CreateMap<Speciality, SpecialityModel>();
             CreateMap<EdboUniversityModel, University>()
-                .ForMember(dist => dist.Specialities, opt => opt.AllowNull())
-                .ForMember(dist => dist.ExternalId, opt => opt.MapFrom(source => Convert.ToInt32(source.ExternalId)));
+                .ForMember(dest => dest.Specialities, opt => opt.AllowNull());
             CreateMap<EdboSpecialityModel, Speciality>()
-                .ForMember(dist => dist.Universities, opt => opt.Ignore())
-                .ForMember(dist => dist.ExternalId, opt => opt.NullSubstitute(0));
+                .ForMember(dest => dest.Universities, opt => opt.Ignore());
         }
     }
 }

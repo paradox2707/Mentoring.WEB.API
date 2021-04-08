@@ -16,6 +16,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
     {
         readonly IUnitOfWork _uow;
         readonly IUniversityRepository _universityRepo;
+        readonly ISpecialityRepository _specialityRepo;
         readonly IMapper _mapper;
         readonly IEdboService _edboService;
 
@@ -23,6 +24,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         {
             _uow = uow;
             _universityRepo = uow.UniversityRepository;
+            _specialityRepo = uow.SpecialityRepository;
             _mapper = mapper;
             _edboService = edboService;
         }
@@ -38,16 +40,41 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         {
             //var externalSpecialities = await _edboService.GetAllSpecialities();
             //var externalUniversities = await _edboService.GetAllUniversities();
-            var externalUniversities = await _edboService.GetAllSpecialities();
-            var dbUniversity = await _universityRepo.GetAllAsync();
+            var externalUniversities = await _edboService.GetAllUniversitiesWithSpecialities();
+            
 
-            foreach (var item in externalUniversities)
+            var allExternalSpecialities = externalUniversities.Where(e => e.Specialities != null).SelectMany(u => u.Specialities.ToList());
+            var externalSpecialities = allExternalSpecialities
+                .GroupBy(s => s.ExternalId)
+                .Select(e => e.FirstOrDefault())
+                .OrderBy(e => e.ExternalId);
+            var dbSpecialities = await _specialityRepo.GetAllAsync();
+            foreach (var speciality in externalSpecialities)
             {
-                item.Id = dbUniversity.FirstOrDefault(e => e.ExternalId.ToString() == item.ExternalId)?.Id ?? default;
+                speciality.Id = dbSpecialities.FirstOrDefault(e => e.ExternalId.ToString() == speciality.ExternalId)?.Id ?? default;
+            }
+            var specialitiesForUpdate = _mapper.Map<IEnumerable<EdboSpecialityModel>, List<Speciality>>(externalSpecialities);
+
+            _specialityRepo.UpdateList(specialitiesForUpdate);
+            await _uow.SaveAsync();
+
+
+            var dbUniversities = await _universityRepo.GetAllAsync();
+            var dbSpecialitiesAfterUpdate = await _specialityRepo.GetAllAsync();
+            foreach (var university in externalUniversities)
+            {
+                university.Id = dbUniversities.FirstOrDefault(e => e.ExternalId.ToString() == university.ExternalId)?.Id ?? default;
+                if (university.Specialities == null)
+                    continue;
+
+                foreach (var speciality in university.Specialities)
+                {
+                    speciality.Id = dbSpecialitiesAfterUpdate.FirstOrDefault(e => e.ExternalId.ToString() == speciality.ExternalId)?.Id ?? default;
+                }
             }
             var universitiesForUpdate = _mapper.Map<IEnumerable<EdboUniversityModel>, List<University>>(externalUniversities);
 
-            _universityRepo.UpdateList(universitiesForUpdate);
+            //_universityRepo.UpdateList(universitiesForUpdate);
             await _uow.SaveAsync();
         }
     }

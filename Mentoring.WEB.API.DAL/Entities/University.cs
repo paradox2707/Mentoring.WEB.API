@@ -9,7 +9,7 @@ namespace Mentoring.WEB.API.DAL.Entities
 
         public string ShortName { get; set; }
 
-        public int ExternalId { get; set; }
+        public string ExternalId { get; set; }
 
         public List<Speciality> Specialities { get; set; }
     }

@@ -9,9 +9,10 @@ namespace Mentoring.WEB.API.Common.DTO
 {
     public class EdboSpecialityModel
     {
+        public long Id { get; set; }
         [JsonPropertyName("speciality_name")]
         public string Name { get; set; }
-        //[JsonPropertyName("speciality_code")]
-        //public string ExternalId { get; set; }
+        [JsonPropertyName("speciality_code")]
+        public string ExternalId { get; set; }
     }
 }
