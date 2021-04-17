@@ -11,6 +11,6 @@ namespace Mentoring.WEB.API.DAL.Entities
 
         public string ExternalId { get; set; }
 
-        public List<Speciality> Specialities { get; set; }
+        public ICollection<Speciality> Specialities { get; set; }
     }
 }

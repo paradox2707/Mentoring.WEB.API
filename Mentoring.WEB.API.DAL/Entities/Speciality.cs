@@ -12,6 +12,6 @@ namespace Mentoring.WEB.API.DAL.Entities
 
         public string ExternalId { get; set; }
 
-        public List<University> Universities { get; set; }
+        public ICollection<University> Universities { get; set; }
     }
 }
