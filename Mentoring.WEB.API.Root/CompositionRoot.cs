@@ -16,10 +16,9 @@ namespace Mentoring.WEB.API.Root
         public static void InjectDependencies(IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<UnitedAppContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<UnitedAppContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.CommandTimeout(180)).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), ServiceLifetime.Transient);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUniversityService, UniversityService>();
-            services.AddHttpClient<IEdboService, EdboService>();
+            services.AddScoped<ISpecialityService, SpecialityService>();
 
             #region DI Mapper
             var myProfile = new AutomapperProfile();

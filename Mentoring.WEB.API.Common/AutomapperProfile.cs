@@ -15,10 +15,6 @@ namespace Mentoring.WEB.API.Common
         {
             CreateMap<University, UniversityModel>();
             CreateMap<Speciality, SpecialityModel>();
-            CreateMap<EdboUniversityModel, University>()
-                .ForMember(dest => dest.Specialities, opt => opt.AllowNull());
-            CreateMap<EdboSpecialityModel, Speciality>()
-                .ForMember(dest => dest.Universities, opt => opt.Ignore());
         }
     }
 }

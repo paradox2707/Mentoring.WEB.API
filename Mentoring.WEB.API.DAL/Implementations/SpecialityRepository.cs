@@ -21,30 +21,9 @@ namespace Mentoring.WEB.API.DAL.Implementations
             this._currentRepo = context.Specialities;
         }
 
-        public async Task CreateAsync(Speciality entity)
-        {
-            await _currentRepo.AddAsync(entity);
-        }
-
         public async Task<List<Speciality>> GetAllAsync()
         {
-            _context.ChangeTracker.AutoDetectChangesEnabled = false;
-            return await _currentRepo.AsNoTracking().ToListAsync();
-        }
-
-        public async Task UpdateAsync(Speciality entity)
-        {
-            var itemExist = await _currentRepo.FirstOrDefaultAsync(x => x.Id == entity.Id);
-
-            if (itemExist != null)
-            {
-                _currentRepo.Update(entity);
-            }
-        }
-
-        public void UpdateList(IEnumerable<Speciality> entity)
-        {
-            _currentRepo.UpdateRange(entity);
+            return await _currentRepo.ToListAsync();
         }
     }
 }

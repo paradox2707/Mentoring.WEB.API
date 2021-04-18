@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Interfaces
 {
-    public interface IEdboService
+    public interface ISpecialityService
     {
-        Task<IEnumerable<EdboUniversityModel>> GetAllUniversities();
-        Task<IEnumerable<EdboUniversityModel>> GetAllUniversitiesWithSpecialities();
+        Task<IEnumerable<SpecialityModel>> GetAllAsync();
     }
 }

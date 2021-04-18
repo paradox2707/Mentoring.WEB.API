@@ -21,30 +21,14 @@ namespace Mentoring.WEB.API.DAL.Implementations
             this._currentRepo = context.Universities;
         }
 
-        public async Task CreateAsync(University entity)
-        {
-            await _currentRepo.AddAsync(entity);
-        }
-
         public async Task<List<University>> GetAllAsync()
         {
             return await _currentRepo.ToListAsync();
         }
 
-        public async Task UpdateAsync(University entity)
+        public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
-            //var itemExist = await _currentRepo.FirstOrDefaultAsync(x => x.Id == entity.Id);
-
-            //if (itemExist != null)
-            //{
-            //    _currentRepo.Update(entity);
-            //}
-            _currentRepo.Update(entity);
-        }
-
-        public void UpdateList(IEnumerable<University> entity)
-        {
-            _currentRepo.UpdateRange(entity);
+            return await _currentRepo.Include(e => e.Specialities).ToListAsync();
         }
     }
 }
