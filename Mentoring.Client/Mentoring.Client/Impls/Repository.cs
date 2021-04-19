@@ -1,4 +1,5 @@
 ﻿using Mentoring.Client.Abstract;
+using Mentoring.Client.Models;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
@@ -15,9 +16,25 @@ namespace Mentoring.Client.Impls
             this._client = client;
         }
 
-        public async Task<List<UniversityModel>> GetUniversityAsync()
+        public async Task<List<SpecialityModel>> GetSpecialitiesAsync()
+        {
+            var response = await _client.GetAsync("https://localhost:44386/api/Speciality");
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<SpecialityModel>>(responseBody);
+        }
+
+        public async Task<List<UniversityModel>> GetUniversitiesAsync()
         {
             var response = await _client.GetAsync("https://localhost:44386/api/University");
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<UniversityModel>>(responseBody);
+        }
+
+        public async Task<List<UniversityModel>> GetUniversitiesWithSpecialitiesAsync()
+        {
+            var response = await _client.GetAsync("https://localhost:44386/api/University/WithSpecialities");
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<UniversityModel>>(responseBody);

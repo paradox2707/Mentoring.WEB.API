@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mentoring.WEB.API.DAL.Migrations
 {
     [DbContext(typeof(UnitedAppContext))]
-    [Migration("20210418161428_DataSeedUniversitiesAndSpecialities")]
+    [Migration("20210419213449_DataSeedUniversitiesAndSpecialities")]
     partial class DataSeedUniversitiesAndSpecialities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,13 +125,13 @@ namespace Mentoring.WEB.API.DAL.Migrations
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 3L,
                             Name = "Вищий навчальний заклад \"Київська Академія перукарського мистецтва\"",
                             ShortName = "ВНЗ \"КАПМ\""
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 4L,
                             Name = "Вищий навчальний заклад \"Київський економічний інститут менеджменту\" у формі Товариства з обмеженою відповідальністю",
                             ShortName = "КЕІМ"
                         });

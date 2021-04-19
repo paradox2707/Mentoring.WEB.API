@@ -9,9 +9,11 @@ namespace Mentoring.Client
 {
     enum Menu
     {
-        [Description("Update University")]
-        UpdateUniversity,
-        [Description("All University")]
-        AllUniversity
+        [Description("Університети")]
+        Universities = 1,
+        [Description("Спеціальності")]
+        Specialities,
+        [Description("Університети зі спеціальностями")]
+        SpecialitiesWithSpecialities
     }
 }

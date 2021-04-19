@@ -10,6 +10,7 @@ namespace Mentoring.Client
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             var repo = new Repository(new HttpClient());
             var render = new Render(repo);
             render.Run().Wait();
