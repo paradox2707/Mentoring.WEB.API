@@ -13,23 +13,16 @@ namespace Mentoring.WEB.API.BLL.Tests
 {
     public class UniversityServiceTest
     {
-        [SetUp]
-        public void Setup()
-        {
-
-        }
-
         [Test]
         public void GetAllAsync_ShouldReturnAllUniversities()
         {
             //arrange
             var expected = GetUniversitiesDTO().ToList();
             var uowMock = new Mock<IUnitOfWork>();
-            var edbo = new Mock<IEdboService>();
             uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesDAO());
 
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper(), edbo.Object);
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
             var actual = universiryService.GetAllAsync().Result.ToList();
 
             //assert
@@ -42,21 +35,43 @@ namespace Mentoring.WEB.API.BLL.Tests
         }
 
         [Test]
-        public async Task UpdateAllUniversitiesFromExternalSourceAsync_SouldCallUpdateFromRepository()
+        public void GetAllWithSpecialitiesAsync_ShouldReturnAllUniversities()
         {
             //arrange
-            var edboUniversities = GetEdboUniversitiesDTO().ToList();
+            var expected = GetUniversitiesWithSpecielitiesDTO().ToList();
             var uowMock = new Mock<IUnitOfWork>();
-            var repo = new Mock<IUniversityRepository>();
-            var edbo = new Mock<IEdboService>();
-            edbo.Setup(e => e.GetAllUniversities().Result).Returns(edboUniversities);
-            uowMock.Setup(e => e.UniversityRepository).Returns(repo.Object);
-            repo.Setup(e => e.GetAllAsync().Result).Returns(new List<University>());
+            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
+
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper(), edbo.Object);
-            await universiryService.UpdateAllUniversitiesFromExternalSourceAsync();
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            var actual = universiryService.GetAllAsync().Result.ToList();
+
             //assert
-            uowMock.Verify(e => e.UniversityRepository.UpdateList(It.IsAny<IEnumerable<University>>()), Times.Once);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actual[i].Id);
+                Assert.AreEqual(expected[i].Name, actual[i].Name);
+                Assert.AreEqual(expected[i].ShortName, actual[i].ShortName);
+            }
+        }
+
+        [Test]
+        public void GetAllWithSpecialitiesAsync_ShouldReturnRightNumberOfSpecialities()
+        {
+            //arrange
+            var expected = GetUniversitiesWithSpecielitiesDTO().ToList();
+            var uowMock = new Mock<IUnitOfWork>();
+            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
+
+            //act
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            var actual = universiryService.GetAllAsync().Result.ToList();
+
+            //assert
+            foreach (var expectedItem in expected)
+            {
+                Assert.AreEqual(expectedItem.Specialities.Count, actual.Single(e => e.Id == expectedItem.Id).Specialities.Count);
+            }
         }
 
         private List<University> GetUniversitiesDAO()
@@ -75,11 +90,41 @@ namespace Mentoring.WEB.API.BLL.Tests
             };
         }
 
-        private IEnumerable<EdboUniversityModel> GetEdboUniversitiesDTO()
+        private List<University> GetUniversitiesWithSpecielitiesDAO()
         {
-            return new List<EdboUniversityModel>
+            return new List<University>
             {
-                new EdboUniversityModel { ExternalId="1", Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", ShortName="КПІ ім. Ігоря Сікорського"}
+                new University 
+                { 
+                    Id=1,
+                    Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", 
+                    ShortName="КПІ ім. Ігоря Сікорського",
+                    Specialities=new List<Speciality>
+                    {
+                        new Speciality { Id=1, Name="Pravo" },
+                        new Speciality { Id=1, Name="Menegment" },
+                        new Speciality { Id=1, Name="Marketing" }
+                    }
+                }
+            };
+        }
+
+        private IEnumerable<UniversityModel> GetUniversitiesWithSpecielitiesDTO()
+        {
+            return new List<UniversityModel>
+            {
+                new UniversityModel 
+                { 
+                    Id=1, 
+                    Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", 
+                    ShortName="КПІ ім. Ігоря Сікорського",
+                    Specialities=new List<SpecialityModel>
+                    {
+                        new SpecialityModel { Id=1, Name="Pravo" },
+                        new SpecialityModel { Id=1, Name="Menegment" },
+                        new SpecialityModel { Id=1, Name="Marketing" }
+                    }
+                }
             };
         }
     }

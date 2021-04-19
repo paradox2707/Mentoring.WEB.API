@@ -18,7 +18,7 @@ namespace Mentoring.WEB.API.Root
             services.AddDbContext<UnitedAppContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUniversityService, UniversityService>();
-            services.AddHttpClient<IEdboService, EdboService>();
+            services.AddScoped<ISpecialityService, SpecialityService>();
 
             #region DI Mapper
             var myProfile = new AutomapperProfile();

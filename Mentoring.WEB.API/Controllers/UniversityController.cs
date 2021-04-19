@@ -1,4 +1,5 @@
 ﻿using Mentoring.WEB.API.BLL.Interfaces;
+using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,17 +24,17 @@ namespace Mentoring.WEB.API.Controllers
 
         // GET: api/<University>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<University>>> Get()
+        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get()
         {
             return Ok(await _universityService.GetAllAsync());
         }
 
-
-        [HttpPost("callEDBO")]
-        public async Task<ActionResult<string>> CallEdbo()
+        // GET: api/<University>
+        [HttpGet]
+        [Route("WithSpecialities")]
+        public async Task<ActionResult<IEnumerable<UniversityModel>>> GetWithSpecialities()
         {
-            await _universityService.UpdateAllUniversitiesFromExternalSourceAsync();
-            return Ok("Successful handling!");
+            return Ok(await _universityService.GetAllWithSpecialitiesAsync());
         }
     }
 }

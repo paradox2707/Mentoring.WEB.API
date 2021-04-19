@@ -9,7 +9,8 @@ namespace Mentoring.WEB.API.DAL.Implementations
     public class UnitOfWork : IUnitOfWork
     {
         readonly UnitedAppContext context;
-        private IUniversityRepository articleRepo;
+        private IUniversityRepository _universityRepo;
+        private ISpecialityRepository _specialityRepo;
 
         public UnitOfWork(UnitedAppContext context)
         {
@@ -20,11 +21,23 @@ namespace Mentoring.WEB.API.DAL.Implementations
         {
             get
             {
-                if (this.articleRepo is null)
+                if (this._universityRepo is null)
                 {
-                    this.articleRepo = new UniversityRepository(context);
+                    this._universityRepo = new UniversityRepository(context);
                 }
-                return articleRepo;
+                return _universityRepo;
+            }
+        }
+
+        public ISpecialityRepository SpecialityRepository
+        {
+            get
+            {
+                if (this._specialityRepo is null)
+                {
+                    this._specialityRepo = new SpecialityRepository(context);
+                }
+                return _specialityRepo;
             }
         }
 

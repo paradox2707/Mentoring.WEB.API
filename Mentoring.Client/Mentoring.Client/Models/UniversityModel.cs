@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace Mentoring.Client
+namespace Mentoring.Client.Models
 {
     internal class UniversityModel
     {
@@ -12,5 +13,8 @@ namespace Mentoring.Client
 
         [JsonPropertyName("shortName")]
         public string ShortName { get; set; }
+
+        [JsonPropertyName("specialities")]
+        public List<SpecialityModel> Specialities { get; set; }
     }
 }

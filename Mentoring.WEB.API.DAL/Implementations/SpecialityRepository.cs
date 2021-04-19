@@ -10,25 +10,20 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations
 {
-    public class UniversityRepository : IUniversityRepository
+    public class SpecialityRepository : ISpecialityRepository
     {
         readonly UnitedAppContext _context;
-        private readonly DbSet<University> _currentRepo;
+        private readonly DbSet<Speciality> _currentRepo;
 
-        public UniversityRepository(UnitedAppContext context)
+        public SpecialityRepository(UnitedAppContext context)
         {
             this._context = context;
-            this._currentRepo = context.Universities;
+            this._currentRepo = context.Specialities;
         }
 
-        public async Task<List<University>> GetAllAsync()
+        public async Task<List<Speciality>> GetAllAsync()
         {
             return await _currentRepo.ToListAsync();
-        }
-
-        public async Task<List<University>> GetAllWithSpecialiesAsync()
-        {
-            return await _currentRepo.Include(e => e.Specialities).ToListAsync();
         }
     }
 }

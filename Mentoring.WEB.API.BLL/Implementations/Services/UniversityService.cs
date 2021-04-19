@@ -17,14 +17,12 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         readonly IUnitOfWork _uow;
         readonly IUniversityRepository _universityRepo;
         readonly IMapper _mapper;
-        readonly IEdboService _edboService;
 
-        public UniversityService(IUnitOfWork uow, IMapper mapper, IEdboService edboService)
+        public UniversityService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _universityRepo = uow.UniversityRepository;
             _mapper = mapper;
-            _edboService = edboService;
         }
 
         public async Task<IEnumerable<UniversityModel>> GetAllAsync()
@@ -34,19 +32,12 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
-        public async Task UpdateAllUniversitiesFromExternalSourceAsync()
+        public async Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync()
         {
-            var externalUniversities = await _edboService.GetAllUniversities();
-            var dbUniversity = await _universityRepo.GetAllAsync();
+            var daos = await _universityRepo.GetAllWithSpecialiesAsync();
+            var dto = _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
 
-            foreach (var item in externalUniversities)
-            {
-                item.Id = dbUniversity.FirstOrDefault(e => e.ExternalId.ToString() == item.ExternalId)?.Id ?? default;
-            }
-            var universitiesForUpdate = _mapper.Map<IEnumerable<EdboUniversityModel>, List<University>>(externalUniversities);
-
-            _universityRepo.UpdateList(universitiesForUpdate);
-            await _uow.SaveAsync();
+            return dto;
         }
     }
 }

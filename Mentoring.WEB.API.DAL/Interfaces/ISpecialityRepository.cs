@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Interfaces
 {
-    public interface IUniversityRepository
+    public interface ISpecialityRepository
     {
-        Task<List<University>> GetAllAsync();
-        Task<List<University>> GetAllWithSpecialiesAsync();
+        Task<List<Speciality>> GetAllAsync();
     }
 }
