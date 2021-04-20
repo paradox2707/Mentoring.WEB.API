@@ -1,7 +1,7 @@
 ﻿using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
-using Mentoring.WEB.API.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +16,19 @@ namespace Mentoring.WEB.API.Controllers
     public class UniversityController : ControllerBase
     {
         private readonly IUniversityService _universityService;
+        private readonly ILogger<UniversityController> _logger;
 
-        public UniversityController(IUniversityService universityService)
+        public UniversityController(IUniversityService universityService, ILogger<UniversityController> logger)
         {
             this._universityService = universityService;
+            _logger = logger;
         }
 
         // GET: api/<University>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UniversityModel>>> Get()
         {
+            _logger.LogInformation("Information is logged from UniversityController");
             return Ok(await _universityService.GetAllAsync());
         }
 
