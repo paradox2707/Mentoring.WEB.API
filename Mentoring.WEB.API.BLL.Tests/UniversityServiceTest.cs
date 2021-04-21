@@ -19,10 +19,21 @@ namespace Mentoring.WEB.API.BLL.Tests
         public void Init()
         {
             _uowMock = new Mock<IUnitOfWork>();            
+            //act
+            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            var actual = universiryService.GetAllAsync().Result.ToList();
+
+            //assert
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Id, actual[i].Id);
+                Assert.AreEqual(expected[i].Name, actual[i].Name);
+                Assert.AreEqual(expected[i].ShortName, actual[i].ShortName);
+            }
         }
 
         [Test]
-        public void GetAllAsync_ShouldReturnAllUniversities()
+        public void GetAllWithSpecialitiesAsync_ShouldReturnAllUniversities()
         {
             //arrange
             var expected = GetUniversitiesDTO().ToList();

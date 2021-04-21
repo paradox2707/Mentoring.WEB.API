@@ -23,6 +23,16 @@ namespace Mentoring.WEB.API.DAL.Implementations
         public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
             return await _currentRepo.Include(e => e.Specialities).ToListAsync();
+
+            if (itemExist != null)
+            {
+                _currentRepo.Update(entity);
+            }
+        }
+
+        public void UpdateList(IEnumerable<University> entity)
+        {
+            _currentRepo.UpdateRange(entity);
         }
     }
 }
