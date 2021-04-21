@@ -2,9 +2,7 @@
 using Mentoring.WEB.API.Common.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,7 +18,7 @@ namespace Mentoring.WEB.API.Controllers
 
         public UniversityController(IUniversityService universityService, ILogger<UniversityController> logger)
         {
-            this._universityService = universityService;
+            _universityService = universityService;
             _logger = logger;
         }
 
@@ -28,15 +26,16 @@ namespace Mentoring.WEB.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UniversityModel>>> Get()
         {
-            _logger.LogInformation("Information is logged from UniversityController");
+            _logger.LogInformation("Call end-point all universities");
             return Ok(await _universityService.GetAllAsync());
         }
 
         // GET: api/<University>
         [HttpGet]
-        [Route("WithSpecialities")]
+        [Route("Specialities")]
         public async Task<ActionResult<IEnumerable<UniversityModel>>> GetWithSpecialities()
         {
+            _logger.LogInformation("Call end-point all universities with specialities");
             return Ok(await _universityService.GetAllWithSpecialitiesAsync());
         }
     }

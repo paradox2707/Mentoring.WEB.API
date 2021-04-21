@@ -8,8 +8,6 @@ using Mentoring.WEB.API.Common;
 using Mentoring.WEB.API.DAL;
 using Mentoring.WEB.API.DAL.Implementations;
 using Mentoring.WEB.API.DAL.Interfaces;
-using Mentoring.WEB.API.Common.Helpers;
-using Mentoring.WEB.API.Common.Interfaces;
 
 namespace Mentoring.WEB.API.Root
 {
