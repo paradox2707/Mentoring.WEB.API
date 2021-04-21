@@ -1,12 +1,11 @@
 ﻿using Mentoring.Client.Abstract;
 using Mentoring.Client.Helpers;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mentoring.Client
 {
-    internal class Render
+    public class Render
     {
         private readonly IRepository _repository;
 

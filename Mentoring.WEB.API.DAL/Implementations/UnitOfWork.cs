@@ -1,7 +1,4 @@
 ﻿using Mentoring.WEB.API.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations
@@ -21,9 +18,9 @@ namespace Mentoring.WEB.API.DAL.Implementations
         {
             get
             {
-                if (this._universityRepo is null)
+                if (_universityRepo is null)
                 {
-                    this._universityRepo = new UniversityRepository(context);
+                    _universityRepo = new UniversityRepository(context);
                 }
                 return _universityRepo;
             }
@@ -33,9 +30,9 @@ namespace Mentoring.WEB.API.DAL.Implementations
         {
             get
             {
-                if (this._specialityRepo is null)
+                if (_specialityRepo is null)
                 {
-                    this._specialityRepo = new SpecialityRepository(context);
+                    _specialityRepo = new SpecialityRepository(context);
                 }
                 return _specialityRepo;
             }

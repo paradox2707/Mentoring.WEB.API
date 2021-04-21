@@ -1,7 +1,5 @@
-﻿using Mentoring.Client.Helpers;
-using Mentoring.Client.Impls;
+﻿using Mentoring.Client.Impls;
 using System;
-using System.ComponentModel;
 using System.Net.Http;
 
 namespace Mentoring.Client

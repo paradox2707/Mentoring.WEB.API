@@ -1,8 +1,5 @@
 ﻿using Mentoring.WEB.API.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mentoring.WEB.API.DAL
 {

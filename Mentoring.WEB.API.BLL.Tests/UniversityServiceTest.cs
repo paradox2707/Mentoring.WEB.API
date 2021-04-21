@@ -7,23 +7,30 @@ using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
-using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Tests
 {
     public class UniversityServiceTest
     {
+        private Mock<IUnitOfWork> _uowMock;
+        private UniversityService _sut;
+
+        [SetUp]
+        public void Init()
+        {
+            _uowMock = new Mock<IUnitOfWork>();            
+        }
+
         [Test]
         public void GetAllAsync_ShouldReturnAllUniversities()
         {
             //arrange
             var expected = GetUniversitiesDTO().ToList();
-            var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesDAO());
+            _uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesDAO());
 
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
-            var actual = universiryService.GetAllAsync().Result.ToList();
+            _sut = new UniversityService(_uowMock.Object, UTestHelper.CreateMapper());
+            var actual = _sut.GetAllAsync().Result.ToList();
 
             //assert
             for (int i = 0; i < actual.Count; i++)
@@ -39,11 +46,10 @@ namespace Mentoring.WEB.API.BLL.Tests
         {
             //arrange
             var expected = GetUniversitiesWithSpecielitiesDTO().ToList();
-            var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
+            _uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
 
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
+            IUniversityService universiryService = new UniversityService(_uowMock.Object, UTestHelper.CreateMapper());
             var actual = universiryService.GetAllAsync().Result.ToList();
 
             //assert
@@ -60,12 +66,11 @@ namespace Mentoring.WEB.API.BLL.Tests
         {
             //arrange
             var expected = GetUniversitiesWithSpecielitiesDTO().ToList();
-            var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
+            _uowMock.Setup(e => e.UniversityRepository.GetAllAsync().Result).Returns(GetUniversitiesWithSpecielitiesDAO());
 
             //act
-            IUniversityService universiryService = new UniversityService(uowMock.Object, UTestHelper.CreateMapper());
-            var actual = universiryService.GetAllAsync().Result.ToList();
+            _sut = new UniversityService(_uowMock.Object, UTestHelper.CreateMapper());
+            var actual = _sut.GetAllAsync().Result.ToList();
 
             //assert
             foreach (var expectedItem in expected)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mentoring.Client.Impls
 {
-    internal class Repository : IRepository
+    public class Repository : IRepository
     {
         private readonly HttpClient _client;
 
@@ -34,7 +34,7 @@ namespace Mentoring.Client.Impls
 
         public async Task<List<UniversityModel>> GetUniversitiesWithSpecialitiesAsync()
         {
-            var response = await _client.GetAsync("https://localhost:44386/api/University/WithSpecialities");
+            var response = await _client.GetAsync("https://localhost:44386/api/University/Specialities");
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<UniversityModel>>(responseBody);

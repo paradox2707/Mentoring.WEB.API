@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Mentoring.Client.Abstract
 {
-    internal interface IRepository
+    public interface IRepository
     {
         Task<List<UniversityModel>> GetUniversitiesAsync();
         Task<List<UniversityModel>> GetUniversitiesWithSpecialitiesAsync();
