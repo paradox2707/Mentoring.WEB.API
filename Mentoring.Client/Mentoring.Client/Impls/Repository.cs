@@ -20,7 +20,7 @@ namespace Mentoring.Client.Impls
         public async Task CreateApplication(ApplicationModel dto)
         {
             JsonContent content = JsonContent.Create(dto);
-            await _client.PostAsync("https://localhost:44386/api/Application", content);
+            await _client.PostAsync("https://localhost:44386/api/AbiturientApplication", content);
         }
 
         public async Task<List<SpecialityModel>> GetSpecialitiesAsync()
