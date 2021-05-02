@@ -1,6 +1,8 @@
 ﻿using Mentoring.Client.Abstract;
 using Mentoring.Client.Helpers;
+using Mentoring.Client.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mentoring.Client
@@ -31,12 +33,39 @@ namespace Mentoring.Client
                     case (int)Menu.SpecialitiesWithSpecialities:
                         await ShowUniversitiesWithSpecialities();
                         break;
+                    case (int)Menu.Application:
+                        await ShowAnket();
+                        break;
                     default:
                         PrintMenu();
                         break;
                 }
             }
             while (true);
+        }
+
+        private async Task ShowAnket()
+        {
+            PrintMenu();
+            Console.WriteLine($"\tАНКЕТА");
+            Console.WriteLine($"\t------------");
+            Console.Write($"\tСередній бал ЗНО: ");
+            var dto = new ApplicationModel();
+            var inputAvgMark = Console.ReadLine();
+            Int32.TryParse(inputAvgMark, out int avgMark);
+            dto.AverageMark = avgMark;
+            Console.Write($"\tБажаний регіон навчання: ");
+            dto.Regions = Console.ReadLine().Split(",").ToList<string>();
+
+            try
+            {
+                await _repository.CreateApplication(dto);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
         }
 
         private async Task ShowUniversities()
@@ -85,7 +114,8 @@ namespace Mentoring.Client
             Console.Clear();
             Console.WriteLine(  $"{Menu.Universities.GetDescription()} [{(int)Menu.Universities}] " +
                                 $"| {Menu.Specialities.GetDescription()} [{(int)Menu.Specialities}] " +
-                                $"| {Menu.SpecialitiesWithSpecialities.GetDescription()} [{(int)Menu.SpecialitiesWithSpecialities}]" );
+                                $"| {Menu.SpecialitiesWithSpecialities.GetDescription()} [{(int)Menu.SpecialitiesWithSpecialities}] " +
+                                $"| {Menu.Application.GetDescription()} [{(int)Menu.Application}]");
             Console.WriteLine();
         }
     }

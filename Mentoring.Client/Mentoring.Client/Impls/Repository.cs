@@ -2,6 +2,7 @@
 using Mentoring.Client.Models;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,6 +15,12 @@ namespace Mentoring.Client.Impls
         public Repository(HttpClient client)
         {
             this._client = client;
+        }
+
+        public async Task CreateApplication(ApplicationModel dto)
+        {
+            JsonContent content = JsonContent.Create(dto);
+            await _client.PostAsync("https://localhost:44386/api/Application", content);
         }
 
         public async Task<List<SpecialityModel>> GetSpecialitiesAsync()

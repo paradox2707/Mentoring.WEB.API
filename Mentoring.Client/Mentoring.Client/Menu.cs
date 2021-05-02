@@ -9,6 +9,8 @@ namespace Mentoring.Client
         [Description("Спеціальності")]
         Specialities,
         [Description("Університети зі спеціальностями")]
-        SpecialitiesWithSpecialities
+        SpecialitiesWithSpecialities,
+        [Description("Анкета")]
+        Application
     }
 }
