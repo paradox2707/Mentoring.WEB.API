@@ -8,6 +8,10 @@ namespace Mentoring.WEB.API.DAL.Interfaces
 
         ISpecialityRepository SpecialityRepository { get; }
 
+        IUserApplicationRepository UserApplicationRepository { get; }
+
+        IRegionRepository RegionRepository { get; }
+
         Task<int> SaveAsync();
     }
 }

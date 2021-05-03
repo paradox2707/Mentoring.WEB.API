@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.Common.DTO
 {
-    public class AbiturientApplicationModel
+    public class UserApplicationModel
     {
         public long Id { get; set; }
 
         public int AverageMark { get; set; }
 
-        public IEnumerable<string> Regions { get; set; }
+        public IEnumerable<RegionModel> Regions { get; set; }
     }
 }

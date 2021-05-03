@@ -10,6 +10,9 @@ namespace Mentoring.WEB.API.Common
         {
             CreateMap<University, UniversityModel>();
             CreateMap<Speciality, SpecialityModel>();
+            CreateMap<UserApplicationModel, UserApplication> ()
+                .ForMember(dist => dist.Regions, opt => opt.Ignore());
+            CreateMap<Region, RegionModel>().ReverseMap();
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Mentoring.WEB.API.DAL
 
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<UserApplication> UserApplications { get; set; }
+        public DbSet<Region> Regions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +51,16 @@ namespace Mentoring.WEB.API.DAL
                 new { UniversitiesId = 4L, SpecialitiesId = 9L },
                 new { UniversitiesId = 4L, SpecialitiesId = 10L }
                 );
+            modelBuilder.Entity<Region>().HasData(
+                new Region[]
+                {
+                    new Region { Id =1L, Name="Вся Україна" },
+                    new Region { Id =2L, Name="Захід" },
+                    new Region { Id =3L, Name="Схід" },
+                    new Region { Id =4L, Name="Північ" },
+                    new Region { Id =5L, Name="Південь" },
+                    new Region { Id =6L, Name="Центр" },
+                });
         }
     }
 }

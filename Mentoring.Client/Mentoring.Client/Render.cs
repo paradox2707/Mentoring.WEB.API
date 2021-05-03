@@ -55,8 +55,9 @@ namespace Mentoring.Client
             Int32.TryParse(inputAvgMark, out int avgMark);
             dto.AverageMark = avgMark;
             Console.Write($"\tБажаний регіон навчання: ");
-            dto.Regions = Console.ReadLine().Split(",").ToList<string>();
-
+            var region = Console.ReadLine().Split(",").ToList<string>();
+            
+            dto.Regions.Add(new RegionModel {Name = region.SingleOrDefault() });
             try
             {
                 await _repository.CreateApplication(dto);
