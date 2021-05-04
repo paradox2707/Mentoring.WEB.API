@@ -62,44 +62,28 @@ namespace Mentoring.Client
             Console.WriteLine(res1);
         }
 
-        private async Task ShowAnket()
+        private async Task ShowAnket()  //TODO: Як правильно побудувати архітектуру цього рендера 
         {
             PrintMenu();
             Console.WriteLine($"\tАНКЕТА");
             Console.WriteLine($"\t------------");
             var dto = new ApplicationModel();
 
-            Console.Write($"\tІм'я: ");
-            dto.FirstName = Console.ReadLine();
+            dto.FirstName = PrintStringField("Ім'я");
+            dto.SecondName = PrintStringField("Прізвище");
+            dto.PhoneNumber = PrintNumberField("Мобільний номер телефону");
+            dto.AverageMark = PrintNumberField("Середній бал ЗНО");
 
-            Console.Write($"\tПрізвище: ");
-            dto.SecondName = Console.ReadLine();
-
-            Console.Write($"\tМобільний номер телефону: ");
-            var inputPhone = Console.ReadLine();
-            Int32.TryParse(inputPhone, out int phone);
-            dto.PhoneNumber = phone;
-
-            Console.Write($"\tСередній бал ЗНО: ");            
-            var inputAvgMark = Console.ReadLine();
-            Int32.TryParse(inputAvgMark, out int avgMark);
-            dto.AverageMark = avgMark;
-
-            Console.Write($"\tБажаний регіон навчання [натисніть Enter та виберіть варіанти]: ");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { };
-            var checkBoxForRegions = new Checkbox("Виберіть варіанти", true, true, await _repository.GetRegionsNameAsync());
-            var selectedRegions = checkBoxForRegions.Select();
-            dto.Regions = selectedRegions.Select(op => new RegionModel { Name = op.Option }).ToList();
+            dto.Regions = PrintCheckBoxField("Бажаний регіон навчання [натисніть Enter та виберіть варіанти]", await _repository.GetRegionNamesAsync())
+                .Select(op => new RegionModel { Name = op.Option }).ToList();
             PrintAnketaCache(dto, nameof(dto.Regions));
 
-            Console.Write($"\tОчікуваний професійний напрямок [натисніть Enter та виберіть варіанти]: ");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { };
-            var checkBoxForProDirections = new Checkbox("Виберіть варіанти", true, true, await _repository.GetProfessionalDirectionNameAsync());
-            var selectedProDirections = checkBoxForProDirections.Select();
-            dto.ProfessionalDirections = selectedProDirections.Select(op => new ProfessionalDirectionModel { Name = op.Option }).ToList();
+            dto.ProfessionalDirections = PrintCheckBoxField("Очікуваний професійний напрямок [натисніть Enter та виберіть варіанти]", await _repository.GetProfessionalDirectionNamesAsync())
+                .Select(op => new ProfessionalDirectionModel { Name = op.Option }).ToList();
             PrintAnketaCache(dto, nameof(dto.ProfessionalDirections));
 
-            Console.WriteLine($"\tВідправити анкету[1] | Очистити анкету[2 | Головне меню[Enter]");
+            Console.WriteLine($"\t------------");
+            Console.WriteLine($"\tВідправити анкету[1] | Очистити анкету[2] | Головне меню[Enter]");
             Console.Write("\t");
             var inputConsent = Console.ReadLine();
             Int32.TryParse(inputConsent, out int consent);
@@ -114,13 +98,37 @@ namespace Mentoring.Client
             try
             {
                 await _repository.CreateApplication(dto);
+                Console.WriteLine($"\t------------");
                 Console.WriteLine($"\tАнкета прийнята!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-            
+
+        }
+
+        private CheckboxReturn[] PrintCheckBoxField(string fieldName, string[] options)
+        {
+            Console.Write($"\t{fieldName}: ");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { };
+            var checkBoxForRegions = new Checkbox("Виберіть варіанти", true, true, options); //TODO: Як тестувати?
+            var selectedRegions = checkBoxForRegions.Select();
+            return selectedRegions;
+        }
+
+        private static int PrintNumberField(string fieldName)
+        {
+            Console.Write($"\t{fieldName}: ");
+            var input = Console.ReadLine();
+            Int32.TryParse(input, out int value);
+            return value;
+        }
+
+        private static string PrintStringField(string fieldName)
+        {
+            Console.Write($"\t{fieldName}: ");
+            return Console.ReadLine();
         }
 
         private void PrintAnketaCache(ApplicationModel dto, string propName)

@@ -24,13 +24,13 @@ namespace Mentoring.Client.Impls
             await _client.PostAsync("https://localhost:44386/api/UserApplication", content);
         }
 
-        public async Task<string[]> GetProfessionalDirectionNameAsync()
+        public async Task<string[]> GetProfessionalDirectionNamesAsync()
         {
             string responseBody = await RequestForSimpleModel("ProfessionalDirection");
             return JsonSerializer.Deserialize<List<ProfessionalDirectionModel>>(responseBody).Select(m => m.Name).ToArray();
         }
 
-        public async Task<string[]> GetRegionsNameAsync()
+        public async Task<string[]> GetRegionNamesAsync()
         {
             string responseBody = await RequestForSimpleModel("Region");
             return JsonSerializer.Deserialize<List<RegionModel>>(responseBody).Select(m => m.Name).ToArray();
