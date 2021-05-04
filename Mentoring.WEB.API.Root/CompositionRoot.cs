@@ -20,6 +20,8 @@ namespace Mentoring.WEB.API.Root
             services.AddScoped<IUniversityService, UniversityService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<IUserApplicationService, UserApplicationService>();
+            services.AddScoped<IRegionService, RegionService>();
+            services.AddScoped<IProfessionalDirectionService, ProfessionalDirectionService>();
 
             #region DI Mapper
             var myProfile = new AutomapperProfile();

@@ -16,6 +16,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         readonly IUnitOfWork _uow;
         readonly IUserApplicationRepository _applicationRepo;
         readonly IRegionRepository _regionRepo;
+        readonly IProfessionalDirectionRepository _proDirectionRepo;
         readonly IMapper _mapper;
 
         public UserApplicationService(IUnitOfWork uow, IMapper mapper)
@@ -23,6 +24,7 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             _uow = uow;
             _applicationRepo = uow.UserApplicationRepository;
             _regionRepo = uow.RegionRepository;
+            _proDirectionRepo = uow.ProfessionalDirectionRepository;
             _mapper = mapper;
         }
 
@@ -33,6 +35,11 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             {
                 var daoRegion = await _regionRepo.GetByAsync(r => r.Name == region.Name);
                 dao.Regions.Add(daoRegion);
+            }
+            foreach (var proDirection in entity.ProfessionalDirections)
+            {
+                var daoProDirection = await _proDirectionRepo.GetByAsync(pDir => pDir.Name == proDirection.Name);
+                dao.ProfessionalDirections.Add(daoProDirection);
             }
             await _applicationRepo.CreateAsync(dao);
             await _uow.SaveAsync();

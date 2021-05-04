@@ -13,6 +13,7 @@ namespace Mentoring.WEB.API.Common
             CreateMap<UserApplicationModel, UserApplication> ()
                 .ForMember(dist => dist.Regions, opt => opt.Ignore());
             CreateMap<Region, RegionModel>().ReverseMap();
+            CreateMap<ProfessionalDirection, ProfessionalDirectionModel>().ReverseMap();
         }
     }
 }

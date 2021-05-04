@@ -10,6 +10,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
         private ISpecialityRepository _specialityRepo;
         private IUserApplicationRepository _userApplicationRepo;
         private IRegionRepository _regionRepo;
+        private IProfessionalDirectionRepository _proDirectionRepo;
 
         public UnitOfWork(UnitedAppContext context)
         {
@@ -61,6 +62,18 @@ namespace Mentoring.WEB.API.DAL.Implementations
                     _regionRepo = new RegionRepository(context);
                 }
                 return _regionRepo;
+            }
+        }
+
+        public IProfessionalDirectionRepository ProfessionalDirectionRepository
+        {
+            get
+            {
+                if (_proDirectionRepo is null)
+                {
+                    _proDirectionRepo = new ProfessionalDirectionRepository(context);
+                }
+                return _proDirectionRepo;
             }
         }
 

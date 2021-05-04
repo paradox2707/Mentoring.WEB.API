@@ -13,5 +13,7 @@ namespace Mentoring.WEB.API.Common.DTO
         public int AverageMark { get; set; }
 
         public IEnumerable<RegionModel> Regions { get; set; }
+
+        public IEnumerable<ProfessionalDirectionModel> ProfessionalDirections { get; set; }
     }
 }
