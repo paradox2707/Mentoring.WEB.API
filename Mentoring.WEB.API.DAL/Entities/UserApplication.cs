@@ -11,6 +11,12 @@ namespace Mentoring.WEB.API.DAL.Entities
             ProfessionalDirections = new List<ProfessionalDirection>();
         }
 
+        public string FirstName { get; set; }
+
+        public string SecondName { get; set; }
+
+        public int PhoneNumber { get; set; }
+
         public int AverageMark { get; set; }
 
         public ICollection<Region> Regions { get; set; }

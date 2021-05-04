@@ -10,6 +10,12 @@ namespace Mentoring.WEB.API.Common.DTO
     {
         public long Id { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string SecondName { get; set; }
+
+        public int PhoneNumber { get; set; }
+
         public int AverageMark { get; set; }
 
         public IEnumerable<RegionModel> Regions { get; set; }

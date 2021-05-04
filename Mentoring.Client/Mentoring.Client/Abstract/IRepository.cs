@@ -9,6 +9,8 @@ namespace Mentoring.Client.Abstract
         Task<List<UniversityModel>> GetUniversitiesAsync();
         Task<List<UniversityModel>> GetUniversitiesWithSpecialitiesAsync();
         Task<List<SpecialityModel>> GetSpecialitiesAsync();
+        Task<string[]> GetRegionsNameAsync();
+        Task<string[]> GetProfessionalDirectionNameAsync();
         Task CreateApplication(ApplicationModel dto);
     }
 }
