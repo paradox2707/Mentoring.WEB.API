@@ -3,102 +3,22 @@ using Mentoring.WEB.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mentoring.WEB.API.DAL.Migrations
 {
     [DbContext(typeof(UnitedAppContext))]
-    partial class UnitedAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210503200832_AddApplicationAndRegion")]
+    partial class AddApplicationAndRegion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Mentoring.WEB.API.DAL.Entities.ProfessionalDirection", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProfessionalDirections");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Програмування"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Медицина"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "Педагогіка"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Name = "Природничі науки"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Name = "Суспільні науки"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Name = "Юриспруденція"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Name = "Економіка"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Name = "Менеджмент"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            Name = "Маркетинг"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            Name = "Фінанси"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            Name = "Журналістика"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            Name = "Дизайн"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            Name = "Акторське мистецтво"
-                        });
-                });
 
             modelBuilder.Entity("Mentoring.WEB.API.DAL.Entities.Region", b =>
                 {
@@ -274,33 +194,9 @@ namespace Mentoring.WEB.API.DAL.Migrations
                     b.Property<int>("AverageMark")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("UserApplications");
-                });
-
-            modelBuilder.Entity("ProfessionalDirectionUserApplication", b =>
-                {
-                    b.Property<long>("ProfessionalDirectionsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserApplicationsId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ProfessionalDirectionsId", "UserApplicationsId");
-
-                    b.HasIndex("UserApplicationsId");
-
-                    b.ToTable("ProfessionalDirectionUserApplication");
                 });
 
             modelBuilder.Entity("RegionUserApplication", b =>
@@ -383,21 +279,6 @@ namespace Mentoring.WEB.API.DAL.Migrations
                             SpecialitiesId = 10L,
                             UniversitiesId = 4L
                         });
-                });
-
-            modelBuilder.Entity("ProfessionalDirectionUserApplication", b =>
-                {
-                    b.HasOne("Mentoring.WEB.API.DAL.Entities.ProfessionalDirection", null)
-                        .WithMany()
-                        .HasForeignKey("ProfessionalDirectionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mentoring.WEB.API.DAL.Entities.UserApplication", null)
-                        .WithMany()
-                        .HasForeignKey("UserApplicationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("RegionUserApplication", b =>

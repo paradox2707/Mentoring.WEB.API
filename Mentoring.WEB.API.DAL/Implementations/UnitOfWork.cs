@@ -8,6 +8,9 @@ namespace Mentoring.WEB.API.DAL.Implementations
         readonly UnitedAppContext context;
         private IUniversityRepository _universityRepo;
         private ISpecialityRepository _specialityRepo;
+        private IUserApplicationRepository _userApplicationRepo;
+        private IRegionRepository _regionRepo;
+        private IProfessionalDirectionRepository _proDirectionRepo;
 
         public UnitOfWork(UnitedAppContext context)
         {
@@ -35,6 +38,42 @@ namespace Mentoring.WEB.API.DAL.Implementations
                     _specialityRepo = new SpecialityRepository(context);
                 }
                 return _specialityRepo;
+            }
+        }
+
+        public IUserApplicationRepository UserApplicationRepository
+        {
+            get
+            {
+                if (_userApplicationRepo is null)
+                {
+                    _userApplicationRepo = new UserApplicationRepository(context);
+                }
+                return _userApplicationRepo;
+            }
+        }
+
+        public IRegionRepository RegionRepository
+        {
+            get
+            {
+                if (_regionRepo is null)
+                {
+                    _regionRepo = new RegionRepository(context);
+                }
+                return _regionRepo;
+            }
+        }
+
+        public IProfessionalDirectionRepository ProfessionalDirectionRepository
+        {
+            get
+            {
+                if (_proDirectionRepo is null)
+                {
+                    _proDirectionRepo = new ProfessionalDirectionRepository(context);
+                }
+                return _proDirectionRepo;
             }
         }
 

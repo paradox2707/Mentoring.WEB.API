@@ -10,6 +10,9 @@ namespace Mentoring.WEB.API.DAL
 
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<UserApplication> UserApplications { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<ProfessionalDirection> ProfessionalDirections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +52,33 @@ namespace Mentoring.WEB.API.DAL
                 new { UniversitiesId = 4L, SpecialitiesId = 9L },
                 new { UniversitiesId = 4L, SpecialitiesId = 10L }
                 );
+            modelBuilder.Entity<Region>().HasData(
+                new Region[]
+                {
+                    new Region { Id =1L, Name="Вся Україна" },
+                    new Region { Id =2L, Name="Захід" },
+                    new Region { Id =3L, Name="Схід" },
+                    new Region { Id =4L, Name="Північ" },
+                    new Region { Id =5L, Name="Південь" },
+                    new Region { Id =6L, Name="Центр" },
+                });
+            modelBuilder.Entity<ProfessionalDirection>().HasData(
+                new ProfessionalDirection[]
+                {
+                    new ProfessionalDirection { Id =1L, Name="Програмування" },
+                    new ProfessionalDirection { Id =2L, Name="Медицина" },
+                    new ProfessionalDirection { Id =3L, Name="Педагогіка" },
+                    new ProfessionalDirection { Id =4L, Name="Природничі науки" },
+                    new ProfessionalDirection { Id =5L, Name="Суспільні науки" },
+                    new ProfessionalDirection { Id =6L, Name="Юриспруденція" },
+                    new ProfessionalDirection { Id =7L, Name="Економіка" },
+                    new ProfessionalDirection { Id =8L, Name="Менеджмент" },
+                    new ProfessionalDirection { Id =9L, Name="Маркетинг" },
+                    new ProfessionalDirection { Id =10L, Name="Фінанси" },
+                    new ProfessionalDirection { Id =11L, Name="Журналістика" },
+                    new ProfessionalDirection { Id =12L, Name="Дизайн" },
+                    new ProfessionalDirection { Id =13L, Name="Акторське мистецтво" },
+                });
         }
     }
 }
