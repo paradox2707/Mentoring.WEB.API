@@ -26,6 +26,34 @@ namespace Mentoring.WEB.API.BLL.Tests
         }
 
         [Test]
+        public async Task Test()
+        {
+            //arrange
+
+            var applicationDTO = new UserApplicationModel
+            {
+                FirstName = "Андрій",
+                SecondName = "Слижук",
+                AverageMark = 200,
+                PhoneNumber = 0661234567,
+                Regions = new List<RegionModel> { new RegionModel { Name = "Схід" }, new RegionModel { Name = "Захід" } },
+                ProfessionalDirections = new List<ProfessionalDirectionModel>
+                {
+                    new ProfessionalDirectionModel { Name = "Програмування"},
+                    new ProfessionalDirectionModel { Name = "Медицина"},
+                    new ProfessionalDirectionModel { Name = "Фінанси"}
+                }
+            };
+            var regionDaos = new List<Region> { new Region { Id = 1, Name = "Схід" }, new Region { Id = 2, Name = "Захід" } };
+            _uowMock.Setup(e => e.RegionRepository.GetByAsync(It.IsAny<Expression<Func<Region, bool>>>()).Result)
+                .Returns((int orderNumber) => regionDaos.Single(x => x.Id == orderNumber));
+
+            //Act
+            _sut = new UserApplicationService(_uowMock.Object, UTestHelper.CreateMapper());
+            await _sut.CreateAsync(applicationDTO);
+        }
+
+        [Test]
         public async Task CreateAsync_ShouldExecuteCreateMethod_WhenInboundDtoHasNotCollectionAtributes()
         {
             //arrange
