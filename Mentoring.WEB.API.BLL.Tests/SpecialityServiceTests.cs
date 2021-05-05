@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Mentoring.WEB.API.BLL.Tests
 {
-    class SpecialityServiceTest
+    class SpecialityServiceTests
     {
         private Mock<IUnitOfWork> _uowMock;
         private ISpecialityService _sut;

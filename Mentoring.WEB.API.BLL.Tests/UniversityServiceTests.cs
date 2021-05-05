@@ -10,7 +10,7 @@ using Mentoring.WEB.API.DAL.Interfaces;
 
 namespace Mentoring.WEB.API.BLL.Tests
 {
-    public class UniversityServiceTest
+    public class UniversityServiceTests
     {
         private Mock<IUnitOfWork> _uowMock;
         private UniversityService _sut;

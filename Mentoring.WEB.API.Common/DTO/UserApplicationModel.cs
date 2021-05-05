@@ -21,5 +21,12 @@ namespace Mentoring.WEB.API.Common.DTO
         public IEnumerable<RegionModel> Regions { get; set; }
 
         public IEnumerable<ProfessionalDirectionModel> ProfessionalDirections { get; set; }
+
+        public UserApplicationModel()
+        {
+            Regions = new List<RegionModel>();
+
+            ProfessionalDirections = new List<ProfessionalDirectionModel>();
+        }
     }
 }
