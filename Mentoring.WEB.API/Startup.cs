@@ -29,6 +29,12 @@ namespace Mentoring.WEB.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring.WEB.API", Version = "v1" });
             });
+            services.AddCors(o => o.AddPolicy("ForReactClient", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +51,8 @@ namespace Mentoring.WEB.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mentoring.WEB.API v1"));
             }
+
+            app.UseCors("ForReactClient");
 
             app.UseHttpsRedirection();
 
