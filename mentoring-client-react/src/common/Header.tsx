@@ -10,6 +10,9 @@ export const Header = () => {
     <div className="Header-div">
       <Link to="./">UnitED</Link>
       <Link to="./Universities">Університети</Link>
+      <Link to="./UniversitiesWithSpecialities">Університети зі спеціальностями</Link>
+      <Link to="./Specialities">Спеціальності</Link>
+      <Link to="./Anketa">Анкета</Link>
     </div>
   );
 };

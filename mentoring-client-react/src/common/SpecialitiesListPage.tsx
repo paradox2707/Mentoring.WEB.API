@@ -1,22 +1,22 @@
 import React from 'react';
-import { getUniversities } from '../services/UniversityService';
-import { University } from '../interfaces/University';
+import { Speciality } from '../interfaces/Speciality';
+import { getSpecialities } from '../services/SpecialityService';
 
 interface IProps {
 }
 
 interface IState {
-  data: University[];
+  data: Speciality[];
 }
 
-export class UniversitiesListPage extends React.Component<IProps, IState> {
+export class SpecialitiesListPage extends React.Component<IProps, IState> {
     constructor(props: any) {
       super(props);
       this.state = { data: [] };
     }
 
     componentDidMount() {
-      getUniversities()
+      getSpecialities()
         .then(universities => this.setState({ data: universities }));
     }
 
@@ -30,4 +30,4 @@ export class UniversitiesListPage extends React.Component<IProps, IState> {
     }
 };
 
-export default UniversitiesListPage;
+export default SpecialitiesListPage;
