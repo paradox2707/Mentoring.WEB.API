@@ -1,6 +1,6 @@
 import React from 'react';
 import { Speciality } from '../interfaces/Speciality';
-import { getSpecialities } from '../services/SpecialityService';
+import { getSpecialities } from '../repository/SpecialityRepository';
 
 interface IProps {
 }

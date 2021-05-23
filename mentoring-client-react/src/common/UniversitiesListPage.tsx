@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUniversities } from '../services/UniversityService';
+import { getUniversities } from '../repository/UniversityRepository';
 import { University } from '../interfaces/University';
 
 interface IProps {
