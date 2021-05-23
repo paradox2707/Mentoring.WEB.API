@@ -33,15 +33,15 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         public async Task<IEnumerable<UniversityModel>> GetAllByStartWithFilterForEveryWordAsync(string filter)
         {
             var daos = await _universityRepo.GetAllAsync();
-            daos = GetUniversityByFilter(filter.TrimEnd(), daos);
+            daos = GetUniversityByFilter(filter.TrimEnd().ToLower(), daos);
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
         private static List<University> GetUniversityByFilter(string filter, List<University> daos) => 
-            daos.Where(e => e.Name.Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
-            || e.Name.StartsWith(filter)
-            || e.ShortName.Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
-            || e.ShortName.StartsWith(filter))
+            daos.Where(e => e.Name.ToLower().Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
+            || e.Name.ToLower().StartsWith(filter)
+            || e.ShortName.ToLower().Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
+            || e.ShortName.ToLower().StartsWith(filter))
             .ToList();
 
         public async Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync()

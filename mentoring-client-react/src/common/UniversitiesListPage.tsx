@@ -1,33 +1,41 @@
 import React from 'react';
-import { getUniversities } from '../repository/UniversityRepository';
+import { getUniversities, filterUniversities } from '../repository/UniversityRepository';
 import { University } from '../interfaces/University';
+import { UniversitySearch } from '../common/UniversitySearchControl';
+import { useSearchParams } from 'react-router-dom';
 
-interface IProps {
-}
+export const  UniversitiesListPage = () => {
+  const [searchParams] = useSearchParams();
+  const [universities, setUniversities] = React.useState<University[]>([]);
 
-interface IState {
-  data: University[];
-}
+  const search = searchParams.get('criteria') || '';
 
-export class UniversitiesListPage extends React.Component<IProps, IState> {
-    constructor(props: any) {
-      super(props);
-      this.state = { data: [] };
-    }
+  React.useEffect(() => {
+    let cancelled = false;
+    const doSearch = async (criteria: string) => {
+      const foundResults = await filterUniversities(criteria);
+      if (!cancelled) {
+        setUniversities(foundResults);
+      }
+    };
 
-    componentDidMount() {
-      getUniversities()
-        .then(universities => this.setState({ data: universities }));
-    }
+    if(search == null || search.trim() === '')
+      getUniversities().then((result) => setUniversities(result));
+    else doSearch(search);
+    
+    return () => {
+      cancelled = true;
+    };
+  }, [search]);
 
-    render() {
-      return(
-      <div>
-        <ul>
-          {this.state.data.map(e => <li key={e.id.toString()}>{e.name}</li>)}
-        </ul>
-      </div>)
-    }
+    return(
+    <div>
+      <UniversitySearch></UniversitySearch>
+      <ul>
+        {universities.map(e => <li key={e.id.toString()}>{e.name}</li>)}
+      </ul>
+    </div>
+    );
 };
 
 export default UniversitiesListPage;
