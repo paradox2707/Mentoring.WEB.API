@@ -2,7 +2,7 @@ import React from 'react';
 import { ProfessionalDirection } from '../interfaces/ProfessionalDirection';
 import { webAPIUrl } from '../AppSetting';
 
-export const getSpecialities = async (): Promise<ProfessionalDirection[]> => {
+export const getProfessionalDirections = async (): Promise<ProfessionalDirection[]> => {
     const request = new Request(`${webAPIUrl}/ProfessionalDirection`, {
         method: 'get',
         headers: {

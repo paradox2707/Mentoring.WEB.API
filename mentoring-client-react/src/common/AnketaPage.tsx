@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { Region } from "../interfaces/Region";
+import { ProfessionalDirection } from "../interfaces/ProfessionalDirection";
+import { UserApplication } from "../interfaces/UserApplication";
 import { getRegions } from "../repository/RegionRepository";
+import { getProfessionalDirections } from "../repository/ProfessionalDirectionRepository";
+import { postUserApplication } from "../repository/UserApplicationRepository";
 
 type FormData = {
   firstName: string;
   secondName: string;
-  phoneNumber: string;
+  phoneNumber: number;
   averageMark:number;
-  regions: Region[];
+  regions: string[];
   professionalDirections: string[];
 };
 
@@ -18,6 +22,7 @@ export const AnketaPage = () => {
     React.useState(false);
 
   const [regions, setRegions] = React.useState<Region[]>([]);
+  const [directions, setDirections] = React.useState<ProfessionalDirection[]>([]);
 
   const {
     register,
@@ -27,23 +32,31 @@ export const AnketaPage = () => {
   } = useForm<FormData>();
 
   React.useEffect(() => {
-    getRegions().then((result) =>
+    if(regions.length == 0) getRegions().then((result) =>
       setRegions(result)
+    );
+    if(directions.length == 0) getProfessionalDirections().then((result) =>
+      setDirections(result)
     );
   });
 
   const submitForm = async (data: FormData) => {
-    console.log(data);
-    // const result = await postQuestion({
-    //   title: data.title,
-    //   content: data.content,
-    //   userName: "Fred",
-    //   created: new Date(),
-    // });
-    //setSuccessfullySubmitted(result ? true : false);
+    let userApp: UserApplication = {
+      id: 0,
+      firstName: data.firstName,
+      secondName: data.secondName,
+      phoneNumber: data.phoneNumber,
+      averageMark: data.averageMark,
+      regions: [],
+      professionalDirections: []
+    };
+    data.regions.map(e => userApp.regions.push({id:0,name: e}))
+    data.professionalDirections.map(e => userApp.professionalDirections.push({id:0,name: e}))
+    console.log(userApp);
+    const result = await postUserApplication(userApp);
+    console.log("result" + result);
+    setSuccessfullySubmitted(result ? true : false);
   };
-
-  
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
@@ -51,6 +64,7 @@ export const AnketaPage = () => {
         <input
           id="firstName"
           type="text"
+          disabled={successfullySubmitted}
           {...register('firstName', { required: true })} 
         />
         {errors.firstName?.type === "required" && <p>This field is required</p>}
@@ -59,6 +73,7 @@ export const AnketaPage = () => {
         <input
           id="secondName"
           type="text"
+          disabled={successfullySubmitted}
           {...register('secondName', { required: true })} 
         />
         {errors.secondName?.type === "required" && <p>This field is required</p>}
@@ -66,7 +81,8 @@ export const AnketaPage = () => {
       <label>Телефон:
         <input
           id="phoneNumber"
-          type="text"
+          type="number"
+          disabled={successfullySubmitted}
           {...register('phoneNumber', { required: true })} 
         />
         {errors.phoneNumber?.type === "required" && <p>This field is required</p>}
@@ -74,16 +90,21 @@ export const AnketaPage = () => {
       <label>Середній бал ЗНО:
         <input
           id="averageMark"
-          type="text"
+          type="phone"
+          disabled={successfullySubmitted}
           {...register('averageMark', { required: true })} 
         />
         {errors.averageMark?.type === "required" && <p>This field is required</p>}
       </label>
       {regions?.map(e => 
       <label key={e.id}>{e.name}
-        <input type="checkbox" value={e.name} key={e.id} id={e.name} {...register('regions')} />
+        <input disabled={successfullySubmitted} type="checkbox" value={e.name} key={e.id} id={e.name} {...register('regions')} />
       </label>)}    
-      <input type="submit" value="Надіслати" />
+      {directions?.map(e => 
+      <label key={e.id}>{e.name}
+        <input  disabled={successfullySubmitted} type="checkbox" value={e.name} key={e.id} id={e.name} {...register('professionalDirections')} />
+      </label>)}    
+      <input type="submit" value="Надіслати" hidden={successfullySubmitted} />   
     </form>
   );
 };
