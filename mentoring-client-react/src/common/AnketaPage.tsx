@@ -50,8 +50,8 @@ export const AnketaPage = () => {
       regions: [],
       professionalDirections: []
     };
-    data.regions.map(e => userApp.regions.push({id:0,name: e}))
-    data.professionalDirections.map(e => userApp.professionalDirections.push({id:0,name: e}))
+    if(data.regions) data.regions.map(e => userApp.regions.push({id:0,name: e}));
+    if(data.professionalDirections) data.professionalDirections.map(e => userApp.professionalDirections.push({id:0,name: e}));
     console.log(userApp);
     const result = await postUserApplication(userApp);
     console.log("result" + result);

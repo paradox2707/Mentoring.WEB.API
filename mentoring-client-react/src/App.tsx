@@ -1,7 +1,7 @@
 
 import React from 'react';
 import logo from './logo.svg';
-import { BrowserRouter, Routes, Route, NavLink, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import './App.css';
 import { Header } from './common/Header';
 import { HomePage } from './common/HomePage';
@@ -14,14 +14,14 @@ function App() {
   return (      
       <BrowserRouter>
         <Header />
-        <Routes>         
-          <Route path="/Universities/search" element={<UniversitiesListPage />} />
+        <Routes>          
           <Route path="/Universities">
             <UniversitiesListPage />
           </Route>          
           <Route path="/UniversitiesWithSpecialities">
             <UniversitiesWithSpecialitiesListPage />
           </Route>
+          <Route path="/Universities/search" element={<UniversitiesListPage />} />
           <Route path="/Specialities">
             <SpecialitiesListPage />
           </Route>
@@ -30,6 +30,9 @@ function App() {
           </Route>
           <Route path="">
             <HomePage />
+          </Route>
+          <Route path="*">
+            <Navigate to="/" />
           </Route>
         </Routes>
       </BrowserRouter>

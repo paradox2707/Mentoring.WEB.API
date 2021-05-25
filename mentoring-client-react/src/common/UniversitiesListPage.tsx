@@ -4,7 +4,27 @@ import { University } from '../interfaces/University';
 import { UniversitySearch } from '../common/UniversitySearchControl';
 import { useSearchParams } from 'react-router-dom';
 
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+      maxWidth: 1240,
+      backgroundColor: theme.palette.background.paper,
+      paddingLeft: theme.spacing(4),
+    },
+  }),
+);
+
 export const  UniversitiesListPage = () => {
+  const classes = useStyles();
   const [searchParams] = useSearchParams();
   const [universities, setUniversities] = React.useState<University[]>([]);
 
@@ -29,11 +49,24 @@ export const  UniversitiesListPage = () => {
   }, [search]);
 
     return(
-    <div>
-      <UniversitySearch></UniversitySearch>
-      <ul>
-        {universities.map(e => <li key={e.id.toString()}>{e.name}</li>)}
-      </ul>
+    <div className={classes.root}>
+      
+      <List component="nav" 
+            aria-label="main mailbox folders" 
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                УНІВЕРСИТЕТИ
+              </ListSubheader>
+          }>
+          <UniversitySearch></UniversitySearch>
+          {universities.map(e => 
+          <ListItem key={e.id.toString()} button>
+            <ListItemIcon>
+              <SchoolRoundedIcon />
+            </ListItemIcon>
+            <ListItemText primary={e.name} />
+          </ListItem>)}
+      </List>
     </div>
     );
 };
