@@ -8,5 +8,6 @@ namespace Mentoring.WEB.API.BLL.Interfaces
     {
         Task<IEnumerable<UniversityModel>> GetAllAsync();
         Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync();
+        Task<IEnumerable<UniversityModel>> GetAllByStartWithFilterForEveryWordAsync(string filter);
     }
 }

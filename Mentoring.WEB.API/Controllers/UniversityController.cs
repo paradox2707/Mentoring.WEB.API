@@ -24,10 +24,13 @@ namespace Mentoring.WEB.API.Controllers
 
         // GET: api/<University>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get()
+        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] string filter)
         {
             _logger.LogInformation("Call end-point all universities");
-            return Ok(await _universityService.GetAllAsync());
+            if(string.IsNullOrWhiteSpace(filter))
+                return Ok(await _universityService.GetAllAsync());
+            else
+                return Ok(await _universityService.GetAllByStartWithFilterForEveryWordAsync(filter));
         }
 
         // GET: api/<University>
