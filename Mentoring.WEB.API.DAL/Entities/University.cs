@@ -10,6 +10,12 @@ namespace Mentoring.WEB.API.DAL.Entities
 
         public string ExternalId { get; set; }
 
+        public bool IsGoverment { get; set; }
+
         public ICollection<Speciality> Specialities { get; set; }
+
+        public long RegionId { get; set; }
+
+        public Region Region { get; set; }
     }
 }

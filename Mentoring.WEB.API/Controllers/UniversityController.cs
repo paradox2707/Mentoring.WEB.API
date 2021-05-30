@@ -1,5 +1,6 @@
 ﻿using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
+using Mentoring.WEB.API.Common.FilterModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -24,13 +25,13 @@ namespace Mentoring.WEB.API.Controllers
 
         // GET: api/<University>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] string filter)
+        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] UniversityFilter filter)
         {
             _logger.LogInformation("Call end-point all universities");
-            if(string.IsNullOrWhiteSpace(filter))
-                return Ok(await _universityService.GetAllAsync());
+            if(filter.IsValid)
+                return Ok(await _universityService.GetAllByFilterAsync(filter));
             else
-                return Ok(await _universityService.GetAllByStartWithFilterForEveryWordAsync(filter));
+                return Ok(await _universityService.GetAllAsync());
         }
 
         // GET: api/<University>

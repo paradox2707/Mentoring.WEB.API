@@ -17,12 +17,12 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllAsync()
         {
-            return await _currentRepo.ToListAsync();
+            return await _currentRepo.Include(e => e.Region).ToListAsync();
         }
 
         public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
-            return await _currentRepo.Include(e => e.Specialities).ToListAsync();
+            return await _currentRepo.Include(e => e.Specialities).Include(e => e.Region).ToListAsync();
         }
     }
 }

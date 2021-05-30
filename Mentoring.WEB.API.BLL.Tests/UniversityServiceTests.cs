@@ -38,6 +38,8 @@ namespace Mentoring.WEB.API.BLL.Tests
                 Assert.AreEqual(expected[i].Id, actual[i].Id);
                 Assert.AreEqual(expected[i].Name, actual[i].Name);
                 Assert.AreEqual(expected[i].ShortName, actual[i].ShortName);
+                Assert.AreEqual(expected[i].IsGoverment, actual[i].IsGoverment);
+                Assert.AreEqual(expected[i].RegionName, actual[i].RegionName);
             }
         }
 
@@ -83,7 +85,14 @@ namespace Mentoring.WEB.API.BLL.Tests
         {
             return new List<University>
             {
-                new University { Id=1, Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", ShortName="КПІ ім. Ігоря Сікорського"}
+                new University { 
+                    Id=1, 
+                    Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", 
+                    ShortName="КПІ ім. Ігоря Сікорського", 
+                    IsGoverment=true,
+                    RegionId=1,
+                    Region= new Region{ Id=1, Name="West"}
+                }
             };
         }
 
@@ -91,7 +100,13 @@ namespace Mentoring.WEB.API.BLL.Tests
         {
             return new List<UniversityModel>
             {
-                new UniversityModel { Id=1, Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", ShortName="КПІ ім. Ігоря Сікорського"}
+                new UniversityModel { 
+                    Id=1, 
+                    Name="Національний технічний університет України «Київський політехнічний інститут імені Ігоря Сікорського»", 
+                    ShortName="КПІ ім. Ігоря Сікорського",
+                    IsGoverment=true,
+                    RegionName="West"
+                }
             };
         }
 
