@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import {InputBase,  IconButton, Paper } from '@material-ui/core';
+import {InputBase,  IconButton, Paper, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Region } from '../interfaces/Region';
+import { getRegions } from "../repository/RegionRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,9 +13,10 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '1px 4px',
       display: 'flex',
       alignItems: 'center',
-      width: 200,
+      width: 600,
       marginLeft: theme.spacing(8),
-      marginTop: theme.spacing(1)
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3)
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -31,6 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type FormData = {
     search: string;
+    isGov: boolean;
+    region: string;
   };
 
 export const UniversitySearch = () => {
@@ -38,12 +43,27 @@ export const UniversitySearch = () => {
     const { register, handleSubmit } = useForm<FormData>();
     const [searchParams] = useSearchParams();
     const criteria = searchParams.get('criteria') || '';
+    const criteriaRegion = searchParams.get('region') || '';
     const navigate = useNavigate();
-    const submitForm = ({ search }: FormData) => {
-      if (search == null || search.trim() === '')
+    const submitForm = (data: FormData) => {
+      console.log("in submit")
+      if (data == null)
         navigate(`/Universities`);
-      else navigate(`/Universities/search?criteria=${search}`);
+      else 
+      console.log("to navigate"); navigate(`/Universities/search?criteria=${data.search}&isgov=${data.isGov}&region=${data.region}`);
     };
+
+    const [region, setRegion] = React.useState(criteriaRegion);
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+      setRegion(event.target.value as string);
+    };
+
+    const [regions, setRegions] = React.useState<Region[]>([]);
+    React.useEffect(() => {
+      if(regions.length == 0) getRegions().then((result) =>
+        setRegions(result)
+      );
+    });
   
     return (
         <div>
@@ -56,6 +76,26 @@ export const UniversitySearch = () => {
               <IconButton type="submit"  aria-label="search">
                 <SearchIcon />
               </IconButton>
+
+              <InputLabel id="demo-simple-select-helper-label">Регіон</InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={region}
+                {...register('region')}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {regions.map(r => 
+                  <MenuItem value={r.name}>
+                    {r.name}
+                  </MenuItem>)}
+              </Select>
+              <Button type="submit"  aria-label="search">
+                Submit
+              </Button>
             </Paper>
         </div>
     );
