@@ -1,6 +1,7 @@
 import React from 'react';
 import { University } from '../interfaces/University';
 import { webAPIUrl } from '../AppSetting';
+import { UniversityFilter } from '../interfaces/UniversityFilter';
 
 export const getUniversities = async (): Promise<University[]> => {
     const request = new Request(`${webAPIUrl}/University`, {
@@ -36,14 +37,15 @@ export const getUniversities = async (): Promise<University[]> => {
     }
   };
 
-  export const filterUniversities = async (filter: string): Promise<University[]> => {
-    const request = new Request(`${webAPIUrl}/University?filter=${filter}`, {
+  export const filterUniversities = async (filter: UniversityFilter): Promise<University[]> => {
+    const request = new Request(`${webAPIUrl}/University?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&IsGoverment=${filter.isgov?? ''}`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
         },
         body: undefined,
       });
+    console.log(request);
     const result = await fetch(request);
     const body = await result.json();
     if (result.ok && body) {
