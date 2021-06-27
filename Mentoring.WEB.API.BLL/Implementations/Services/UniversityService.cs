@@ -7,6 +7,10 @@ using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
 using System.Linq;
 using System;
+using Mentoring.WEB.API.Common.FilterModels;
+using System.Linq.Expressions;
+using System.Reflection;
+using Mentoring.WEB.API.DAL.Filters;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
 {
@@ -30,8 +34,10 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
-        public async Task<IEnumerable<UniversityModel>> GetAllByStartWithFilterForEveryWordAsync(string filter)
+        public async Task<IEnumerable<UniversityModel>> GetAllByFilterAsync(UniversityFilter filter)
         {
+            var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterDao>(filter);
+            var daos = await _universityRepo.GetAllBySql(daoFilter);
             var daos = await _universityRepo.GetAllAsync();
             daos = GetUniversityByFilter(filter.TrimEnd().ToLower(), daos);
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
