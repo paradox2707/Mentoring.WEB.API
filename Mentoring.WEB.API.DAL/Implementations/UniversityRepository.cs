@@ -2,6 +2,7 @@
 using Mentoring.WEB.API.DAL.Filters;
 using Mentoring.WEB.API.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -34,6 +35,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
         {
             var neededEnd = false;
             var sqlParametrs = new List<object>();
+            var orderOfStringParamentrs = 0;
             var result = @"SELECT [Universities].[Id] as Id
                 , [Universities].[ExternalId] as ExternalId
                 , [Universities].[IsGoverment] as IsGoverment
@@ -42,8 +44,11 @@ namespace Mentoring.WEB.API.DAL.Implementations
                 , [Universities].[ShortName] as ShortName  FROM Universities ";
             if (filter.Region != null)
             {
-                result += "INNER JOIN (SELECT * FROM Regions WHERE [Name] = {0}) as RegionTbl on RegionTbl.Id = Universities.RegionId";
+                result += "INNER JOIN (SELECT * FROM Regions WHERE [Name] = {" +
+                    $"{orderOfStringParamentrs}" +
+                    "}) as RegionTbl on RegionTbl.Id = Universities.RegionId";
                 sqlParametrs.Add(filter.Region);
+                orderOfStringParamentrs++;
             }
 
             result += filter.NeededConditionce ? " WHERE " : string.Empty; 
@@ -52,16 +57,20 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 result += neededEnd ? sqlAnd : string.Empty;
                 neededEnd = true;
-                result += "Universities.[Name] Like CONCAT(CONCAT('%',{1}),'%') ";
+                result += "Universities.[Name] Like CONCAT(CONCAT('%',{" +
+                    $"{orderOfStringParamentrs}" +
+                    "}),'%') ";
                 sqlParametrs.Add(filter.SearchText);
+                orderOfStringParamentrs++;
             }
 
             if (filter.IsGoverment.HasValue)
             {
                 result += neededEnd ? sqlAnd : string.Empty;
                 neededEnd = true;
-                result += "Universities.[IsGoverment] = {2} ";
+                result += "Universities.[IsGoverment] = {" + $"{orderOfStringParamentrs}" + "} ";
                 sqlParametrs.Add(Convert.ToInt32(filter.IsGoverment.Value));
+                orderOfStringParamentrs++;
             }
 
             return await _currentRepo.FromSqlInterpolated(FormattableStringFactory.Create(result, sqlParametrs.ToArray())).Include(e => e.Region).ToListAsync();

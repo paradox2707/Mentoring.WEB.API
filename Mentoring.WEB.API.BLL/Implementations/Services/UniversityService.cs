@@ -38,8 +38,6 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         {
             var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterDao>(filter);
             var daos = await _universityRepo.GetAllBySql(daoFilter);
-            var daos = await _universityRepo.GetAllAsync();
-            daos = GetUniversityByFilter(filter.TrimEnd().ToLower(), daos);
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
