@@ -69,6 +69,7 @@ export const AnketaPage = () => {
         />
         {errors.firstName?.type === "required" && <p>This field is required</p>}
       </label>
+      <br />
       <label>Прізвище:
         <input
           id="secondName"
@@ -78,6 +79,7 @@ export const AnketaPage = () => {
         />
         {errors.secondName?.type === "required" && <p>This field is required</p>}
       </label>
+      <br />
       <label>Телефон:
         <input
           id="phoneNumber"
@@ -87,6 +89,7 @@ export const AnketaPage = () => {
         />
         {errors.phoneNumber?.type === "required" && <p>This field is required</p>}
       </label>
+      <br />
       <label>Середній бал ЗНО:
         <input
           id="averageMark"
@@ -94,16 +97,19 @@ export const AnketaPage = () => {
           disabled={successfullySubmitted}
           {...register('averageMark', { required: true })} 
         />
-        {errors.averageMark?.type === "required" && <p>This field is required</p>}
+        {errors.averageMark?.type === "required" && <p>This field is required</p>} 
       </label>
+      <br /> 
       {regions?.map(e => 
       <label key={e.id}>{e.name}
         <input disabled={successfullySubmitted} type="checkbox" value={e.name} key={e.id} id={e.name} {...register('regions')} />
       </label>)}    
+      <br />
       {directions?.map(e => 
       <label key={e.id}>{e.name}
         <input  disabled={successfullySubmitted} type="checkbox" value={e.name} key={e.id} id={e.name} {...register('professionalDirections')} />
       </label>)}    
+      <br />
       <input type="submit" value="Надіслати" hidden={successfullySubmitted} />   
     </form>
   );

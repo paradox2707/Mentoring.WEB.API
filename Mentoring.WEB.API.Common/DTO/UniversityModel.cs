@@ -10,6 +10,10 @@ namespace Mentoring.WEB.API.Common.DTO
 
         public string ShortName { get; set; }
 
+        public bool IsGoverment { get; set; }
+
+        public string RegionName { get; set; }
+
         public List<SpecialityModel> Specialities{ get; set; }
     }
 }

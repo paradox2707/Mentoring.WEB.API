@@ -2,7 +2,6 @@
 using Mentoring.WEB.API.DAL.Filters;
 using Mentoring.WEB.API.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -70,7 +69,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
-            return await _currentRepo.Include(e => e.Specialities).Include(e => e.Region).ToListAsync();
+            return await _currentRepo.Include(e => e.Specialities).ToListAsync();
         }
     }
 }

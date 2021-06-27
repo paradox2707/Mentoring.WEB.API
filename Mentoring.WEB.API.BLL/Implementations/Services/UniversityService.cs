@@ -43,13 +43,6 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
-        private static List<University> GetUniversityByFilter(string filter, List<University> daos) => 
-            daos.Where(e => e.Name.ToLower().Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
-            || e.Name.ToLower().StartsWith(filter)
-            || e.ShortName.ToLower().Split(new string[] { " ", "  ", "   ", "\t" }, StringSplitOptions.RemoveEmptyEntries).Any(word => word.StartsWith(filter))
-            || e.ShortName.ToLower().StartsWith(filter))
-            .ToList();
-
         public async Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync()
         {
             var daos = await _universityRepo.GetAllWithSpecialiesAsync();

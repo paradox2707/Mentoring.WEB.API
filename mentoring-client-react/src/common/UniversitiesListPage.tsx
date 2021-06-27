@@ -1,6 +1,7 @@
 import React from 'react';
 import { getUniversities, filterUniversities } from '../repository/UniversityRepository';
 import { University } from '../interfaces/University';
+import { UniversityFilter } from '../interfaces/UniversityFilter';
 import { UniversitySearch } from '../common/UniversitySearchControl';
 import { useSearchParams } from 'react-router-dom';
 
@@ -23,30 +24,40 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
+
 export const  UniversitiesListPage = () => {
   const classes = useStyles();
   const [searchParams] = useSearchParams();
   const [universities, setUniversities] = React.useState<University[]>([]);
 
-  const search = searchParams.get('criteria') || '';
+  const searchText = searchParams.get('text') || '';
+  console.log("in root")
+  var filter: any = {};
+  searchParams.forEach((value, key) => {
+    filter[key] = value === "undefined" ? "" : value;
+  });
 
   React.useEffect(() => {
     let cancelled = false;
-    const doSearch = async (criteria: string) => {
-      const foundResults = await filterUniversities(criteria);
+    const doSearch = async (filter: UniversityFilter) => {
+      const foundResults = await filterUniversities(filter);
       if (!cancelled) {
         setUniversities(foundResults);
       }
     };
 
-    if(search == null || search.trim() === '')
-      getUniversities().then((result) => setUniversities(result));
-    else doSearch(search);
+    
+    console.log(filter);
+    // if(search == null || search.trim() === '')
+    //   getUniversities().then((result) => setUniversities(result));
+    // else 
+    doSearch(filter as UniversityFilter);
     
     return () => {
       cancelled = true;
     };
-  }, [search]);
+  }, [searchParams]);
 
     return(
     <div className={classes.root}>
