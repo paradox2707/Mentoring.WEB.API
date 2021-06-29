@@ -38,7 +38,7 @@ export const getUniversities = async (): Promise<University[]> => {
   };
 
   export const filterUniversities = async (filter: UniversityFilter): Promise<University[]> => {
-    const request = new Request(`${webAPIUrl}/University?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&IsGoverment=${filter.isgov?? ''}`, {
+    const request = new Request(`${webAPIUrl}/University?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&IsGoverment=${filter.isgov?? ''}&Conjunction=${filter.conjunction?? ''}`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',

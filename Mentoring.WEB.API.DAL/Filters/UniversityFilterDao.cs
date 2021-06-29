@@ -12,6 +12,8 @@ namespace Mentoring.WEB.API.DAL.Filters
 
         public string Region { get; set; }
 
+        public string Conjunction { get; set; }
+
         public bool? IsGoverment { get; set; }
 
         public bool NeededConditionce => Region != null || IsGoverment.HasValue;

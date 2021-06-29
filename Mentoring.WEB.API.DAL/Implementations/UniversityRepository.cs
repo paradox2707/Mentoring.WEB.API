@@ -13,7 +13,6 @@ namespace Mentoring.WEB.API.DAL.Implementations
 {
     public class UniversityRepository : IUniversityRepository
     {
-        private const string sqlAnd = " AND ";
         private readonly DbSet<University> _currentRepo;
 
         public UniversityRepository(UnitedAppContext context)
@@ -33,7 +32,8 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllBySql(UniversityFilterDao filter)
         {
-            var neededEnd = false;
+            var conjunction = $" {filter.Conjunction} ";
+            var neededConjunction = false;
             var sqlParametrs = new List<object>();
             var orderOfStringParamentrs = 0;
             var result = @"SELECT [Universities].[Id] as Id
@@ -42,6 +42,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
                 , [Universities].[Name] as Name
                 , [Universities].[RegionId] as RegionId
                 , [Universities].[ShortName] as ShortName  FROM Universities ";
+
             if (filter.Region != null)
             {
                 result += "INNER JOIN (SELECT * FROM Regions WHERE [Name] = {" +
@@ -55,8 +56,8 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
             if (filter.SearchText != null)
             {
-                result += neededEnd ? sqlAnd : string.Empty;
-                neededEnd = true;
+                result += neededConjunction ? conjunction : string.Empty;
+                neededConjunction = true;
                 result += "Universities.[Name] Like CONCAT(CONCAT('%',{" +
                     $"{orderOfStringParamentrs}" +
                     "}),'%') ";
@@ -66,8 +67,8 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
             if (filter.IsGoverment.HasValue)
             {
-                result += neededEnd ? sqlAnd : string.Empty;
-                neededEnd = true;
+                result += neededConjunction ? conjunction : string.Empty;
+                neededConjunction = true;
                 result += "Universities.[IsGoverment] = {" + $"{orderOfStringParamentrs}" + "} ";
                 sqlParametrs.Add(Convert.ToInt32(filter.IsGoverment.Value));
                 orderOfStringParamentrs++;
