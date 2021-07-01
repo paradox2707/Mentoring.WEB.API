@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type FormData = {
+interface IFormInput {
     search: string;
     isgov: any;
     region: string;
@@ -46,14 +46,14 @@ type FormData = {
 
 export const UniversitySearch = () => {
     const classes = useStyles();
-    const { register, handleSubmit } = useForm<FormData>({defaultValues: {conjunction: 'AND'}});
+    const { register, handleSubmit, watch } = useForm<IFormInput>({defaultValues: {conjunction: 'AND'}});//{defaultValues: {conjunction: 'AND'}}
     const [searchParams] = useSearchParams();
     const criteriaSearchText = searchParams.get('text') || '';
     const criteriaRegion = searchParams.get('region') || '';
     const criteriaGoverment = searchParams.get('isgov') || false;
-    const criteriaConjunction = searchParams.get('condition') || 'AND';
+    const criteriaConjunction = searchParams.get('conjunction') || 'AND';
     const navigate = useNavigate();
-    const submitForm = (data: FormData) => {
+    const submitForm = (data: IFormInput) => {
       console.log("in submit")
       console.log(data);
       if (data == null)

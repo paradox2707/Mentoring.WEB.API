@@ -13,6 +13,14 @@ namespace Mentoring.WEB.API.DAL.Implementations
 {
     public class UniversityRepository : IUniversityRepository
     {
+        private const string fieldsOfUniversitiesForQuery =
+            @"SELECT [Universities].[Id] as Id
+                , [Universities].[ExternalId] as ExternalId
+                , [Universities].[IsGoverment] as IsGoverment
+                , [Universities].[Name] as Name
+                , [Universities].[RegionId] as RegionId
+                , [Universities].[ShortName] as ShortName  FROM Universities ";
+
         private readonly DbSet<University> _currentRepo;
 
         public UniversityRepository(UnitedAppContext context)
@@ -30,52 +38,64 @@ namespace Mentoring.WEB.API.DAL.Implementations
             return await _currentRepo.Include(e => e.Region).Where(expression).ToListAsync();
         }
 
-        public async Task<List<University>> GetAllBySql(UniversityFilterDao filter)
+        public async Task<List<University>> GetAllBySql(UniversityFilterDao filter) => 
+            await _currentRepo
+            .FromSqlInterpolated(CreateQueryWithConditional(filter))
+            .Include(e => e.Region)
+            .ToListAsync();
+
+        private static FormattableString CreateQueryWithConditional(UniversityFilterDao filter)
         {
-            var conjunction = $" {filter.Conjunction} ";
-            var neededConjunction = false;
+            var sqlQuery = string.Empty;
+            var neededConjunction = false;     
+            var orderOfStringParamentrs = 0; 
             var sqlParametrs = new List<object>();
-            var orderOfStringParamentrs = 0;
-            var result = @"SELECT [Universities].[Id] as Id
-                , [Universities].[ExternalId] as ExternalId
-                , [Universities].[IsGoverment] as IsGoverment
-                , [Universities].[Name] as Name
-                , [Universities].[RegionId] as RegionId
-                , [Universities].[ShortName] as ShortName  FROM Universities ";
 
             if (filter.Region != null)
             {
-                result += "INNER JOIN (SELECT * FROM Regions WHERE [Name] = {" +
-                    $"{orderOfStringParamentrs}" +
-                    "}) as RegionTbl on RegionTbl.Id = Universities.RegionId";
+                sqlQuery = fieldsOfUniversitiesForQuery + GetQueryForRegions(ref orderOfStringParamentrs);
                 sqlParametrs.Add(filter.Region);
-                orderOfStringParamentrs++;
+                sqlQuery += filter.Conjunction.ToLower() == "or" 
+                    ? $" UNION {fieldsOfUniversitiesForQuery}" 
+                    : string.Empty;
+            }
+            else
+            {
+                sqlQuery = fieldsOfUniversitiesForQuery;
             }
 
-            result += filter.NeededConditionce ? " WHERE " : string.Empty; 
+            sqlQuery += filter.NeededCondition ? " WHERE " : string.Empty;
 
             if (filter.SearchText != null)
             {
-                result += neededConjunction ? conjunction : string.Empty;
-                neededConjunction = true;
-                result += "Universities.[Name] Like CONCAT(CONCAT('%',{" +
-                    $"{orderOfStringParamentrs}" +
-                    "}),'%') ";
+                var textForConditional = $"Universities.[Name] Like CONCAT(CONCAT('%', {{{orderOfStringParamentrs++}}} ),'%') ";
+                sqlQuery += PrepareConditionalForQuery(textForConditional, filter.ConjunctionForQuery, ref neededConjunction);
                 sqlParametrs.Add(filter.SearchText);
-                orderOfStringParamentrs++;
             }
 
             if (filter.IsGoverment.HasValue)
             {
-                result += neededConjunction ? conjunction : string.Empty;
-                neededConjunction = true;
-                result += "Universities.[IsGoverment] = {" + $"{orderOfStringParamentrs}" + "} ";
+                var textForConditional = $"Universities.[IsGoverment] = {{{orderOfStringParamentrs++}}} ";
+                sqlQuery += PrepareConditionalForQuery(textForConditional, filter.ConjunctionForQuery, ref neededConjunction);
                 sqlParametrs.Add(Convert.ToInt32(filter.IsGoverment.Value));
-                orderOfStringParamentrs++;
             }
 
-            return await _currentRepo.FromSqlInterpolated(FormattableStringFactory.Create(result, sqlParametrs.ToArray())).Include(e => e.Region).ToListAsync();
+            return FormattableStringFactory.Create(sqlQuery, sqlParametrs.ToArray());
         }
+
+        private static string PrepareConditionalForQuery(string textForConditional, string conjunction, ref bool neededConjunction)
+        {
+            var conditional = neededConjunction ? conjunction : string.Empty; 
+            conditional += textForConditional;
+            neededConjunction = true;
+            return conditional;
+        }
+
+        private static string GetQueryForRegions(ref int orderOfStringParamentrs) => 
+            "INNER JOIN (SELECT * FROM Regions WHERE [Name] = {" +
+                $"{orderOfStringParamentrs++}" +
+                "}) as RegionTbl on RegionTbl.Id = Universities.RegionId";
+
 
         public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
