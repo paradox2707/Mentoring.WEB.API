@@ -37,32 +37,39 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type FormData = {
+interface IFormInput {
     search: string;
     isgov: any;
     region: string;
+    conjunction: string;
   };
 
 export const UniversitySearch = () => {
     const classes = useStyles();
-    const { register, handleSubmit } = useForm<FormData>();
+    const { register, handleSubmit, watch } = useForm<IFormInput>({defaultValues: {conjunction: 'AND'}});//{defaultValues: {conjunction: 'AND'}}
     const [searchParams] = useSearchParams();
     const criteriaSearchText = searchParams.get('text') || '';
     const criteriaRegion = searchParams.get('region') || '';
     const criteriaGoverment = searchParams.get('isgov') || false;
+    const criteriaConjunction = searchParams.get('conjunction') || 'AND';
     const navigate = useNavigate();
-    const submitForm = (data: FormData) => {
+    const submitForm = (data: IFormInput) => {
       console.log("in submit")
       console.log(data);
       if (data == null)
         navigate(`/Universities`);
       else 
-      console.log("to navigate"); navigate(`/Universities/search?text=${data.search ?? ""}&isgov=${data.isgov}&region=${data.region}`);
+      console.log("to navigate"); navigate(`/Universities/search?text=${data.search ?? ""}&isgov=${data.isgov}&region=${data.region}&conjunction=${data.conjunction}`);
     };
 
     const [region, setRegion] = React.useState(criteriaRegion);
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChangeRegion = (event: React.ChangeEvent<{ value: unknown }>) => {
       setRegion(event.target.value as string);
+    };
+
+    const [conjunction, setConjunction] = React.useState(criteriaConjunction);
+    const handleChangeConjunction = (event: React.ChangeEvent<{ value: unknown }>) => {
+      setConjunction(event.target.value as string);
     };
 
     const [regions, setRegions] = React.useState<Region[]>([]);
@@ -91,7 +98,7 @@ export const UniversitySearch = () => {
                 id="demo-simple-select-helper"
                 value={region}
                 {...register('region')}
-                onChange={handleChange}
+                onChange={handleChangeRegion}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -109,6 +116,21 @@ export const UniversitySearch = () => {
                 control={<input type="checkbox" {...register('isgov')} />}
                 label="державний"
               />
+              <InputLabel id="demo-simple-select-helper-label">Тип умови</InputLabel>
+              <Select className={classes.select}
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={conjunction}
+                {...register('conjunction')}
+                onChange={handleChangeConjunction}
+              >
+                <MenuItem value="AND">
+                  <em>ТА</em>
+                </MenuItem>
+                <MenuItem value="OR">
+                  <em>АБО</em>
+                </MenuItem>
+              </Select>
               {/* <input type="checkbox" value={"true"} {...register('isgov')} /> */}
               <Button type="submit"  aria-label="search">
                 Submit

@@ -10,6 +10,7 @@ using System;
 using Mentoring.WEB.API.Common.FilterModels;
 using System.Linq.Expressions;
 using System.Reflection;
+using Mentoring.WEB.API.DAL.Filters;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
 {
@@ -35,8 +36,8 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
 
         public async Task<IEnumerable<UniversityModel>> GetAllByFilterAsync(UniversityFilter filter)
         {
-            var filterExpression = CreateFilterExpressionForUniversity(filter);
-            var daos = await _universityRepo.GetAllByAsync(filterExpression);
+            var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterDao>(filter);
+            var daos = await _universityRepo.GetAllBySql(daoFilter);
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 
@@ -45,62 +46,6 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             var daos = await _universityRepo.GetAllWithSpecialiesAsync();
 
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
-        }
-
-        private Expression<Func<University, bool>> CreateFilterExpressionForUniversity(UniversityFilter filter)
-        {
-            // univer =>
-            ParameterExpression inputEntity = Expression.Parameter(typeof(University), "univer");
-            Expression predicateBody = Expression.Empty();
-            var conditionsList = new List<Expression>();
-
-            // univer.ToLower().Contains(filter.SearchText.ToLower())
-            if (!string.IsNullOrWhiteSpace(filter.SearchText))
-            {
-                Expression leftProp = Expression.Property(inputEntity, typeof(University).GetProperty("Name"));
-                Expression leftCall = Expression.Call(leftProp, typeof(string).GetMethod("ToLower", System.Type.EmptyTypes));
-                Expression right = Expression.Constant(filter.SearchText.ToLower());
-
-                MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-
-                var exp = Expression.Call(leftCall, method, right);
-                conditionsList.Add(exp);
-            }
-
-            // univer.Region.Name.ToLower() == filter.Region.ToLower()
-            if (!string.IsNullOrWhiteSpace(filter.Region) && filter.Region != "Вся Україна")
-            {
-                Expression leftProp = Expression.Property(inputEntity, typeof(University).GetProperty("Region"));
-                Expression leftPropValue = Expression.Property(leftProp, typeof(Region).GetProperty("Name"));
-                Expression leftCall = Expression.Call(leftPropValue, typeof(string).GetMethod("ToLower", System.Type.EmptyTypes));
-                Expression right = Expression.Constant(filter.Region.ToLower());
-                Expression exp = Expression.Equal(leftCall, right);
-                conditionsList.Add(exp);
-            }
-
-            // univer.IsGoverment == true
-            if (filter.IsGoverment.GetValueOrDefault())
-            {
-                Expression leftProp = Expression.Property(inputEntity, typeof(University).GetProperty("IsGoverment"));
-                Expression right = Expression.Constant(true);
-                Expression exp = Expression.Equal(leftProp, right);
-                conditionsList.Add(exp);
-            }
-
-            if (!conditionsList.Any())
-                predicateBody = Expression.Constant(true);
-
-            foreach (var conditionItem in conditionsList)
-            {
-                if (conditionsList.First() == conditionItem)
-                {
-                    predicateBody = conditionItem;
-                    continue;
-                }
-                predicateBody = Expression.AndAlso(predicateBody, conditionItem);
-            }
-
-            return Expression.Lambda<Func<University, bool>>(predicateBody, new ParameterExpression[] { inputEntity });
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring.WEB.API.Common.FilterModels
+namespace Mentoring.WEB.API.DAL.Filters
 {
-    public class UniversityFilter
+    public class UniversityFilterDao
     {
         public string SearchText { get; set; }
 
@@ -16,6 +16,8 @@ namespace Mentoring.WEB.API.Common.FilterModels
 
         public bool? IsGoverment { get; set; }
 
-        public bool IsValid => (SearchText != null || Region != null || IsGoverment != null) && (Conjunction == "AND" || Conjunction == "OR");
+        public bool NeededCondition => Region != null || IsGoverment.HasValue;
+
+        public string ConjunctionForQuery => $" {Conjunction} ";
     }
 }
