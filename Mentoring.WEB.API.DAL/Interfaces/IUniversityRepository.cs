@@ -12,6 +12,6 @@ namespace Mentoring.WEB.API.DAL.Interfaces
         Task<List<University>> GetAllAsync();
         Task<List<University>> GetAllWithSpecialiesAsync();
         Task<List<University>> GetAllByAsync(Expression<Func<University, bool>> expression);
-        Task<List<University>> GetAllBySql(UniversityFilterDao filter);
+        Task<List<University>> GetAllBySql(UniversityFilterForSql filter);
     }
 }
