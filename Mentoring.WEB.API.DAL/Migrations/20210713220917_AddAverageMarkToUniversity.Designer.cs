@@ -3,14 +3,16 @@ using Mentoring.WEB.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mentoring.WEB.API.DAL.Migrations
 {
     [DbContext(typeof(UnitedAppContext))]
-    partial class UnitedAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210713220917_AddAverageMarkToUniversity")]
+    partial class AddAverageMarkToUniversity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +254,7 @@ namespace Mentoring.WEB.API.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            AverageMark = 182m,
+                            AverageMark = 0m,
                             IsGoverment = true,
                             Name = "Академія зовнішньої розвідки України",
                             RegionId = 2L,
@@ -261,7 +263,7 @@ namespace Mentoring.WEB.API.DAL.Migrations
                         new
                         {
                             Id = 2L,
-                            AverageMark = 175m,
+                            AverageMark = 0m,
                             IsGoverment = true,
                             Name = "Академія праці, соціальних відносин і туризму",
                             RegionId = 2L,
@@ -270,7 +272,7 @@ namespace Mentoring.WEB.API.DAL.Migrations
                         new
                         {
                             Id = 3L,
-                            AverageMark = 170m,
+                            AverageMark = 0m,
                             IsGoverment = false,
                             Name = "Вищий навчальний заклад \"Київська Академія перукарського мистецтва\"",
                             RegionId = 6L,
@@ -279,7 +281,7 @@ namespace Mentoring.WEB.API.DAL.Migrations
                         new
                         {
                             Id = 4L,
-                            AverageMark = 180m,
+                            AverageMark = 0m,
                             IsGoverment = true,
                             Name = "Вищий навчальний заклад \"Київський економічний інститут менеджменту\" у формі Товариства з обмеженою відповідальністю",
                             RegionId = 6L,

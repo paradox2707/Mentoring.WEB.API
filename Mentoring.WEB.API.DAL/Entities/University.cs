@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mentoring.WEB.API.DAL.Entities
 {
@@ -11,6 +12,9 @@ namespace Mentoring.WEB.API.DAL.Entities
         public string ExternalId { get; set; }
 
         public bool IsGoverment { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal AverageMark { get; set; }
 
         public ICollection<Speciality> Specialities { get; set; }
 
