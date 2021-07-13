@@ -44,7 +44,7 @@ namespace Mentoring.WEB.API.DAL.Filters
             var result = new Dictionary<string, string>();
             if (!string.IsNullOrWhiteSpace(SearchText)) result.Add("[SearchTextNumberForParameter]", SearchText);
             if (!string.IsNullOrWhiteSpace(Region)) result.Add("[RegionNumberForParameter]", Region);
-            if (!string.IsNullOrWhiteSpace(Region)) result.Add("[IsGovermentNumberForParameter]", IsGoverment.ToString());
+            if (IsGoverment != null) result.Add("[IsGovermentNumberForParameter]", IsGoverment.ToString());
 
             return result;
         }
