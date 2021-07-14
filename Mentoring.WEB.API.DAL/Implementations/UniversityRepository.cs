@@ -30,18 +30,44 @@ namespace Mentoring.WEB.API.DAL.Implementations
             return await _currentRepo.Include(e => e.Region).Where(expression).ToListAsync();
         }
 
-        public async Task<List<University>> GetAllBySql(UniversityFilterForSql filter) => 
+        public async Task<List<University>> GetAllBySql(UniversityFilterInSql filter) =>
             await _currentRepo
             .FromSqlInterpolated(CreateQueryWithConditional(filter))
             .Include(e => e.Region)
             .ToListAsync();
+
+        public async Task<List<University>> GetAllForUserUniversityBySql(UniversityFilterForUserApplicationInSql filter) =>
+            await _currentRepo
+            .FromSqlInterpolated(CreateQueryWithConditionalForUserApplication(filter))
+            .Include(e => e.Region)
+            .ToListAsync();
+
+        private FormattableString CreateQueryWithConditionalForUserApplication(UniversityFilterForUserApplicationInSql filter)
+        {
+            string sqlQuery = $@"
+                SELECT 
+                  [Universities].[Id] as Id
+                , [Universities].[ExternalId] as ExternalId
+                , [Universities].[IsGoverment] as IsGoverment
+                , [Universities].[Name] as Name
+                , [Universities].[RegionId] as RegionId
+                , [Universities].[ShortName] as ShortName 
+                , [Universities].[AverageMark] as AverageMark
+                FROM Universities
+                INNER JOIN (SELECT * FROM Regions 
+                WHERE [Name] IN ({filter.GetFormatNumbersForSqlQuery()})
+                ) as RegionTbl ON RegionTbl.Id = Universities.RegionId
+                WHERE AverageMark <= {{{filter.ParameterNumberForAvarageMark}}}";
+
+            return FormattableStringFactory.Create(sqlQuery, filter.GetParametersForSql());
+        }
 
         public async Task<List<University>> GetAllWithSpecialiesAsync()
         {
             return await _currentRepo.Include(e => e.Specialities).ToListAsync();
         }
 
-        private static FormattableString CreateQueryWithConditional(UniversityFilterForSql filter)
+        private static FormattableString CreateQueryWithConditional(UniversityFilterInSql filter)
         {
             string sqlQuery;
             if (filter.ComplexQuery)

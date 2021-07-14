@@ -17,7 +17,8 @@ namespace Mentoring.WEB.API.Common
                 .ForMember(dist => dist.Regions, opt => opt.Ignore());
             CreateMap<Region, RegionModel>().ReverseMap();
             CreateMap<ProfessionalDirection, ProfessionalDirectionModel>().ReverseMap();
-            CreateMap<UniversityFilter, UniversityFilterForSql>().ReverseMap();
+            CreateMap<UniversityFilter, UniversityFilterInSql>().ReverseMap();
+            CreateMap<UniversityFilterForUserApplication, UniversityFilterForUserApplicationInSql>().ReverseMap();
         }
     }
 }

@@ -16,6 +16,6 @@ namespace Mentoring.WEB.API.Common.FilterModels
 
         public bool? IsGoverment { get; set; }
 
-        public bool IsValid => (SearchText != null || Region != null || IsGoverment != null) && (Conjunction == "AND" || Conjunction == "OR");
+        public bool Active => (SearchText != null || Region != null || IsGoverment != null) && (Conjunction == "AND" || Conjunction == "OR");
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Filters
 {
-    public class UniversityFilterForSql
+    public class UniversityFilterInSql
     {
         public string SearchText { get; set; }
 

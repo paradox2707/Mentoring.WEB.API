@@ -28,10 +28,18 @@ namespace Mentoring.WEB.API.Controllers
         public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] UniversityFilter filter)
         {
             _logger.LogInformation("Call end-point all universities");
-            if(filter.IsValid)
+            if(filter.Active)
                 return Ok(await _universityService.GetAllByFilterAsync(filter));
             else
                 return Ok(await _universityService.GetAllAsync());
+        }
+
+        // GET: api/<University>
+        [HttpGet]
+        [Route("UserApplication")]
+        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] UniversityFilterForUserApplication filter)
+        {
+            return Ok(await _universityService.GetAllForUserApplicationByFilterAsync(filter));
         }
 
         // GET: api/<University>
