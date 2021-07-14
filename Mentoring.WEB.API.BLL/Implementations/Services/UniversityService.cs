@@ -36,8 +36,15 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
 
         public async Task<IEnumerable<UniversityModel>> GetAllByFilterAsync(UniversityFilter filter)
         {
-            var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterDao>(filter);
+            var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterInSql>(filter);
             var daos = await _universityRepo.GetAllBySql(daoFilter);
+            return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
+        }
+
+        public async Task<IEnumerable<UniversityModel>> GetAllForUserApplicationByFilterAsync(UniversityFilterForUserApplication filter)
+        {
+            var daoFilter = _mapper.Map<UniversityFilterForUserApplication, UniversityFilterForUserApplicationInSql>(filter);
+            var daos = await _universityRepo.GetAllForUserUniversityBySql(daoFilter);
             return _mapper.Map<List<University>, IEnumerable<UniversityModel>>(daos);
         }
 

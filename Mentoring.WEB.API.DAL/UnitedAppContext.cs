@@ -19,10 +19,10 @@ namespace Mentoring.WEB.API.DAL
             modelBuilder.Entity<University>().HasData(
                 new University[]
                 {
-                    new University { Id=1L, Name="Академія зовнішньої розвідки України", ShortName="AЗРУ", IsGoverment=true, RegionId=2L },
-                    new University { Id=2L, Name="Академія праці, соціальних відносин і туризму", ShortName="АПСВТ", IsGoverment=true, RegionId=2L },
-                    new University { Id=3L, Name="Вищий навчальний заклад \"Київська Академія перукарського мистецтва\"", ShortName="ВНЗ \"КАПМ\"", IsGoverment=false, RegionId=6L },
-                    new University { Id=4L, Name="Вищий навчальний заклад \"Київський економічний інститут менеджменту\" у формі Товариства з обмеженою відповідальністю", ShortName="КЕІМ", IsGoverment=true, RegionId=6L },
+                    new University { Id=1L, Name="Академія зовнішньої розвідки України", ShortName="AЗРУ", IsGoverment=true, AverageMark=182, RegionId=2L },
+                    new University { Id=2L, Name="Академія праці, соціальних відносин і туризму", ShortName="АПСВТ", IsGoverment=true, AverageMark=175, RegionId=2L },
+                    new University { Id=3L, Name="Вищий навчальний заклад \"Київська Академія перукарського мистецтва\"", ShortName="ВНЗ \"КАПМ\"", IsGoverment=false, AverageMark=170, RegionId=6L },
+                    new University { Id=4L, Name="Вищий навчальний заклад \"Київський економічний інститут менеджменту\" у формі Товариства з обмеженою відповідальністю", ShortName="КЕІМ", IsGoverment=true, AverageMark=180, RegionId=6L },
                 }
                 );
             modelBuilder.Entity<Speciality>().HasData(

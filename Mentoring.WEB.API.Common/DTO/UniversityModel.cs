@@ -10,6 +10,8 @@ namespace Mentoring.WEB.API.Common.DTO
 
         public string ShortName { get; set; }
 
+        public decimal AverageMark { get; set; }
+
         public bool IsGoverment { get; set; }
 
         public string RegionName { get; set; }
