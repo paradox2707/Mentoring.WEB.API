@@ -32,17 +32,17 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<University>> GetAllBySql(UniversityFilterInSql filter) =>
             await _currentRepo
-            .FromSqlInterpolated(CreateQueryWithConditional(filter))
+            .FromSqlInterpolated(CreateQueryWithConditions(filter))
             .Include(e => e.Region)
             .ToListAsync();
 
         public async Task<List<University>> GetAllForUserUniversityBySql(UniversityFilterForUserApplicationInSql filter) =>
             await _currentRepo
-            .FromSqlInterpolated(CreateQueryWithConditionalForUserApplication(filter))
+            .FromSqlInterpolated(CreateQueryWithConditionsForUserApplication(filter))
             .Include(e => e.Region)
             .ToListAsync();
 
-        private FormattableString CreateQueryWithConditionalForUserApplication(UniversityFilterForUserApplicationInSql filter)
+        private FormattableString CreateQueryWithConditionsForUserApplication(UniversityFilterForUserApplicationInSql filter)
         {
             string sqlQuery = $@"
                 SELECT 
@@ -67,7 +67,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             return await _currentRepo.Include(e => e.Specialities).ToListAsync();
         }
 
-        private static FormattableString CreateQueryWithConditional(UniversityFilterInSql filter)
+        private static FormattableString CreateQueryWithConditions(UniversityFilterInSql filter)
         {
             string sqlQuery;
             if (filter.ComplexQuery)
