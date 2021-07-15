@@ -28,7 +28,9 @@ namespace Mentoring.WEB.API.DAL.Filters
             , [Universities].[IsGoverment] as IsGoverment
             , [Universities].[Name] as Name
             , [Universities].[RegionId] as RegionId
-            , [Universities].[ShortName] as ShortName FROM Universities ";
+            , [Universities].[ShortName] as ShortName
+            , [Universities].[AverageMark] as AverageMark
+            FROM Universities ";
 
         public string RegionConditionForSqlInnerJoinApproach =>
             @$"INNER JOIN (SELECT * FROM Regions 
