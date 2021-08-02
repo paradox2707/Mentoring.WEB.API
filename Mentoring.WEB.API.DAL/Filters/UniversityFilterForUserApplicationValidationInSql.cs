@@ -20,10 +20,14 @@ namespace Mentoring.WEB.API.DAL.Filters
         }
 
         public string FormatNumbersForRegionsForSqlQuery => 
-            ConstructFormatNumberForSqlQuery(0, Regions);
+            !string.IsNullOrWhiteSpace(ConstructFormatNumberForSqlQuery(0, Regions)) 
+                ? ConstructFormatNumberForSqlQuery(0, Regions)
+                : @"''";
 
         public string FormatNumbersForProfessionalDirectionsForSqlQuery =>
-            ConstructFormatNumberForSqlQuery(Regions.Count, ProfessionalDirections);
+            !string.IsNullOrWhiteSpace(ConstructFormatNumberForSqlQuery(Regions.Count, ProfessionalDirections))
+                ? ConstructFormatNumberForSqlQuery(Regions.Count, ProfessionalDirections)
+                : @"''";
 
         private string ConstructFormatNumberForSqlQuery(int startAt, List<string> list)
         {

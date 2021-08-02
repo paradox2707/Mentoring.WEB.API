@@ -74,7 +74,6 @@ namespace Mentoring.WEB.API.DAL.Implementations
             return FormattableStringFactory.Create(sqlQuery, filter.GetParametersForSql());
         }
 
-
         private FormattableString CreateQueryWithConditionsForUserApplication(UniversityFilterForUserApplicationInSql filter)
         {
             string sqlQuery = $@"

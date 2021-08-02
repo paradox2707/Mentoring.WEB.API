@@ -36,6 +36,7 @@ namespace Mentoring.WEB.API.Middleware
             }
             catch (Exception ex)
             {
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 _logger.LogError(ex.Message);
             }
         }

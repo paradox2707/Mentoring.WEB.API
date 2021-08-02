@@ -12,6 +12,7 @@ import { filterUniversitiesForUserApplication } from "../repository/UniversityRe
 import { UniversityFilterForUserApplication } from "../interfaces/UniversityFilterForUserApplication";
 import { University } from "../interfaces/University";
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,8 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       paddingLeft: theme.spacing(4),
     },
+    error: {
+      color: red[500],
+      fontSize: 12 
+    }
   }),
 );
+
 
 type FormData = {
   firstName: string;
@@ -77,6 +83,7 @@ export const AnketaPage = () => {
     console.log("result" + result);
     if(result.success)
     {
+      setUserApplicationErrors(undefined);
       setSuccessfullySubmitted(result.success);
       const filter:UniversityFilterForUserApplication = { regions: userApp.regions.map(r => r.name), averageMark: userApp.averageMark };
       const universities = await filterUniversitiesForUserApplication(filter);
@@ -98,7 +105,7 @@ export const AnketaPage = () => {
             {...register('firstName')} //, { required: true }
           />
           {/* {errors.firstName?.type === "required" && <p>This field is required (client validation)</p>} */}
-          {userApplicationErrors?.FirstName && <p>{userApplicationErrors.FirstName.map((e: string ) => e )} (server validation)</p>}
+          {userApplicationErrors?.FirstName && <p className={classes.error}>{userApplicationErrors.FirstName.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Прізвище:
@@ -109,7 +116,7 @@ export const AnketaPage = () => {
             {...register('secondName')} //, { required: true } 
           />
           {/* {errors.secondName?.type === "required" && <p>This field is required</p>} */}
-          {userApplicationErrors?.SecondName && <p>{userApplicationErrors.SecondName.map((e: string ) => e )} (server validation)</p>}
+          {userApplicationErrors?.SecondName && <p className={classes.error}>{userApplicationErrors.SecondName.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Телефон:
@@ -117,21 +124,21 @@ export const AnketaPage = () => {
             id="phoneNumber"
             type="number"
             disabled={successfullySubmitted}
-            {...register('phoneNumber')}  //, { required: true }
+            {...register('phoneNumber', { required: true } )}  //, { required: true }
           />
-          {/* {errors.phoneNumber?.type === "required" && <p>This field is required</p>} */}
-          {userApplicationErrors?.PhoneNumber && <p>{userApplicationErrors.PhoneNumber.map((e: string ) => e )} (server validation)</p>}
+          {errors.phoneNumber?.type === "required" && <p className={classes.error}>This field is required (client validation)</p>}
+          {userApplicationErrors?.PhoneNumber && <p className={classes.error}>{userApplicationErrors.PhoneNumber.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Середній бал ЗНО:
           <input
             id="averageMark"
-            type="phone"
+            type="number"
             disabled={successfullySubmitted}
-            {...register('averageMark')} //, { required: true }
+            {...register('averageMark', { required: true } )} //, { required: true }
           />
-          {/* {errors.averageMark?.type === "required" && <p>This field is required</p>}  */}
-          {userApplicationErrors?.AverageMark && <p>{userApplicationErrors.AverageMark.map((e: string ) => e )} (server validation)</p>}
+          {errors.averageMark?.type === "required" && <p className={classes.error}>This field is required (client validation)</p>} 
+          {userApplicationErrors?.AverageMark && <p className={classes.error}>{userApplicationErrors.AverageMark.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />    
         <br />
@@ -153,13 +160,14 @@ export const AnketaPage = () => {
         </label>)}    
         </label>
         <br />
-        {userApplicationErrors?.RegionsAndProfessionalDirections && <p>{userApplicationErrors.RegionsAndProfessionalDirections.map((e: string ) => e )} (server validation)</p>}
+        {userApplicationErrors?.RegionsAndProfessionalDirections && <p className={classes.error}>{userApplicationErrors.RegionsAndProfessionalDirections.map((e: string ) => e )} (server validation)</p>}
         <input type="submit" value="Надіслати" hidden={successfullySubmitted} />   
       </form>
       <br />
       <br />
       {successfullySubmitted && universitiesForApp.length>0 && <div>{universitiesForApp.map(e => <div>{e.name} | середній бал: {e.averageMark} | регіон: {e.regionName}<br /></div> )}</div>}
       {successfullySubmitted && universitiesForApp.length===0 && <div>Немає результатів</div>}
+      <br />
     </div>
   );
 };
