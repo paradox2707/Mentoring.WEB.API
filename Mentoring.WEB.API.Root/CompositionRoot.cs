@@ -8,6 +8,7 @@ using Mentoring.WEB.API.Common;
 using Mentoring.WEB.API.DAL;
 using Mentoring.WEB.API.DAL.Implementations;
 using Mentoring.WEB.API.DAL.Interfaces;
+using Mentoring.WEB.API.BLL.Implementations;
 
 namespace Mentoring.WEB.API.Root
 {
@@ -22,6 +23,7 @@ namespace Mentoring.WEB.API.Root
             services.AddScoped<IUserApplicationService, UserApplicationService>();
             services.AddScoped<IRegionService, RegionService>();
             services.AddScoped<IProfessionalDirectionService, ProfessionalDirectionService>();
+            services.AddScoped<IInboundValidator, InboundValidator>();
 
             #region DI Mapper
             var myProfile = new AutomapperProfile();

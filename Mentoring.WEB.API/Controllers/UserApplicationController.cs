@@ -15,16 +15,19 @@ namespace Mentoring.WEB.API.Controllers
     public class UserApplicationController : ControllerBase
     {
         private readonly IUserApplicationService _applicationService;
+        private readonly IInboundValidator _validator;
 
-        public UserApplicationController(IUserApplicationService applicationService)
+        public UserApplicationController(IUserApplicationService applicationService, IInboundValidator validator)
         {
             _applicationService = applicationService;
+            _validator = validator;
         }
 
         [HttpPost]
         public async Task Post([FromBody] UserApplicationModel value)
         {
-            await _applicationService.CreateAsync(value);
+            if(await _validator.ValidateUserApplication(value))
+                await _applicationService.CreateAsync(value);
         }
     }
 }

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Region } from "../interfaces/Region";
 import { ProfessionalDirection } from "../interfaces/ProfessionalDirection";
 import { UserApplication } from "../interfaces/UserApplication";
+import { UserApplicationErrors } from "../interfaces/UserApplicationErrors";
 import { getRegions } from "../repository/RegionRepository";
 import { getProfessionalDirections } from "../repository/ProfessionalDirectionRepository";
 import { postUserApplication } from "../repository/UserApplicationRepository";
@@ -41,6 +42,8 @@ export const AnketaPage = () => {
   const [directions, setDirections] = React.useState<ProfessionalDirection[]>([]);
   const [universitiesForApp, setUniversitiesForApp] = React.useState<University[]>([]);
 
+  const [userApplicationErrors, setUserApplicationErrors] = React.useState<UserApplicationErrors>();
+
   const {
     register,
     formState: { errors },
@@ -72,10 +75,16 @@ export const AnketaPage = () => {
     console.log(userApp);
     const result = await postUserApplication(userApp);
     console.log("result" + result);
-    setSuccessfullySubmitted(result ? true : false);
-    const filter:UniversityFilterForUserApplication = { regions: userApp.regions.map(r => r.name), averageMark: userApp.averageMark };
-    const universities = await filterUniversitiesForUserApplication(filter);
-    setUniversitiesForApp(universities);
+    if(result.success)
+    {
+      setSuccessfullySubmitted(result.success);
+      const filter:UniversityFilterForUserApplication = { regions: userApp.regions.map(r => r.name), averageMark: userApp.averageMark };
+      const universities = await filterUniversitiesForUserApplication(filter);
+      setUniversitiesForApp(universities);
+    }
+    else{
+      setUserApplicationErrors(result.errors);
+    }
   };
 
   return (
@@ -86,9 +95,10 @@ export const AnketaPage = () => {
             id="firstName"
             type="text"
             disabled={successfullySubmitted}
-            {...register('firstName', { required: true })} 
+            {...register('firstName')} //, { required: true }
           />
-          {errors.firstName?.type === "required" && <p>This field is required</p>}
+          {/* {errors.firstName?.type === "required" && <p>This field is required (client validation)</p>} */}
+          {userApplicationErrors?.FirstName && <p>{userApplicationErrors.FirstName.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Прізвище:
@@ -96,9 +106,10 @@ export const AnketaPage = () => {
             id="secondName"
             type="text"
             disabled={successfullySubmitted}
-            {...register('secondName', { required: true })} 
+            {...register('secondName')} //, { required: true } 
           />
-          {errors.secondName?.type === "required" && <p>This field is required</p>}
+          {/* {errors.secondName?.type === "required" && <p>This field is required</p>} */}
+          {userApplicationErrors?.SecondName && <p>{userApplicationErrors.SecondName.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Телефон:
@@ -106,9 +117,10 @@ export const AnketaPage = () => {
             id="phoneNumber"
             type="number"
             disabled={successfullySubmitted}
-            {...register('phoneNumber', { required: true })} 
+            {...register('phoneNumber')}  //, { required: true }
           />
-          {errors.phoneNumber?.type === "required" && <p>This field is required</p>}
+          {/* {errors.phoneNumber?.type === "required" && <p>This field is required</p>} */}
+          {userApplicationErrors?.PhoneNumber && <p>{userApplicationErrors.PhoneNumber.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />
         <label>Середній бал ЗНО:
@@ -116,9 +128,10 @@ export const AnketaPage = () => {
             id="averageMark"
             type="phone"
             disabled={successfullySubmitted}
-            {...register('averageMark', { required: true })} 
+            {...register('averageMark')} //, { required: true }
           />
-          {errors.averageMark?.type === "required" && <p>This field is required</p>} 
+          {/* {errors.averageMark?.type === "required" && <p>This field is required</p>}  */}
+          {userApplicationErrors?.AverageMark && <p>{userApplicationErrors.AverageMark.map((e: string ) => e )} (server validation)</p>}
         </label>
         <br />    
         <br />
@@ -140,7 +153,7 @@ export const AnketaPage = () => {
         </label>)}    
         </label>
         <br />
-
+        {userApplicationErrors?.RegionsAndProfessionalDirections && <p>{userApplicationErrors.RegionsAndProfessionalDirections.map((e: string ) => e )} (server validation)</p>}
         <input type="submit" value="Надіслати" hidden={successfullySubmitted} />   
       </form>
       <br />
