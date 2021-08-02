@@ -28,16 +28,16 @@ namespace Mentoring.WEB.API.DAL
             modelBuilder.Entity<Speciality>().HasData(
                 new Speciality[]
                 {
-                    new Speciality { Id =1L, Name ="Національна безпека" },
-                    new Speciality { Id =2L, Name ="Право" },
-                    new Speciality { Id =3L, Name ="дизайн" },
-                    new Speciality { Id =4L, Name ="Соціологія" },
-                    new Speciality { Id =5L, Name ="Фінанси, банківська справа та страхування" },
-                    new Speciality { Id =6L, Name ="Менеджмент" },
-                    new Speciality { Id =7L, Name ="Маркетинг" },
-                    new Speciality { Id =8L, Name ="фінанси і кредит" },
-                    new Speciality { Id =9L, Name ="менеджмент організацій і адміністрування" },
-                    new Speciality { Id =10L, Name ="менеджмент зовнішньоекономічної діяльності" },
+                    new Speciality { Id =1L, Name ="Національна безпека", ProfessionalDirectionId =4 },
+                    new Speciality { Id =2L, Name ="Право", ProfessionalDirectionId =6 },
+                    new Speciality { Id =3L, Name ="дизайн", ProfessionalDirectionId =12 },
+                    new Speciality { Id =4L, Name ="Соціологія", ProfessionalDirectionId =4 },
+                    new Speciality { Id =5L, Name ="Фінанси, банківська справа та страхування", ProfessionalDirectionId =10 },
+                    new Speciality { Id =6L, Name ="Менеджмент", ProfessionalDirectionId =8 },
+                    new Speciality { Id =7L, Name ="Маркетинг", ProfessionalDirectionId =9 },
+                    new Speciality { Id =8L, Name ="фінанси і кредит", ProfessionalDirectionId =10 },
+                    new Speciality { Id =9L, Name ="менеджмент організацій і адміністрування", ProfessionalDirectionId =8 },
+                    new Speciality { Id =10L, Name ="менеджмент зовнішньоекономічної діяльності", ProfessionalDirectionId =8 },
                 }
                 );
             modelBuilder.Entity("SpecialityUniversity").HasData(

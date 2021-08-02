@@ -36,11 +36,43 @@ namespace Mentoring.WEB.API.DAL.Implementations
             .Include(e => e.Region)
             .ToListAsync();
 
-        public async Task<List<University>> GetAllForUserUniversityBySql(UniversityFilterForUserApplicationInSql filter) =>
+        public async Task<List<University>> GetAllForUserApplicationBySql(UniversityFilterForUserApplicationInSql filter) =>
             await _currentRepo
             .FromSqlInterpolated(CreateQueryWithConditionsForUserApplication(filter))
             .Include(e => e.Region)
             .ToListAsync();
+
+        public async Task<List<University>> GetAllForUserApplicationValidationBySql(UniversityFilterForUserApplicationValidationInSql filter) =>
+            await _currentRepo
+            .FromSqlInterpolated(CreateQueryWithConditionsForUserApplicationValidation(filter))
+            .Include(e => e.Region)
+            .ToListAsync();
+
+        private FormattableString CreateQueryWithConditionsForUserApplicationValidation(UniversityFilterForUserApplicationValidationInSql filter)
+        {
+            string sqlQuery = $@"
+                SELECT 
+                  [Universities].[Id] as Id
+                , [Universities].[ExternalId] as ExternalId
+                , [Universities].[IsGoverment] as IsGoverment
+                , [Universities].[Name] as Name
+                , [Universities].[RegionId] as RegionId
+                , [Universities].[ShortName] as ShortName 
+                , [Universities].[AverageMark] as AverageMark
+                FROM Universities
+                INNER JOIN (SELECT * FROM Regions 
+                WHERE [Name] IN ({filter.FormatNumbersForRegionsForSqlQuery})
+                ) as RegionTbl ON RegionTbl.Id = Universities.RegionId
+                INNER JOIN ( SELECT * FROM SpecialityUniversity
+                    INNER JOIN (SELECT Specialities.* FROM Specialities 
+                        INNER JOIN (SELECT * FROM ProfessionalDirections 
+                        WHERE [Name] IN ({filter.FormatNumbersForProfessionalDirectionsForSqlQuery})
+                        ) as ProfessionalDirectionTbl ON ProfessionalDirectionTbl.Id = Specialities.ProfessionalDirectionId
+                    ) as SpecialitiesTbl ON SpecialitiesTbl.Id = SpecialityUniversity.SpecialitiesId
+                ) as SpecialityTbl ON SpecialityTbl.Id = Universities.RegionId";
+
+            return FormattableStringFactory.Create(sqlQuery, filter.GetParametersForSql());
+        }
 
         private FormattableString CreateQueryWithConditionsForUserApplication(UniversityFilterForUserApplicationInSql filter)
         {

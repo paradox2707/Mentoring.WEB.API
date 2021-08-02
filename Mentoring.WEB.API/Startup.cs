@@ -1,3 +1,4 @@
+using Mentoring.WEB.API.Middleware;
 using Mentoring.WEB.API.Root;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,8 @@ namespace Mentoring.WEB.API
             }
 
             app.UseCors("ForReactClient");
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
