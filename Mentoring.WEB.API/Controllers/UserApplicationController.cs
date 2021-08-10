@@ -1,5 +1,6 @@
 ﻿using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
+using Mentoring.WEB.API.Common.FilterModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,16 @@ namespace Mentoring.WEB.API.Controllers
         {
             _applicationService = applicationService;
             _validator = validator;
+        }
+
+        // GET: api/<UserApplication>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserApplicationModel>>> Get([FromQuery] UserApplicationFilter filter)
+        {
+            if (filter.Active)
+                return Ok(await _applicationService.GetAllByFilterAsync(filter));
+            else
+                return Ok(await _applicationService.GetAllAsync());
         }
 
         [HttpPost]

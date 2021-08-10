@@ -32,7 +32,8 @@ export const Header = () => {
           <Button href="/Universities">Університети</Button>
           <Button href="/UniversitiesWithSpecialities">Університети зі спеціальностями</Button>
           <Button href="/Specialities">Спеціальності</Button>
-          <Button href="/Anketa">Анкета</Button> 
+          <Button href="/Anketa">Анкета</Button>
+          <Button href="/AllUserApplications">Всі Анкети</Button> 
         </Toolbar>
       </AppBar>
     </div>

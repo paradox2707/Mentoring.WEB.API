@@ -25,7 +25,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<UserApplication>> GetAllAsync()
         {
-            return await _currentRepo.Include(e => e.Regions).ToListAsync();
+            return await _currentRepo.Include(e => e.Regions).Include(e => e.ProfessionalDirections).ToListAsync();
         }
     }
 }

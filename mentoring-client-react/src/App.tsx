@@ -9,6 +9,7 @@ import { UniversitiesListPage } from './common/UniversitiesListPage';
 import { SpecialitiesListPage } from './common/SpecialitiesListPage';
 import { UniversitiesWithSpecialitiesListPage } from './common/UniversitiesWithSpecialitiesListPage';
 import { AnketaPage } from './common/AnketaPage';
+import UserApplicationListPage from './modules/UserApplication/UserApplicationListPage';
 
 function App() {
   return (      
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/Anketa">
             <AnketaPage />
+          </Route>
+          <Route path="/AllUserApplications">
+            <UserApplicationListPage />
           </Route>
           <Route path="">
             <HomePage />
