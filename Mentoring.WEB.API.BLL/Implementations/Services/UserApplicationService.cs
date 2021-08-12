@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
+using Mentoring.WEB.API.Common.FilterModels;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
 using System;
@@ -43,6 +44,14 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             }
             await _applicationRepo.CreateAsync(dao);
             await _uow.SaveAsync();
+        }
+
+        public async Task<IEnumerable<UserApplicationModel>> GetAllAsync() => 
+            _mapper.Map<IEnumerable<UserApplication>, IEnumerable<UserApplicationModel>>(await _applicationRepo.GetAllAsync());
+
+        public async Task<IEnumerable<UserApplicationModel>> GetAllByFilterAsync(UserApplicationFilter filter)
+        {
+            throw new NotImplementedException();
         }
     }
 }
