@@ -11,6 +11,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
         private IUserApplicationRepository _userApplicationRepo;
         private IRegionRepository _regionRepo;
         private IProfessionalDirectionRepository _proDirectionRepo;
+        private IStatisticsRepository _statisticsRepo;
 
         public UnitOfWork(UnitedAppContext context)
         {
@@ -74,6 +75,18 @@ namespace Mentoring.WEB.API.DAL.Implementations
                     _proDirectionRepo = new ProfessionalDirectionRepository(context);
                 }
                 return _proDirectionRepo;
+            }
+        }
+
+        public IStatisticsRepository StatisticsRepository
+        {
+            get
+            {
+                if (_statisticsRepo is null)
+                {
+                    _statisticsRepo = new StatisticsRepository(context);
+                }
+                return _statisticsRepo;
             }
         }
 

@@ -34,6 +34,7 @@ export const Header = () => {
           <Button href="/Specialities">Спеціальності</Button>
           <Button href="/Anketa">Анкета</Button>
           <Button href="/AllUserApplications">Всі Анкети</Button> 
+          <Button href="/Dashboards">Дашборди</Button> 
         </Toolbar>
       </AppBar>
     </div>

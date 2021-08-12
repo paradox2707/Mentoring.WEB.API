@@ -14,6 +14,8 @@ namespace Mentoring.WEB.API.DAL.Interfaces
 
         IProfessionalDirectionRepository ProfessionalDirectionRepository { get; }
 
+        IStatisticsRepository StatisticsRepository { get; }
+
         Task<int> SaveAsync();
     }
 }

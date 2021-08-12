@@ -23,6 +23,7 @@ namespace Mentoring.WEB.API.Root
             services.AddScoped<IUserApplicationService, UserApplicationService>();
             services.AddScoped<IRegionService, RegionService>();
             services.AddScoped<IProfessionalDirectionService, ProfessionalDirectionService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IInboundValidator, InboundValidator>();
 
             #region DI Mapper

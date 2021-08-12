@@ -1,5 +1,7 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import { getSummaryUserApplicationDashboard } from "../../repository/StatisticsRepository";
+import { SummaryUserApplicationDashboard } from "../../interfaces/SummaryUserApplicationDashboard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -10,8 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(4),
     },
     cardRoot: {
-      width: 500,
-      height: 200
+      width: 350,
+      height: 350
     },
     cardBullet: {
       display: 'inline-block',
@@ -27,18 +29,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const  DashBoardPage = () => {
+export const  DashboardPage = () => {
     const classes = useStyles();
-    const [userApp, setUserApp] = React.useState<UserApplication[]>([]);
+    const [summaryUserApplication, setSummaryUserApplication] = React.useState<SummaryUserApplicationDashboard>();
     React.useEffect(() => {
       let cancelled = false;
-      const getStatistic = async () => {
-        const foundResults = await getUserApplication();
+      const getStatistics = async () => {
+        const foundResults = await getSummaryUserApplicationDashboard();
         if (!cancelled) {
-          setUserApp(foundResults);
+          setSummaryUserApplication(foundResults);
         }
       };
-      getStatistic();
+      getStatistics();
       return () => {
         cancelled = true;
       };
@@ -46,21 +48,24 @@ export const  DashBoardPage = () => {
   
     return(
         <div className={classes.root}>
+          <h1>Статистика</h1>
             <Card className={classes.cardRoot} variant="outlined">
                 <CardContent>
-                <Typography className={classes.cardTitle} color="textSecondary" gutterBottom>
-                    # {e.id.toString()}
-                </Typography>
                 <Typography variant="h5" component="h2">
-                {e.firstName} {e.secondName}  {e.averageMark}
-                </Typography>
-                <Typography className={classes.cardPos} color="textSecondary">
-                    Телефон: {e.phoneNumber}
+                Анкети абітуріентів
                 </Typography>
                 <Typography variant="body2" component="p">
-                    Регіон: {e.regions.map(r => r.name + " ")}
-                    <br />
-                    Професійний напрямок: {e.professionalDirections.map(r => r.name + " ")}
+                  <br />
+                  Загальна кількість анкет: {summaryUserApplication?.totalAmount}
+                  <br />
+                  <br />
+                  Середній бал анкет: {summaryUserApplication?.avarageMark}
+                  <br />
+                  <br />
+                  Мінімальний бал анкети: {summaryUserApplication?.minMark}
+                  <br />
+                  <br />
+                  Максимальний бал анкети: {summaryUserApplication?.maxMark}
                 </Typography>
                 </CardContent>
             </Card>
@@ -68,4 +73,4 @@ export const  DashBoardPage = () => {
         );
   };
   
-  export default DashBoardPage;
+  export default DashboardPage;
