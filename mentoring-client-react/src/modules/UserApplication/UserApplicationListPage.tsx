@@ -4,6 +4,7 @@ import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import React from "react";
 import { UserApplication } from "../../interfaces/UserApplication";
 import { getUserApplication } from "../../repository/UserApplicationRepository";
+import { UserApplicationSearch } from '../UserApplication/UserApplicationSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +51,7 @@ export const  UserApplicationListPage = () => {
 
   return(
       <div className={classes.root}>
-        
+        <UserApplicationSearch></UserApplicationSearch>
         <List component="nav" 
               aria-label="main mailbox folders" 
               subheader={
