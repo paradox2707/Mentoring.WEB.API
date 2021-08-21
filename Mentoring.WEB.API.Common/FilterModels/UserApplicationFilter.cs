@@ -8,6 +8,8 @@ namespace Mentoring.WEB.API.Common.FilterModels
 {
     public class UserApplicationFilter
     {
-        public bool Active => false;
+        public string SearchText { get; set; }
+
+        public bool Active => (SearchText != null);
     }
 }
