@@ -10,6 +10,10 @@ namespace Mentoring.WEB.API.Common.FilterModels
     {
         public string SearchText { get; set; }
 
-        public bool Active => (SearchText != null);
+        public string Region { get; set; }
+
+        public string ProfessionalDirection { get; set; }
+
+        public bool Active => SearchText != null || Region != null || ProfessionalDirection != null;
     }
 }

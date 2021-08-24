@@ -45,7 +45,7 @@ export const postUserApplication = async (data: UserApplication): Promise<WebApi
   };
 
   export const filterUserApplications = async (filter: UserApplicationFilter): Promise<UserApplication[]> => {
-    const request = new Request(`${webAPIUrl}/UserApplication?SearchText=${filter.text ?? ''}`, {
+    const request = new Request(`${webAPIUrl}/UserApplication?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&ProfessionalDirection=${filter.direction ?? ''}`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',

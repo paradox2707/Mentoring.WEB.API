@@ -106,7 +106,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 sqlQuery = @$"SELECT
                     {filter.SelectedFieldsForSql}
-                    {(!string.IsNullOrWhiteSpace(filter.Region) ? filter.RegionConditionForSqlInnerJoinApproach : string.Empty)} 
+                    {filter.RegionConditionForSqlInnerJoinApproach} 
                     UNION
                     SELECT
                     {filter.SelectedFieldsForSql}

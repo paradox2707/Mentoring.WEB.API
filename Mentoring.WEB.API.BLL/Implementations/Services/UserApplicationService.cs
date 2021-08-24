@@ -3,6 +3,7 @@ using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.Common.FilterModels;
 using Mentoring.WEB.API.DAL.Entities;
+using Mentoring.WEB.API.DAL.Filters;
 using Mentoring.WEB.API.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,9 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
 
         public async Task<IEnumerable<UserApplicationModel>> GetAllByFilterAsync(UserApplicationFilter filter)
         {
-            throw new NotImplementedException();
+            var daoFilter = _mapper.Map<UserApplicationFilter, UserApplicationFilterInSql>(filter);
+            var daos = await _applicationRepo.GetAllBySql(daoFilter);
+            return _mapper.Map<List<UserApplication>, IEnumerable<UserApplicationModel>>(daos);
         }
     }
 }
