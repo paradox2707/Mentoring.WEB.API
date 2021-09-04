@@ -17,6 +17,7 @@ namespace Mentoring.WEB.API.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SummaryUserApplicationDashboard>().HasNoKey().ToView(null);
+            modelBuilder.Entity<SummaryUserApplicationByProfessionalDirectionDashboard>().HasNoKey().ToView(null);
             modelBuilder.Entity<University>().HasData(
                 new University[]
                 {

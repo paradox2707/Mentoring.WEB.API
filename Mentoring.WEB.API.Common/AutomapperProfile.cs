@@ -26,6 +26,7 @@ namespace Mentoring.WEB.API.Common
                 .ForMember(dist => dist.ProfessionalDirections, opt => opt.MapFrom(sourse => sourse.ProfessionalDirections.Select(e => e.Name)))
                 .ForMember(dist => dist.Regions, opt => opt.MapFrom(sourse => sourse.Regions.Select(e => e.Name)));
             CreateMap<SummaryUserApplicationDashboard, SummaryUserApplicationDashboardModel>();
+            CreateMap<SummaryUserApplicationByProfessionalDirectionDashboard, SummaryUserApplicationByProfessionalDirectionDashboardModel>();
         }
     }
 }
