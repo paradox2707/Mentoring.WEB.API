@@ -28,7 +28,7 @@ namespace Mentoring.WEB.API.DAL.Filters
             string.IsNullOrWhiteSpace(Region) ? String.Empty :
 @$"INNER JOIN RegionUserApplication as RegionUApp ON UApps.[Id] = RegionUApp.UserApplicationsId
   INNER JOIN (SELECT * FROM Regions
-		WHERE [Name] <> {{[RegionNumberForParameter]}}) as Regions ON Regions.[Id] = RegionUApp.RegionsId";
+		WHERE [Name] = {{[RegionNumberForParameter]}}) as Regions ON Regions.[Id] = RegionUApp.RegionsId";
         
         public string ProfessionalDirectionConditionForSql =>
             string.IsNullOrWhiteSpace(ProfessionalDirection) ? String.Empty :
@@ -42,7 +42,7 @@ namespace Mentoring.WEB.API.DAL.Filters
         public IDictionary<string, string> GetParametersSequence()
         {
             var result = new Dictionary<string, string>();
-            if (!string.IsNullOrWhiteSpace(SearchText)) result.Add("[SearchTextNumberForParameter]", SearchText);
+            if (!string.IsNullOrWhiteSpace(SearchText)) result.Add("[SearchTextNumberForParameter]", SearchText.Replace(" ", ""));
             if (!string.IsNullOrWhiteSpace(Region)) result.Add("[RegionNumberForParameter]", Region);
             if (!string.IsNullOrWhiteSpace(ProfessionalDirection)) result.Add("[ProfessionalDirectionNumberForParameter]", ProfessionalDirection);
 
