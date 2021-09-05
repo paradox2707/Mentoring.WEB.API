@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardPos: {
       marginBottom: 12,
-    },
+    }
   }),
 );
 
@@ -62,15 +62,15 @@ export const  UserApplicationListPage = () => {
 
   return(
       <div className={classes.root}>
-        <UserApplicationSearch></UserApplicationSearch>
-        <List component="nav" 
+        <List  component="nav" 
               aria-label="main mailbox folders" 
               subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
                   ВСІ АНКЕТИ
+                  <UserApplicationSearch></UserApplicationSearch>
                 </ListSubheader>
             }>
-
+            
             {userApp.map(e => 
             <ListItem key={e.id.toString()} button>
                <Card className={classes.cardRoot} variant="outlined">
