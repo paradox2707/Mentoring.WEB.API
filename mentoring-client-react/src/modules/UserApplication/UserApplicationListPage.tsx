@@ -2,8 +2,11 @@ import { Card, CardContent, createStyles, List, ListItem, ListItemIcon, ListItem
 import { Theme } from "@material-ui/core/styles";
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { UserApplication } from "../../interfaces/UserApplication";
-import { getUserApplication } from "../../repository/UserApplicationRepository";
+import { UserApplicationFilter } from "../../interfaces/UserApplicationFilter";
+import { filterUserApplications, getUserApplications } from "../../repository/UserApplicationRepository";
+import { UserApplicationSearch } from '../UserApplication/UserApplicationSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,38 +30,47 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardPos: {
       marginBottom: 12,
-    },
+    }
   }),
 );
 
 export const  UserApplicationListPage = () => {
   const classes = useStyles();
+  const [searchParams] = useSearchParams();
   const [userApp, setUserApp] = React.useState<UserApplication[]>([]);
+
+
+  var filter: any = {};
+  searchParams.forEach((value, key) => {
+    filter[key] = value === "undefined" ? "" : value;
+  });
+
   React.useEffect(() => {
     let cancelled = false;
-    const doSearch = async () => {
-      const foundResults = await getUserApplication();
+    const doSearch = async (filter: UserApplicationFilter) => {
+      const foundResults = await filterUserApplications(filter);
       if (!cancelled) {
         setUserApp(foundResults);
       }
     };
-    doSearch();
+    doSearch(filter as UserApplicationFilter);
+    
     return () => {
       cancelled = true;
     };
-  });
+  }, [searchParams]);
 
   return(
       <div className={classes.root}>
-        
-        <List component="nav" 
+        <List  component="nav" 
               aria-label="main mailbox folders" 
               subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
                   ВСІ АНКЕТИ
+                  <UserApplicationSearch></UserApplicationSearch>
                 </ListSubheader>
             }>
-
+            
             {userApp.map(e => 
             <ListItem key={e.id.toString()} button>
                <Card className={classes.cardRoot} variant="outlined">

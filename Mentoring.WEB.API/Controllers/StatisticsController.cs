@@ -23,9 +23,16 @@ namespace Mentoring.WEB.API.Controllers
         // GET: api/<Statistics>
         [HttpGet]
         [Route("SummaryUserApplicationDashboard")]
-        public async Task<ActionResult<SummaryUserApplicationDashboardModel>> Get()
+        public async Task<ActionResult<SummaryUserApplicationDashboardModel>> GetSummaryUserApplication()
         {
             return Ok(await _statisticsService.GetSummaryUserApplicationDashboard());
+        }
+
+        [HttpGet]
+        [Route("SummaryUserApplicationByProfessionalDirectionDashboard")]
+        public async Task<ActionResult<IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboardModel>>> GetSummaryUserApplicationByProfessionalDirection()
+        {
+            return Ok(await _statisticsService.SummaryUserApplicationByProfessionalDirectionDashboard());
         }
     }
 }

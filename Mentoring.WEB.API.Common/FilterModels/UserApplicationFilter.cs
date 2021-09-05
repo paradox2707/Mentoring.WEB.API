@@ -8,6 +8,12 @@ namespace Mentoring.WEB.API.Common.FilterModels
 {
     public class UserApplicationFilter
     {
-        public bool Active => false;
+        public string SearchText { get; set; }
+
+        public string Region { get; set; }
+
+        public string ProfessionalDirection { get; set; }
+
+        public bool Active => SearchText != null || Region != null || ProfessionalDirection != null;
     }
 }

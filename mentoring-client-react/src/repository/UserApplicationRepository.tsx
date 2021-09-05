@@ -2,6 +2,7 @@ import React from 'react';
 import { UserApplication } from '../interfaces/UserApplication';
 import { WebApiResponse } from '../interfaces/WebApiResponse';
 import { webAPIUrl } from '../AppSetting';
+import { UserApplicationFilter } from '../interfaces/UserApplicationFilter';
 
 export const postUserApplication = async (data: UserApplication): Promise<WebApiResponse> => {
     console.log("enter postUserApplication");
@@ -26,7 +27,7 @@ export const postUserApplication = async (data: UserApplication): Promise<WebApi
     }
   };
 
-  export const getUserApplication = async (): Promise<UserApplication[]> => {
+  export const getUserApplications = async (): Promise<UserApplication[]> => {
     const request = new Request(`${webAPIUrl}/UserApplication`, {
         method: 'get',
         headers: {
@@ -34,6 +35,24 @@ export const postUserApplication = async (data: UserApplication): Promise<WebApi
         },
         body: undefined,
       });
+    const result = await fetch(request);
+    const body = await result.json();
+    if (result.ok && body) {
+      return body;
+    } else {
+      return [];
+    }
+  };
+
+  export const filterUserApplications = async (filter: UserApplicationFilter): Promise<UserApplication[]> => {
+    const request = new Request(`${webAPIUrl}/UserApplication?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&ProfessionalDirection=${filter.direction ?? ''}`, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: undefined,
+      });
+    console.log(request);
     const result = await fetch(request);
     const body = await result.json();
     if (result.ok && body) {

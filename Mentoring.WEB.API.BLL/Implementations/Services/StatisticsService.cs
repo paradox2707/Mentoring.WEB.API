@@ -3,6 +3,7 @@ using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
@@ -22,6 +23,12 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
         {
             var dao = await _statisticsRepo.GetSummaryUserApplicationDashboard();
             return _mapper.Map<SummaryUserApplicationDashboard, SummaryUserApplicationDashboardModel>(dao);
+        }
+
+        public async Task<IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboardModel>> SummaryUserApplicationByProfessionalDirectionDashboard()
+        {
+            var dao = await _statisticsRepo.GetSummaryUserApplicationByProfessionalDirectionDashboard();
+            return _mapper.Map<IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboard>, IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboardModel>>(dao);
         }
     }
 }

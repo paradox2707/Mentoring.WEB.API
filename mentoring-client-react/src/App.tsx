@@ -34,6 +34,7 @@ function App() {
           <Route path="/AllUserApplications">
             <UserApplicationListPage />
           </Route>
+          <Route path="/AllUserApplications/search" element={<UserApplicationListPage />} />
           <Route path="/Dashboards">
             <DashboardPage />
           </Route>
