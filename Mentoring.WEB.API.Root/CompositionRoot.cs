@@ -9,6 +9,7 @@ using Mentoring.WEB.API.DAL;
 using Mentoring.WEB.API.DAL.Implementations;
 using Mentoring.WEB.API.DAL.Interfaces;
 using Mentoring.WEB.API.BLL.Implementations;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
 
 namespace Mentoring.WEB.API.Root
 {

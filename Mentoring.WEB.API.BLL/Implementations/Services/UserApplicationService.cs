@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mentoring.WEB.API.BLL.Interfaces;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.Common.FilterModels;
 using Mentoring.WEB.API.DAL.Entities;

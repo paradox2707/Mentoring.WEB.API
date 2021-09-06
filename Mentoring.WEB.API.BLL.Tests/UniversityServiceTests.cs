@@ -7,6 +7,7 @@ using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Interfaces;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
 
 namespace Mentoring.WEB.API.BLL.Tests
 {

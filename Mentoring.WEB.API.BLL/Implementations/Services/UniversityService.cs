@@ -11,6 +11,7 @@ using Mentoring.WEB.API.Common.FilterModels;
 using System.Linq.Expressions;
 using System.Reflection;
 using Mentoring.WEB.API.DAL.Filters;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
 {
