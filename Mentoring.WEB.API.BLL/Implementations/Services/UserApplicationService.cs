@@ -1,15 +1,8 @@
-﻿using AutoMapper;
-using Mentoring.WEB.API.BLL.Interfaces;
+﻿using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.BLL.Interfaces.DAL;
 using Mentoring.WEB.API.Common.DTO;
 using Mentoring.WEB.API.Common.FilterModels;
-using Mentoring.WEB.API.DAL.Entities;
-using Mentoring.WEB.API.DAL.Filters;
-using Mentoring.WEB.API.DAL.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.BLL.Implementations.Services
