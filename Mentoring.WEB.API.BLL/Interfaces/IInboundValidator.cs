@@ -1,4 +1,4 @@
-﻿using Mentoring.WEB.API.Common.DTO;
+﻿using Mentoring.WEB.API.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

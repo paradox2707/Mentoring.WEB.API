@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring.WEB.API.Common.DTO
+namespace Mentoring.WEB.API.BLL.DTO
 {
     public class UserApplicationModel
     {

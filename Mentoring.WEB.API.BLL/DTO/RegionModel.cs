@@ -1,4 +1,4 @@
-﻿namespace Mentoring.WEB.API.Common.DTO
+﻿namespace Mentoring.WEB.API.BLL.DTO
 {
     public class RegionModel
     {

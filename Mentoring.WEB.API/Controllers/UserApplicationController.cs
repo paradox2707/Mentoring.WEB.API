@@ -1,6 +1,6 @@
-﻿using Mentoring.WEB.API.BLL.Interfaces;
-using Mentoring.WEB.API.Common.DTO;
-using Mentoring.WEB.API.Common.FilterModels;
+﻿using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.FilterModels;
+using Mentoring.WEB.API.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

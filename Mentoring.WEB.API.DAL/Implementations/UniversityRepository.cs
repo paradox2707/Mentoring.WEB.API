@@ -1,6 +1,9 @@
-﻿using Mentoring.WEB.API.DAL.Entities;
+﻿using AutoMapper;
+using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.FilterModels;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
+using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Filters;
-using Mentoring.WEB.API.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,39 +17,49 @@ namespace Mentoring.WEB.API.DAL.Implementations
     public class UniversityRepository : IUniversityRepository
     {
         private readonly DbSet<University> _currentRepo;
+        readonly IMapper _mapper;
 
-        public UniversityRepository(UnitedAppContext context)
+        public UniversityRepository(UnitedAppContext context, IMapper mapper)
         {
             _currentRepo = context.Universities;
+            _mapper = mapper;
         }
 
-        public async Task<List<University>> GetAllAsync()
+        public async Task<List<UniversityModel>> GetAllAsync()
         {
-            return await _currentRepo.Include(e => e.Region).ToListAsync();
+            var daos = await _currentRepo.Include(e => e.Region).ToListAsync();
+            return _mapper.Map<List<University>, List<UniversityModel>>(daos);
         }
 
-        public async Task<List<University>> GetAllByAsync(Expression<Func<University, bool>> expression)
+        public async Task<List<UniversityModel>> GetAllBySql(UniversityFilter filter)
         {
-            return await _currentRepo.Include(e => e.Region).Where(expression).ToListAsync();
+            var daoFilter = _mapper.Map<UniversityFilter, UniversityFilterInSql>(filter);
+            var daos = await _currentRepo
+                .FromSqlInterpolated(CreateQueryWithConditions(daoFilter))
+                .Include(e => e.Region)
+                .ToListAsync();
+            return _mapper.Map<List<University>, List<UniversityModel>>(daos);
         }
 
-        public async Task<List<University>> GetAllBySql(UniversityFilterInSql filter) =>
-            await _currentRepo
-            .FromSqlInterpolated(CreateQueryWithConditions(filter))
-            .Include(e => e.Region)
-            .ToListAsync();
+        public async Task<List<UniversityModel>> GetAllForUserApplicationBySql(UniversityFilterForUserApplication filter)
+        {
+            var daoFilter = _mapper.Map<UniversityFilterForUserApplication, UniversityFilterForUserApplicationInSql>(filter);
+            var daos = await _currentRepo
+                .FromSqlInterpolated(CreateQueryWithConditionsForUserApplication(daoFilter))
+                .Include(e => e.Region)
+                .ToListAsync();
+            return _mapper.Map<List<University>, List<UniversityModel>>(daos);
+        }
 
-        public async Task<List<University>> GetAllForUserApplicationBySql(UniversityFilterForUserApplicationInSql filter) =>
-            await _currentRepo
-            .FromSqlInterpolated(CreateQueryWithConditionsForUserApplication(filter))
-            .Include(e => e.Region)
-            .ToListAsync();
-
-        public async Task<List<University>> GetAllForUserApplicationValidationBySql(UniversityFilterForUserApplicationValidationInSql filter) =>
-            await _currentRepo
-            .FromSqlInterpolated(CreateQueryWithConditionsForUserApplicationValidation(filter))
-            .Include(e => e.Region)
-            .ToListAsync();
+        public async Task<List<UniversityModel>> GetAllForUserApplicationValidationBySql(UserApplicationModel filter)
+        {
+            var daoFilter = _mapper.Map<UserApplicationModel, UniversityFilterForUserApplicationValidationInSql>(filter);
+            var daos = await _currentRepo
+                .FromSqlInterpolated(CreateQueryWithConditionsForUserApplicationValidation(daoFilter))
+                .Include(e => e.Region)
+                .ToListAsync();
+            return _mapper.Map<List<University>, List<UniversityModel>>(daos);
+        }
 
         private FormattableString CreateQueryWithConditionsForUserApplicationValidation(UniversityFilterForUserApplicationValidationInSql filter)
         {
@@ -94,9 +107,10 @@ namespace Mentoring.WEB.API.DAL.Implementations
             return FormattableStringFactory.Create(sqlQuery, filter.GetParametersForSql());
         }
 
-        public async Task<List<University>> GetAllWithSpecialiesAsync()
+        public async Task<List<UniversityModel>> GetAllWithSpecialiesAsync()
         {
-            return await _currentRepo.Include(e => e.Specialities).ToListAsync();
+            var daos = await _currentRepo.Include(e => e.Specialities).ToListAsync();
+            return _mapper.Map<List<University>, List<UniversityModel>>(daos);
         }
 
         private static FormattableString CreateQueryWithConditions(UniversityFilterInSql filter)

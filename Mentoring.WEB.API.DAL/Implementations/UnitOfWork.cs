@@ -1,4 +1,4 @@
-﻿using Mentoring.WEB.API.DAL.Interfaces;
+﻿using Mentoring.WEB.API.BLL.Interfaces.DAL;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations

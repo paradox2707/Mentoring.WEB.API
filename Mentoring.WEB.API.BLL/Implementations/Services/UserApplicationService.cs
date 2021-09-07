@@ -1,7 +1,7 @@
-﻿using Mentoring.WEB.API.BLL.Interfaces;
+﻿using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.FilterModels;
+using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.BLL.Interfaces.DAL;
-using Mentoring.WEB.API.Common.DTO;
-using Mentoring.WEB.API.Common.FilterModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

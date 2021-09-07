@@ -1,6 +1,6 @@
-﻿using Mentoring.WEB.API.BLL.Interfaces;
+﻿using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.Interfaces;
 using Mentoring.WEB.API.BLL.Interfaces.DAL;
-using Mentoring.WEB.API.Common.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
