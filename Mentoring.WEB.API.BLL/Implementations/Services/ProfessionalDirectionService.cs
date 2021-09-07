@@ -10,20 +10,16 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
     {
         readonly IUnitOfWork _uow;
         readonly IProfessionalDirectionRepository _proDirectionRepo;
-        readonly IMapper _mapper;
 
-        public ProfessionalDirectionService(IUnitOfWork uow, IMapper mapper)
+        public ProfessionalDirectionService(IUnitOfWork uow)
         {
             _uow = uow;
             _proDirectionRepo = uow.ProfessionalDirectionRepository;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProfessionalDirectionModel>> GetAllAsync()
         {
-            var daos = await _proDirectionRepo.GetAllAsync();
-
-            return _mapper.Map<List<ProfessionalDirection>, IEnumerable<ProfessionalDirectionModel>>(daos);
+            return await _proDirectionRepo.GetAllAsync();
         }
     }
 }
