@@ -8,8 +8,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Mentoring.WEB.API.Common\Mentoring.WEB.API.Common.csproj" />
-  </ItemGroup>
-
 </Project>

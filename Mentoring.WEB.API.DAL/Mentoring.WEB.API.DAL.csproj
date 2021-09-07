@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mentoring.WEB.API.BLL\Mentoring.WEB.API.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
