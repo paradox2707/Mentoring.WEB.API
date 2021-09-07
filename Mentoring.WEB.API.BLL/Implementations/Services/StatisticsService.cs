@@ -9,24 +9,20 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
     public class StatisticsService: IStatisticsService
     {
         private readonly IStatisticsRepository _statisticsRepo;
-        private readonly IMapper _mapper;
 
-        public StatisticsService(IUnitOfWork uow, IMapper mapper)
+        public StatisticsService(IUnitOfWork uow)
         {
             _statisticsRepo = uow.StatisticsRepository;
-            _mapper = mapper;
         }
 
         public async Task<SummaryUserApplicationDashboardModel> GetSummaryUserApplicationDashboard()
         {
-            var dao = await _statisticsRepo.GetSummaryUserApplicationDashboard();
-            return _mapper.Map<SummaryUserApplicationDashboard, SummaryUserApplicationDashboardModel>(dao);
+            return await _statisticsRepo.GetSummaryUserApplicationDashboard();
         }
 
         public async Task<IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboardModel>> SummaryUserApplicationByProfessionalDirectionDashboard()
         {
-            var dao = await _statisticsRepo.GetSummaryUserApplicationByProfessionalDirectionDashboard();
-            return _mapper.Map<IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboard>, IEnumerable<SummaryUserApplicationByProfessionalDirectionDashboardModel>>(dao);
+            return await _statisticsRepo.GetSummaryUserApplicationByProfessionalDirectionDashboard();
         }
     }
 }

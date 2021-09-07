@@ -1,10 +1,9 @@
-﻿using Mentoring.WEB.API.DAL.Entities;
-using Mentoring.WEB.API.DAL.Interfaces;
+﻿using AutoMapper;
+using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
+using Mentoring.WEB.API.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations
@@ -12,20 +11,18 @@ namespace Mentoring.WEB.API.DAL.Implementations
     public class RegionRepository : IRegionRepository
     {
         private readonly DbSet<Region> _currentRepo;
+        readonly IMapper _mapper;
 
-        public RegionRepository(UnitedAppContext context)
+        public RegionRepository(UnitedAppContext context, IMapper mapper)
         {
             _currentRepo = context.Regions;
+            _mapper = mapper;
         }
 
-        public async Task<List<Region>> GetAllAsync()
+        public async Task<List<RegionModel>> GetAllAsync()
         {
-            return await _currentRepo.Include(e => e.UserApplications).ToListAsync();
-        }
-
-        public async Task<Region> GetByAsync(Expression<Func<Region, bool>> expression)
-        {
-            return await _currentRepo.FirstOrDefaultAsync(expression);
+            var daos = await _currentRepo.Include(e => e.UserApplications).ToListAsync();
+            return _mapper.Map<List<Region>, List<RegionModel>>(daos);
         }
     }
 }

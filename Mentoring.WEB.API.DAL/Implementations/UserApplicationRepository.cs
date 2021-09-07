@@ -4,13 +4,11 @@ using Mentoring.WEB.API.BLL.FilterModels;
 using Mentoring.WEB.API.BLL.Interfaces.DAL;
 using Mentoring.WEB.API.DAL.Entities;
 using Mentoring.WEB.API.DAL.Filters;
-using Mentoring.WEB.API.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations

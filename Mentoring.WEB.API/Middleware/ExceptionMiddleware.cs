@@ -1,4 +1,5 @@
-﻿using Mentoring.WEB.API.Common;
+﻿using Mentoring.WEB.API.BLL.Exceptions;
+using Mentoring.WEB.API.Common;
 using Mentoring.WEB.API.Common.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

@@ -21,7 +21,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<SpecialityModel>> GetAllAsync()
         {
-            return _mapper.Map<List<Speciality>, List<SpecialityModel>>(await _currentRepo.ToListAsync(););
+            return _mapper.Map<List<Speciality>, List<SpecialityModel>>(await _currentRepo.ToListAsync());
         }
     }
 }

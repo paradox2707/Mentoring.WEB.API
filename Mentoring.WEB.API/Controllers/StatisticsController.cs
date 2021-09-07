@@ -1,10 +1,7 @@
 ﻿using Mentoring.WEB.API.BLL.DTO;
 using Mentoring.WEB.API.BLL.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.Controllers

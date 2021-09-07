@@ -10,20 +10,16 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
     {
         readonly IUnitOfWork _uow;
         readonly IRegionRepository _regionRepo;
-        readonly IMapper _mapper;
 
-        public RegionService(IUnitOfWork uow, IMapper mapper)
+        public RegionService(IUnitOfWork uow)
         {
             _uow = uow;
             _regionRepo = uow.RegionRepository;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<RegionModel>> GetAllAsync()
         {
-            var daos = await _regionRepo.GetAllAsync();
-
-            return _mapper.Map<List<Region>, IEnumerable<RegionModel>>(daos);
+            return await _regionRepo.GetAllAsync();
         }
     }
 }
