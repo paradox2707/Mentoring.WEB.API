@@ -1,4 +1,5 @@
-﻿using Mentoring.WEB.API.DAL.Interfaces;
+﻿using AutoMapper;
+using Mentoring.WEB.API.BLL.Interfaces.DAL;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.DAL.Implementations
@@ -6,6 +7,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
     public class UnitOfWork : IUnitOfWork
     {
         readonly UnitedAppContext context;
+        readonly IMapper _mapper;
         private IUniversityRepository _universityRepo;
         private ISpecialityRepository _specialityRepo;
         private IUserApplicationRepository _userApplicationRepo;
@@ -13,9 +15,10 @@ namespace Mentoring.WEB.API.DAL.Implementations
         private IProfessionalDirectionRepository _proDirectionRepo;
         private IStatisticsRepository _statisticsRepo;
 
-        public UnitOfWork(UnitedAppContext context)
+        public UnitOfWork(UnitedAppContext context, IMapper mapper)
         {
             this.context = context;
+            _mapper = mapper;
         }
 
         public IUniversityRepository UniversityRepository
@@ -24,7 +27,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_universityRepo is null)
                 {
-                    _universityRepo = new UniversityRepository(context);
+                    _universityRepo = new UniversityRepository(context, _mapper);
                 }
                 return _universityRepo;
             }
@@ -36,7 +39,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_specialityRepo is null)
                 {
-                    _specialityRepo = new SpecialityRepository(context);
+                    _specialityRepo = new SpecialityRepository(context, _mapper);
                 }
                 return _specialityRepo;
             }
@@ -48,7 +51,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_userApplicationRepo is null)
                 {
-                    _userApplicationRepo = new UserApplicationRepository(context);
+                    _userApplicationRepo = new UserApplicationRepository(context, _mapper);
                 }
                 return _userApplicationRepo;
             }
@@ -60,7 +63,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_regionRepo is null)
                 {
-                    _regionRepo = new RegionRepository(context);
+                    _regionRepo = new RegionRepository(context, _mapper);
                 }
                 return _regionRepo;
             }
@@ -72,7 +75,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_proDirectionRepo is null)
                 {
-                    _proDirectionRepo = new ProfessionalDirectionRepository(context);
+                    _proDirectionRepo = new ProfessionalDirectionRepository(context, _mapper);
                 }
                 return _proDirectionRepo;
             }
@@ -84,7 +87,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
             {
                 if (_statisticsRepo is null)
                 {
-                    _statisticsRepo = new StatisticsRepository(context);
+                    _statisticsRepo = new StatisticsRepository(context, _mapper);
                 }
                 return _statisticsRepo;
             }

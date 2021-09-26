@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mentoring.WEB.API.Common.DTO
+namespace Mentoring.WEB.API.BLL.DTO
 {
     public class UniversityModel
     {
@@ -16,6 +16,6 @@ namespace Mentoring.WEB.API.Common.DTO
 
         public string RegionName { get; set; }
 
-        public List<SpecialityModel> Specialities{ get; set; }
+        public List<SpecialityModel> Specialities { get; set; }
     }
 }

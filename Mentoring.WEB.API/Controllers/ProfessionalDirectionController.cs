@@ -1,10 +1,8 @@
-﻿using Mentoring.WEB.API.BLL.Interfaces;
-using Mentoring.WEB.API.Common.DTO;
+﻿using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

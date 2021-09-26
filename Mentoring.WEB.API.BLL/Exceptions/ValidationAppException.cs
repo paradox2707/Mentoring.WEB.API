@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring.WEB.API.Common
+namespace Mentoring.WEB.API.BLL.Exceptions
 {
     public class ValidationAppException : Exception
     {

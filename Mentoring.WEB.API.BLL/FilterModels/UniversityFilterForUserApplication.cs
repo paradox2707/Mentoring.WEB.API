@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring.WEB.API.Common.FilterModels
+namespace Mentoring.WEB.API.BLL.FilterModels
 {
     public class UniversityFilterForUserApplication
     {

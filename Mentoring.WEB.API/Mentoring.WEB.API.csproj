@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mentoring.WEB.API.BLL\Mentoring.WEB.API.BLL.csproj" />
-    <ProjectReference Include="..\Mentoring.WEB.API.Common\Mentoring.WEB.API.Common.csproj" />
     <ProjectReference Include="..\Mentoring.WEB.API.Root\Mentoring.WEB.API.Root.csproj" />
   </ItemGroup>
 

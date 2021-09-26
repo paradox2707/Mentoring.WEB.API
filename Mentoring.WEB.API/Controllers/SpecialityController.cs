@@ -1,5 +1,5 @@
-﻿using Mentoring.WEB.API.BLL.Interfaces;
-using Mentoring.WEB.API.Common.DTO;
+﻿using Mentoring.WEB.API.BLL.DTO;
+using Mentoring.WEB.API.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;

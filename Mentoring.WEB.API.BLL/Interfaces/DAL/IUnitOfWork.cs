@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Mentoring.WEB.API.DAL.Interfaces
+namespace Mentoring.WEB.API.BLL.Interfaces.DAL
 {
     public interface IUnitOfWork
     {
