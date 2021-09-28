@@ -18,24 +18,9 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             _universityRepo = uow.UniversityRepository;
         }
 
-        public async Task<IEnumerable<UniversityModel>> GetAllAsync()
-        {
-            return await _universityRepo.GetAllAsync();
-        }
-
-        public async Task<IEnumerable<UniversityModel>> GetAllByFilterAsync(UniversityFilter filter)
-        {
-            return await _universityRepo.GetAllBySql(filter); 
-        }
-
         public async Task<IEnumerable<UniversityModel>> GetAllForUserApplicationByFilterAsync(UniversityFilterForUserApplication filter)
         {
             return  await _universityRepo.GetAllForUserApplicationBySql(filter);
-        }
-
-        public async Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync()
-        {
-            return await _universityRepo.GetAllWithSpecialiesAsync();
         }
     }
 }

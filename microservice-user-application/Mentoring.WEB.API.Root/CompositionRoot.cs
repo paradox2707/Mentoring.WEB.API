@@ -19,11 +19,9 @@ namespace Mentoring.WEB.API.Root
             services.AddDbContext<UnitedAppContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUniversityService, UniversityService>();
-            services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<IUserApplicationService, UserApplicationService>();
             services.AddScoped<IRegionService, RegionService>();
             services.AddScoped<IProfessionalDirectionService, ProfessionalDirectionService>();
-            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IInboundValidator, InboundValidator>();
 
             #region DI Mapper

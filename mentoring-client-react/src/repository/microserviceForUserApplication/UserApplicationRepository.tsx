@@ -1,12 +1,12 @@
 import React from 'react';
-import { UserApplication } from '../interfaces/UserApplication';
-import { WebApiResponse } from '../interfaces/WebApiResponse';
-import { webAPIUrl } from '../AppSetting';
-import { UserApplicationFilter } from '../interfaces/UserApplicationFilter';
+import { UserApplication } from '../../interfaces/UserApplication';
+import { WebApiResponse } from '../../interfaces/WebApiResponse';
+import { webAPIUrlMsUserApplication } from '../../AppSetting';
+import { UserApplicationFilter } from '../../interfaces/UserApplicationFilter';
 
 export const postUserApplication = async (data: UserApplication): Promise<WebApiResponse> => {
     console.log("enter postUserApplication");
-    const request = new Request(`${webAPIUrl}/UserApplication`, {
+    const request = new Request(`${webAPIUrlMsUserApplication}/UserApplication`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const postUserApplication = async (data: UserApplication): Promise<WebApi
   };
 
   export const getUserApplications = async (): Promise<UserApplication[]> => {
-    const request = new Request(`${webAPIUrl}/UserApplication`, {
+    const request = new Request(`${webAPIUrlMsUserApplication}/UserApplication`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const postUserApplication = async (data: UserApplication): Promise<WebApi
   };
 
   export const filterUserApplications = async (filter: UserApplicationFilter): Promise<UserApplication[]> => {
-    const request = new Request(`${webAPIUrl}/UserApplication?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&ProfessionalDirection=${filter.direction ?? ''}`, {
+    const request = new Request(`${webAPIUrlMsUserApplication}/UserApplication?SearchText=${filter.text ?? ''}&Region=${filter.region ?? ''}&ProfessionalDirection=${filter.direction ?? ''}`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',

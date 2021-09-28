@@ -15,7 +15,5 @@ namespace Mentoring.WEB.API.BLL.DTO
         public bool IsGoverment { get; set; }
 
         public string RegionName { get; set; }
-
-        public List<SpecialityModel> Specialities { get; set; }
     }
 }

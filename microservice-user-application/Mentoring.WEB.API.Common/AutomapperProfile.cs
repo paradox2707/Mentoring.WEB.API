@@ -12,21 +12,17 @@ namespace Mentoring.WEB.API.Common
         public AutomapperProfile()
         {
             CreateMap<University, UniversityModel>();
-            CreateMap<Speciality, SpecialityModel>();
             CreateMap<UserApplicationModel, UserApplication> ()
                 .ForMember(dist => dist.ProfessionalDirections, opt => opt.Ignore())
                 .ForMember(dist => dist.Regions, opt => opt.Ignore());
             CreateMap<UserApplication, UserApplicationModel>();
             CreateMap<Region, RegionModel>().ReverseMap();
             CreateMap<ProfessionalDirection, ProfessionalDirectionModel>().ReverseMap();
-            CreateMap<UniversityFilter, UniversityFilterInSql>().ReverseMap();
             CreateMap<UniversityFilterForUserApplication, UniversityFilterForUserApplicationInSql>().ReverseMap();
             CreateMap<UserApplicationFilter, UserApplicationFilterInSql>();
             CreateMap<UserApplicationModel, UniversityFilterForUserApplicationValidationInSql>()
                 .ForMember(dist => dist.ProfessionalDirections, opt => opt.MapFrom(sourse => sourse.ProfessionalDirections.Select(e => e.Name)))
                 .ForMember(dist => dist.Regions, opt => opt.MapFrom(sourse => sourse.Regions.Select(e => e.Name)));
-            CreateMap<SummaryUserApplicationDashboard, SummaryUserApplicationDashboardModel>();
-            CreateMap<SummaryUserApplicationByProfessionalDirectionDashboard, SummaryUserApplicationByProfessionalDirectionDashboardModel>();
         }
     }
 }

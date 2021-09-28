@@ -6,15 +6,11 @@ namespace Mentoring.WEB.API.BLL.Interfaces.DAL
     {
         IUniversityRepository UniversityRepository { get; }
 
-        ISpecialityRepository SpecialityRepository { get; }
-
         IUserApplicationRepository UserApplicationRepository { get; }
 
         IRegionRepository RegionRepository { get; }
 
         IProfessionalDirectionRepository ProfessionalDirectionRepository { get; }
-
-        IStatisticsRepository StatisticsRepository { get; }
 
         Task<int> SaveAsync();
     }
