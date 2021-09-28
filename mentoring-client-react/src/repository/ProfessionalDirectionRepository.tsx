@@ -1,9 +1,9 @@
 import React from 'react';
 import { ProfessionalDirection } from '../interfaces/ProfessionalDirection';
-import { webAPIUrl } from '../AppSetting';
+import { webAPIUrlMsUniversityAndSpeciality } from '../AppSetting';
 
 export const getProfessionalDirections = async (): Promise<ProfessionalDirection[]> => {
-    const request = new Request(`${webAPIUrl}/ProfessionalDirection`, {
+    const request = new Request(`${webAPIUrlMsUniversityAndSpeciality}/ProfessionalDirection`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Speciality } from '../interfaces/Speciality';
-import { webAPIUrl } from '../AppSetting';
+import { webAPIUrlMsUniversityAndSpeciality } from '../AppSetting';
 
 export const getSpecialities = async (): Promise<Speciality[]> => {
-    const request = new Request(`${webAPIUrl}/Speciality`, {
+    const request = new Request(`${webAPIUrlMsUniversityAndSpeciality}/Speciality`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',

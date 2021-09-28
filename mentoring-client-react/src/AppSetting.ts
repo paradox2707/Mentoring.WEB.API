@@ -1,4 +1,4 @@
-export const server =
+export const serverMsUniversityAndSpeciality =
   process.env.REACT_APP_ENV === 'production'
     ? 'https://your-backend.azurewebsites.net'
     : process.env.REACT_APP_ENV === 'staging'
@@ -12,5 +12,5 @@ export const serverMsUserApplication =
       ? 'https://your-backend-staging.azurewebsites.net'
       : 'https://localhost:44382';
 
-export const webAPIUrl = `${server}/api`;
+export const webAPIUrlMsUniversityAndSpeciality = `${serverMsUniversityAndSpeciality}/api`;
 export const webAPIUrlMsUserApplication = `${serverMsUserApplication}/api`;
