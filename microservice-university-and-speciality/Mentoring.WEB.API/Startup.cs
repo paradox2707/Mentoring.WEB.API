@@ -28,7 +28,7 @@ namespace Mentoring.WEB.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring.WEB.API.MS.UserApplication", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring.WEB.API.MS.UniversityAndSpeciality", Version = "v1" });
             });
             services.AddCors(o => o.AddPolicy("ForReactClient", builder =>
             {
