@@ -1,6 +1,6 @@
 import React from "react";
-import { Region } from '../interfaces/Region';
-import { webAPIUrlMsUniversityAndSpeciality } from '../AppSetting';
+import { Region } from '../../interfaces/Region';
+import { webAPIUrlMsUniversityAndSpeciality } from '../../AppSetting';
 
 export const getRegions = async (): Promise<Region[]> => {
     const request = new Request(`${webAPIUrlMsUniversityAndSpeciality}/Region`, {

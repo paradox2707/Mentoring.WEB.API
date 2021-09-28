@@ -5,7 +5,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { UserApplication } from "../../interfaces/UserApplication";
 import { UserApplicationFilter } from "../../interfaces/UserApplicationFilter";
-import { filterUserApplications, getUserApplications } from "../../repository/microserviceForUserApplication/UserApplicationRepository";
+import { filterUserApplications, getUserApplications } from "../../repository/microservice-user-application/UserApplicationRepositoryUaMs";
 import { UserApplicationSearch } from '../UserApplication/UserApplicationSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
