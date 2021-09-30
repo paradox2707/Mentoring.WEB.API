@@ -1,12 +1,6 @@
-﻿using Mentoring.WEB.API.BLL.Exceptions;
-using Mentoring.WEB.API.Common;
-using Mentoring.WEB.API.Common.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mentoring.WEB.API.Middleware
