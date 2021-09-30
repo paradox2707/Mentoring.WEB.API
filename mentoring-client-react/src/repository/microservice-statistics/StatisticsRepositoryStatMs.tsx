@@ -1,11 +1,11 @@
 import React from "react";
-import { WebApiResponse } from '../interfaces/WebApiResponse';
-import { webAPIUrlMsUniversityAndSpeciality } from '../AppSetting';
-import { SummaryUserApplicationDashboard } from "../interfaces/SummaryUserApplicationDashboard";
-import { SummaryUserApplicationByProfessionalDirectionDashboard } from "../interfaces/SummaryUserApplicationByProfessionalDirectionDashboard";
+import { WebApiResponse } from '../../interfaces/WebApiResponse';
+import { webAPIUrlMsStatistics } from '../../AppSetting';
+import { SummaryUserApplicationDashboard } from "../../interfaces/SummaryUserApplicationDashboard";
+import { SummaryUserApplicationByProfessionalDirectionDashboard } from "../../interfaces/SummaryUserApplicationByProfessionalDirectionDashboard";
 
 export const getSummaryUserApplicationDashboard = async (): Promise<SummaryUserApplicationDashboard | undefined> => {
-    const request = new Request(`${webAPIUrlMsUniversityAndSpeciality}/Statistics/SummaryUserApplicationDashboard`, {
+    const request = new Request(`${webAPIUrlMsStatistics}/Statistics/SummaryUserApplicationDashboard`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const getSummaryUserApplicationDashboard = async (): Promise<SummaryUserA
   };
 
   export const getSummaryUserApplicationByProfessionalDirectionDashboard = async (): Promise<SummaryUserApplicationByProfessionalDirectionDashboard[]> => {
-    const request = new Request(`${webAPIUrlMsUniversityAndSpeciality}/Statistics/SummaryUserApplicationByProfessionalDirectionDashboard`, {
+    const request = new Request(`${webAPIUrlMsStatistics}/Statistics/SummaryUserApplicationByProfessionalDirectionDashboard`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
