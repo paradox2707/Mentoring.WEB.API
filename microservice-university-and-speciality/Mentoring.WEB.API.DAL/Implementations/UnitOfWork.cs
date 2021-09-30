@@ -10,10 +10,8 @@ namespace Mentoring.WEB.API.DAL.Implementations
         readonly IMapper _mapper;
         private IUniversityRepository _universityRepo;
         private ISpecialityRepository _specialityRepo;
-        private IUserApplicationRepository _userApplicationRepo;
         private IRegionRepository _regionRepo;
         private IProfessionalDirectionRepository _proDirectionRepo;
-        private IStatisticsRepository _statisticsRepo;
 
         public UnitOfWork(UnitedAppContext context, IMapper mapper)
         {
@@ -45,18 +43,6 @@ namespace Mentoring.WEB.API.DAL.Implementations
             }
         }
 
-        public IUserApplicationRepository UserApplicationRepository
-        {
-            get
-            {
-                if (_userApplicationRepo is null)
-                {
-                    _userApplicationRepo = new UserApplicationRepository(context, _mapper);
-                }
-                return _userApplicationRepo;
-            }
-        }
-
         public IRegionRepository RegionRepository
         {
             get
@@ -78,18 +64,6 @@ namespace Mentoring.WEB.API.DAL.Implementations
                     _proDirectionRepo = new ProfessionalDirectionRepository(context, _mapper);
                 }
                 return _proDirectionRepo;
-            }
-        }
-
-        public IStatisticsRepository StatisticsRepository
-        {
-            get
-            {
-                if (_statisticsRepo is null)
-                {
-                    _statisticsRepo = new StatisticsRepository(context, _mapper);
-                }
-                return _statisticsRepo;
             }
         }
 

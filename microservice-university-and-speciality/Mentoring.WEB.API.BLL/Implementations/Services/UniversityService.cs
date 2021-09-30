@@ -28,11 +28,6 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             return await _universityRepo.GetAllBySql(filter); 
         }
 
-        public async Task<IEnumerable<UniversityModel>> GetAllForUserApplicationByFilterAsync(UniversityFilterForUserApplication filter)
-        {
-            return  await _universityRepo.GetAllForUserApplicationBySql(filter);
-        }
-
         public async Task<IEnumerable<UniversityModel>> GetAllWithSpecialitiesAsync()
         {
             return await _universityRepo.GetAllWithSpecialiesAsync();

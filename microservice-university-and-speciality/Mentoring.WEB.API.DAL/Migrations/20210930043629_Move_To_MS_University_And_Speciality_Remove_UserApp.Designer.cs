@@ -3,14 +3,16 @@ using Mentoring.WEB.API.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mentoring.WEB.API.DAL.Migrations
 {
     [DbContext(typeof(UnitedAppContext))]
-    partial class UnitedAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210930043629_Move_To_MS_University_And_Speciality_Remove_UserApp")]
+    partial class Move_To_MS_University_And_Speciality_Remove_UserApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

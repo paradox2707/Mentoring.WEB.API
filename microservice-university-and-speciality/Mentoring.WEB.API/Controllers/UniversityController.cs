@@ -36,14 +36,6 @@ namespace Mentoring.WEB.API.Controllers
 
         // GET: api/<University>
         [HttpGet]
-        [Route("UserApplication")]
-        public async Task<ActionResult<IEnumerable<UniversityModel>>> Get([FromQuery] UniversityFilterForUserApplication filter)
-        {
-            return Ok(await _universityService.GetAllForUserApplicationByFilterAsync(filter));
-        }
-
-        // GET: api/<University>
-        [HttpGet]
         [Route("Specialities")]
         public async Task<ActionResult<IEnumerable<UniversityModel>>> GetWithSpecialities()
         {

@@ -21,7 +21,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<ProfessionalDirectionModel>> GetAllAsync()
         {
-            return _mapper.Map<List<ProfessionalDirection>, List<ProfessionalDirectionModel>>(await _currentRepo.Include(e => e.UserApplications).ToListAsync());
+            return _mapper.Map<List<ProfessionalDirection>, List<ProfessionalDirectionModel>>(await _currentRepo.ToListAsync());
         }
     }
 }

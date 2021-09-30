@@ -8,14 +8,7 @@ namespace Mentoring.WEB.API.DAL.Entities
 {
     public class ProfessionalDirection : BaseEntity
     {
-        public ProfessionalDirection()
-        {
-            UserApplications = new List<UserApplication>();
-        }
-
         public string Name { get; set; }
-
-        public ICollection<UserApplication> UserApplications { get; set; }
 
         public ICollection<Speciality> Specialities { get; set; }
     }

@@ -10,14 +10,11 @@ namespace Mentoring.WEB.API.DAL
 
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
-        public DbSet<UserApplication> UserApplications { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ProfessionalDirection> ProfessionalDirections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SummaryUserApplicationDashboard>().HasNoKey().ToView(null);
-            modelBuilder.Entity<SummaryUserApplicationByProfessionalDirectionDashboard>().HasNoKey().ToView(null);
             modelBuilder.Entity<University>().HasData(
                 new University[]
                 {

@@ -21,7 +21,7 @@ namespace Mentoring.WEB.API.DAL.Implementations
 
         public async Task<List<RegionModel>> GetAllAsync()
         {
-            var daos = await _currentRepo.Include(e => e.UserApplications).ToListAsync();
+            var daos = await _currentRepo.ToListAsync();
             return _mapper.Map<List<Region>, List<RegionModel>>(daos);
         }
     }
