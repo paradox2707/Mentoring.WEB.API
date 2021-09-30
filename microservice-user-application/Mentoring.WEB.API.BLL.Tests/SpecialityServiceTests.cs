@@ -13,7 +13,7 @@ namespace Mentoring.WEB.API.BLL.Tests
     class SpecialityServiceTests
     {
         private Mock<IUnitOfWork> _uowMock;
-        private ISpecialityService _sut;
+        //private ISpecialityService _sut;
 
         [SetUp]
         public void Init()
@@ -48,12 +48,12 @@ namespace Mentoring.WEB.API.BLL.Tests
             };
         }
 
-        private IEnumerable<SpecialityModel> GetSpecialitiesDTO()
-        {
-            return new List<SpecialityModel>
-            {
-                new SpecialityModel { Id=1, Name="Право"}
-            };
-        }
+        //private IEnumerable<SpecialityModel> GetSpecialitiesDTO()
+        //{
+        //    return new List<SpecialityModel>
+        //    {
+        //        new SpecialityModel { Id=1, Name="Право"}
+        //    };
+        //}
     }
 }
