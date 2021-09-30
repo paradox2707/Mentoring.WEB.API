@@ -28,13 +28,6 @@ namespace Mentoring.WEB.API.Middleware
             {
                 await _next(context);
             }
-            catch (ValidationAppException ex)
-            {
-                var error = new ValidationErrorModel { Errors = new ValidationError { RegionsAndProfessionalDirections = { ex.Message } } };
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await context.Response.WriteAsJsonAsync(error);
-                _logger.LogError(ex.Message);
-            }
             catch (Exception ex)
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
