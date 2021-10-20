@@ -46,12 +46,12 @@ namespace Mentoring.WEB.API
             loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
             #endregion
 
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mentoring.WEB.API v1"));
-            }
+            //}
 
             app.UseCors("ForReactClient");
 
