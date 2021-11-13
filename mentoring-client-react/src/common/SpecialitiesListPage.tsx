@@ -1,6 +1,6 @@
 import React from 'react';
 import { Speciality } from '../interfaces/Speciality';
-import { getSpecialities } from '../repository/SpecialityRepository';
+import { getSpecialities } from '../repository/microservice-university-and-speciality/SpecialityRepositoryUsMs';
 
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';

@@ -5,7 +5,7 @@ import {InputBase,  IconButton, Paper, InputLabel, Select, MenuItem, Button, For
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Region } from '../interfaces/Region';
-import { getRegions } from "../repository/RegionRepository";
+import { getRegions } from "../repository/microservice-university-and-speciality/RegionRepositoryUsMs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

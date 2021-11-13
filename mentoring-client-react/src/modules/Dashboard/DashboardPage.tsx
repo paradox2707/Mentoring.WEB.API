@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
-import { getSummaryUserApplicationDashboard, getSummaryUserApplicationByProfessionalDirectionDashboard } from "../../repository/StatisticsRepository";
+import { getSummaryUserApplicationDashboard, getSummaryUserApplicationByProfessionalDirectionDashboard } from "../../repository/microservice-statistics/StatisticsRepositoryStatMs";
 import { SummaryUserApplicationDashboard } from "../../interfaces/SummaryUserApplicationDashboard";
 import { SummaryUserApplicationByProfessionalDirectionDashboard } from "../../interfaces/SummaryUserApplicationByProfessionalDirectionDashboard";
 

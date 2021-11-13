@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUniversitiesWithSpecialities } from '../repository/UniversityRepository';
+import { getUniversitiesWithSpecialities } from '../repository/microservice-university-and-speciality/UniversityRepositoryUsMs';
 import { University } from '../interfaces/University';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';

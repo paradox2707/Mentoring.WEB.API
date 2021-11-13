@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUniversities, filterUniversities } from '../repository/UniversityRepository';
+import { getUniversities, filterUniversities } from '../repository/microservice-university-and-speciality/UniversityRepositoryUsMs';
 import { University } from '../interfaces/University';
 import { UniversityFilter } from '../interfaces/UniversityFilter';
 import { UniversitySearch } from '../common/UniversitySearchControl';

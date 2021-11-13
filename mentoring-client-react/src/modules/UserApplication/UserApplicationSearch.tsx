@@ -5,8 +5,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Region } from "../../interfaces/Region";
-import { getRegions } from "../../repository/RegionRepository";
-import { getProfessionalDirections } from "../../repository/ProfessionalDirectionRepository";
+import { getRegions } from "../../repository/microservice-user-application/RegionRepositoryUaMs";
+import { getProfessionalDirections } from "../../repository/microservice-user-application/ProfessionalDirectionRepositoryUaMs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
