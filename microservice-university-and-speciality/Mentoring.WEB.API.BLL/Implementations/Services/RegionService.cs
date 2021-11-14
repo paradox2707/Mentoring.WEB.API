@@ -17,6 +17,12 @@ namespace Mentoring.WEB.API.BLL.Implementations.Services
             _regionRepo = uow.RegionRepository;
         }
 
+        public async Task Create(RegionModel value)
+        {
+            await _regionRepo.Create(value);
+            _uow.SaveAsync();
+        }
+
         public async Task<IEnumerable<RegionModel>> GetAllAsync()
         {
             return await _regionRepo.GetAllAsync();

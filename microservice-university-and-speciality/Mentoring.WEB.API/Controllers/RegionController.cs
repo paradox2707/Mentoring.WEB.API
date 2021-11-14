@@ -28,5 +28,12 @@ namespace Mentoring.WEB.API.Controllers
         {
             return Ok(await _regionService.GetAllAsync());
         }
+
+        // GET: api/<RegionController>
+        [HttpPost]
+        public async Task Post([FromBody] RegionModel value)
+        {
+            await _regionService.Create(value);
+        }
     }
 }

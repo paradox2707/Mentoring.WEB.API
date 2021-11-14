@@ -10,5 +10,6 @@ namespace Mentoring.WEB.API.BLL.Interfaces
     public interface IRegionService
     {
         Task<IEnumerable<RegionModel>> GetAllAsync();
+        Task Create(RegionModel value);
     }
 }

@@ -29,6 +29,7 @@ export const Header = () => {
           <Typography variant="h6" className={classes.title}>
             <Button href="./" className={classes.title}>UnitED</Button>
           </Typography> 
+          <Button href="/CreateMasterData">Створити Мастер Дані</Button>
           <Button href="/Universities">Університети</Button>
           <Button href="/UniversitiesWithSpecialities">Університети зі спеціальностями</Button>
           <Button href="/Specialities">Спеціальності</Button>
